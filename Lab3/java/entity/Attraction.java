@@ -16,10 +16,20 @@ public class Attraction {
     private String webURL;
     private int operatingHours;
     private String weatherType;
-    private float overallRating;
+    private double overallRating;
+
+    public Attraction(){
+        this.setName("");
+        this.setAttractionID(0);
+        this.setAddress("");
+        this.setDescription("");
+        this.setWebURL("");
+        this.setOverallRating(0.0);
+        this.setWeatherType("");
+    }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      int operatingHours,float overallRating){
+                      int operatingHours,double overallRating){
         this.attractionID = attractionID;
         this.name = name;
         this.address = address;
@@ -33,4 +43,67 @@ public class Attraction {
         //Display the route to the attraction by calling GoogleMap API
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getWebURL() {
+        return webURL;
+    }
+
+    public void setWebURL(String webURL) {
+        this.webURL = webURL;
+    }
+
+    public int getAttractionID() {
+        return attractionID;
+    }
+
+    public void setAttractionID(int attractionID) {
+        this.attractionID = attractionID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getOperatingHours() {
+        return operatingHours;
+    }
+
+    public void setOperatingHours(int operatingHours) {
+        this.operatingHours = operatingHours;
+    }
+
+    public double getOverallRating() {
+        return overallRating;
+    }
+
+    public void setOverallRating(double overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public String getWeatherType() {
+        return weatherType;
+    }
+
+    public void setWeatherType(String weatherType) {
+        this.weatherType = weatherType;
+    }
 }

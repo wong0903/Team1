@@ -3,6 +3,7 @@ package control;
 import java.util.ArrayList;
 import java.util.List;
 
+import entity.Attraction;
 import entity.Category;
 
 /**
@@ -12,8 +13,21 @@ import entity.Category;
 public class CategoryManager {
     private List<Category> categoryList = new ArrayList<Category>();
 
-    public List<Category> request() {
-        //return a list of Categories
+    public List<Category> getCategories() {
         return categoryList;
+    }
+
+    public List<Category> retrieveCategories(){
+        //return a list of Categories from the local database
+    }
+
+    public List<Attraction> getAttractionsUnderCategory(String category){
+        /*call to the visitSingapore API and return
+        the basic information of the attraction in the category list
+         */
+    }
+
+    public List<Attraction> retrieveAttractionsUnderCategory(String category){
+        //return a list of attractions under the category from the visitSingapore API
     }
 }
