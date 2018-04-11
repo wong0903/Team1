@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">visitSG</string>
+
+    <string name="search_button">Search</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="login_button">Login </string>
+
+    <!-- Strings related to login -->
+    <string name="password">password</string>
+    <string name="username">username</string>
+    <string name="confirm">confirm password</string>
+    <string name="email">email</string>
+
+    <!-- Strings related to signup -->
+    <string name="name_sign">Username:</string>
+    <string name="pass_sign">Password:</string>
+    <string name="email_sign">Email:</string>
+    <string name="confirm_pass">Confirm Password:</string>
+    <string name="register">Register</string>
+
+</resources>
