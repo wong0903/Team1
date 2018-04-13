@@ -96,12 +96,14 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
                     try {
                         SearchManager searchManager = new SearchManager();
                         attraction = inputText.getText().toString();
-                        ArrayList<String> matchedURLList = searchManager.search(attraction);
-                        Bundle information = new Bundle();
-                        information.putStringArrayList("matchedURLList", matchedURLList);
-                        Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
-                        intent.putExtras(information);
-                        startActivity(intent);
+                        if(!attraction.isEmpty()) {
+                            ArrayList<String> matchedURLList = searchManager.search(attraction);
+                            Bundle information = new Bundle();
+                            information.putStringArrayList("matchedURLList", matchedURLList);
+                            Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
+                            intent.putExtras(information);
+                            startActivity(intent);
+                        }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
