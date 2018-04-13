@@ -20,16 +20,38 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class AttractionManager {
-    private String webURL;
-
+    private String apiURL;
+    private List<String> informationList;
     public AttractionManager() {
-        webURL = "";
+        apiURL = "";
     }
 
     public List<String> retrieveBasicInformation(String matchedURL){
-        webURL = matchedURL;
+        List<String> basicInformationList = new ArrayList<>();
+        apiURL = matchedURL;
         try {
-            return new RetrieveFeedTask().execute().get();
+            informationList = new RetrieveFeedTask().execute().get();
+            for(int i = 0; i < 6; i++) {
+                basicInformationList.add(informationList.get(i));
+            }
+            return basicInformationList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> retrieveDetailedInformation(String matchedURL){
+        List<String> detailedInformationList = new ArrayList<>();
+        apiURL = matchedURL;
+        try {
+            informationList = new RetrieveFeedTask().execute().get();
+            for(int i = 0; i < informationList.size(); i++) {
+                detailedInformationList.add(informationList.get(i));
+            }
+            return detailedInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -43,7 +65,7 @@ public class AttractionManager {
         protected List<String> doInBackground(Void... urls) {
             // Do some validation here
             try {
-                URL url = new URL(webURL);
+                URL url = new URL(apiURL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
@@ -60,16 +82,27 @@ public class AttractionManager {
 
                     JSONObject json = new JSONObject(stringBuilder.toString());
                     JSONArray images = json.getJSONArray("images");
-                    List<String> informationList = new ArrayList<>();
+                    informationList = new ArrayList<>();
                     if(!json.has("error")) {
                         String name = json.getString("title");
                         informationList.add(name);
+
                         String address = json.getString("address");
                         informationList.add(address);
+
                         String operatingHours = json.getString("opening-hours");
                         informationList.add(operatingHours);
+
                         String image = images.getJSONObject(0).getString("url");
                         informationList.add(image);
+
+                        String webURL = json.getString("url");
+                        informationList.add(webURL);
+
+                        informationList.add(apiURL);
+
+                        String content = json.getString("shortContent");
+                        informationList.add(content);
                     }
                     return informationList;
                 } finally {

@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 public class Attraction implements Parcelable{
     @PrimaryKey @NonNull
     private String webURL;
+    private String apiURL;
     private int id;
     private String name;
     private String address;
@@ -157,4 +158,11 @@ public class Attraction implements Parcelable{
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public String getApiURL() {
+        return apiURL;
+    }
+
+    public void setApiURL(String apiURL) {
+        this.apiURL = apiURL;
+    }
 }

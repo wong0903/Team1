@@ -39,12 +39,17 @@
             android:theme = "@style/FullscreenTheme">
         </activity>
 
-        <activity android:name="boundary.ViewInterface"
+        <activity android:name="boundary.ListViewInterface"
             android:label="Registration"
             android:theme = "@style/FullscreenTheme">
         </activity>
 
         <activity android:name="boundary.CategoryInterface"
+            android:label="Registration"
+            android:theme = "@style/FullscreenTheme">
+        </activity>
+
+        <activity android:name="boundary.AttractionInterface"
             android:label="Registration"
             android:theme = "@style/FullscreenTheme">
         </activity>

@@ -8,7 +8,7 @@
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/thumbnail"
-        android:layout_width="80dp"
+        android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="8dp" />
@@ -24,14 +24,14 @@
         android:textStyle="bold" />
 
     <!-- Rating -->
-    <!--<TextView-->
-        <!--android:id="@+id/rating"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/title"-->
-        <!--android:layout_marginTop="1dip"-->
-        <!--android:layout_toRightOf="@+id/thumbnail"-->
-        <!--android:textSize="@dimen/rating" />-->
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:textSize="@dimen/rating" />
 
     <!-- Genre -->
     <!-- Address -->
@@ -39,7 +39,7 @@
         android:id="@+id/address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
+        android:layout_below="@id/rating"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/genre"

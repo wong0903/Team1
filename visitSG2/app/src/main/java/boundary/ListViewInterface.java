@@ -1,8 +1,11 @@
 package boundary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,7 +24,7 @@ import helper.CustomListAdapter;
  * Created by wong0903 on 13/4/2018.
  */
 
-public class ViewInterface extends AppCompatActivity {
+public class ListViewInterface extends AppCompatActivity {
     List<String> matchedURLList = new ArrayList<>();
     List<String> basicInformationList = new ArrayList<>();
     List<Attraction> matchedAttractionList = new ArrayList<>();
@@ -44,6 +47,8 @@ public class ViewInterface extends AppCompatActivity {
                 attraction.setAddress(basicInformationList.get(1));
                 attraction.setOperatingHours(basicInformationList.get(2));
                 attraction.setThumbnailUrl(basicInformationList.get(3));
+                attraction.setWebURL(basicInformationList.get(4));
+                attraction.setApiURL(basicInformationList.get(5));
                 matchedAttractionList.add(attraction);
             }
         }
@@ -52,5 +57,30 @@ public class ViewInterface extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+<<<<<<< HEAD:visitSG2/app/src/main/java/boundary/ListViewInterface.java
+        ListView lv = getListView();
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                // selected item
+                String attractionURL = matchedAttractionList.get(position).getApiURL();
+                // Launching new Activity on selecting single List Item
+                Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
+                // sending data to new activity
+                i.putExtra("attractionURL", attractionURL);
+                startActivity(i);
+            }
+        });
+
+    }
+
+    public ListView getListView() {
+        return listView;
+=======
+
+
+>>>>>>> d15fd61e6f810f377dfebd4ab93704b312525f59:visitSG2/app/src/main/java/boundary/ViewInterface.java
     }
 }
