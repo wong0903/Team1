@@ -46,7 +46,7 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
     List<Attraction> matchedAttractionList;
 //    private ListView listView;
 //    private CustomListAdapter adapter;
-    private ProgressDialog pDialog;
+//    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +96,7 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
                         try {
                             SearchManager searchManager = new SearchManager();
                             AttractionManager attractionManager = new AttractionManager();
-                            matchedAttractionList = new ArrayList<>();
+                            ArrayList<Attraction> matchedAttractionList = new ArrayList<>();
                             attraction = inputText.getText().toString();
                             List<String> matchedURLList = searchManager.search(attraction);
                             if (!matchedURLList.isEmpty()) {
@@ -111,6 +111,12 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
                                         matchedAttractionList.add(attraction);
                                     }
                                 }
+                                Log.d("size", String.valueOf(matchedAttractionList.size()));
+                                Bundle information = new Bundle();
+                                information.putParcelableArrayList("matchedAttractionList", matchedAttractionList);
+                                Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
+                                intent.putExtras(information);
+                                startActivity(intent);
                             } else
                                 Toast.makeText(getApplicationContext(), "No attractions found", Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
