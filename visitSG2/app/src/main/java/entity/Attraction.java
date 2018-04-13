@@ -55,6 +55,9 @@ public class Attraction implements Parcelable{
         name = in.readString();
         address = in.readString();
         operatingHours = in.readString();
+        thumbnailUrl = in.readString();
+        description = in.readString();
+        apiURL = in.readString();
     }
 
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
@@ -147,6 +150,9 @@ public class Attraction implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(address);
         parcel.writeString(operatingHours);
+        parcel.writeString(thumbnailUrl);
+        parcel.writeString(description);
+        parcel.writeString(apiURL);
 
     }
 

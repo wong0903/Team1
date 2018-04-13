@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0a5266708f266ff194fe36e64603f948",
+    "identityHash": "2f2752626eb6a678b3c44043b58ceade",
     "entities": [
       {
         "tableName": "users",
@@ -38,13 +38,19 @@
       },
       {
         "tableName": "attractions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`webURL` TEXT NOT NULL, `id` INTEGER NOT NULL, `name` TEXT, `address` TEXT, `description` TEXT, `thumbnailUrl` TEXT, `operatingHours` TEXT, `weatherType` TEXT, `overallRating` REAL NOT NULL, PRIMARY KEY(`webURL`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`webURL` TEXT NOT NULL, `apiURL` TEXT, `id` INTEGER NOT NULL, `name` TEXT, `address` TEXT, `description` TEXT, `thumbnailUrl` TEXT, `operatingHours` TEXT, `weatherType` TEXT, `overallRating` REAL NOT NULL, PRIMARY KEY(`webURL`))",
         "fields": [
           {
             "fieldPath": "webURL",
             "columnName": "webURL",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "apiURL",
+            "columnName": "apiURL",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -107,7 +113,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0a5266708f266ff194fe36e64603f948\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2f2752626eb6a678b3c44043b58ceade\")"
     ]
   }
 }

@@ -64,7 +64,7 @@ public class ListViewInterface extends AppCompatActivity {
                                     int position, long id) {
 
                 // selected item
-                Attraction attraction = matchedAttractionList.get(position);
+                Attraction attraction = matchedAttractionList.get(position);;
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity

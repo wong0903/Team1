@@ -3,6 +3,7 @@ package boundary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.wong0903.visitsg.R;
 
@@ -27,8 +28,9 @@ public class AttractionInterface extends AppCompatActivity {
         Attraction attraction = i.getExtras().getParcelable("attraction");
 
         AttractionManager attractionManager = new AttractionManager();
+        Log.d("url",attraction.getApiURL());
         informationList = attractionManager.retrieveDetailedInformation(attraction.getApiURL());
-        attraction.setDescription(informationList.get(informationList.size()));
+        attraction.setDescription(informationList.get(informationList.size()-1));
 
     }
 }
