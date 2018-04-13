@@ -49,10 +49,10 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         inputText = findViewById(R.id.inputText);
         progressBar = findViewById(R.id.progressBar);
 
-        queryButton1 = findViewById(R.id.queryButton1);
-        queryButton2 = findViewById(R.id.queryButton2);
-        queryButton3 = findViewById(R.id.queryButton3);
-        queryButton4 = findViewById(R.id.queryButton4);
+        queryButton1 = findViewById(R.id.btn_search);
+        queryButton2 = findViewById(R.id.btn_categories);
+        queryButton3 = findViewById(R.id.btn_suggestions);
+        queryButton4 = findViewById(R.id.btn_login);
 
         queryButton1.setOnClickListener(this);
         queryButton2.setOnClickListener(this);
@@ -70,20 +70,20 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.queryButton1:
+            case R.id.btn_search:
                 Intent intent1 = new Intent(this, SearchInterface.class);
                 intent1.putExtra("attraction", inputText.getText().toString());
                 startActivity(intent1);
                 break;
-            case R.id.queryButton2:
+            case R.id.btn_categories:
                 Intent intent2 = new Intent(this, CategoryInterface.class);
                 startActivity(intent2);
                 break;
-            case R.id.queryButton3:
+            case R.id.btn_suggestions:
                 Intent intent3 = new Intent(this, SuggestionInterface.class);
                 startActivity(intent3);
                 break;
-            case R.id.queryButton4:
+            case R.id.btn_login:
                 Intent intent4 = new Intent(MainInterface.this, LoginInterface.class);
                 startActivity(intent4);
                 break;
