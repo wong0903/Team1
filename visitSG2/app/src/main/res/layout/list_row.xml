@@ -24,14 +24,14 @@
         android:textStyle="bold" />
 
     <!-- Rating -->
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="@dimen/rating" />
+    <!--<TextView-->
+        <!--android:id="@+id/rating"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/title"-->
+        <!--android:layout_marginTop="1dip"-->
+        <!--android:layout_toRightOf="@+id/thumbnail"-->
+        <!--android:textSize="@dimen/rating" />-->
 
     <!-- Genre -->
     <!-- Address -->
@@ -39,7 +39,7 @@
         android:id="@+id/address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rating"
+        android:layout_below="@id/name"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/genre"
@@ -49,11 +49,20 @@
     <!-- Operating Hours -->
     <TextView
         android:id="@+id/operationHours"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_below="@id/address"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/year"
         android:textSize="@dimen/year" />
+    <!--<TextView-->
+        <!--android:id="@+id/operationHours"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:textColor="@color/year"-->
+        <!--android:textSize="@dimen/year" />-->
 
 </RelativeLayout>
