@@ -64,11 +64,11 @@ public class ListViewInterface extends AppCompatActivity {
                                     int position, long id) {
 
                 // selected item
-                String attractionURL = matchedAttractionList.get(position).getApiURL();
+                Attraction attraction = matchedAttractionList.get(position);
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
-                i.putExtra("attractionURL", attractionURL);
+                i.putExtra("attraction", attraction);
                 startActivity(i);
             }
         });
