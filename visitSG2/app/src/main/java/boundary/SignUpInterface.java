@@ -81,8 +81,10 @@ public class SignUpInterface extends AppCompatActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             task = null;
-            if (success)
+            if (success) {
                 Toast.makeText(getApplicationContext(), "Sign Up successful", Toast.LENGTH_SHORT).show();
+                finish();
+            }
             else
                 Toast.makeText(getApplicationContext(), "Sign Up failed", Toast.LENGTH_SHORT).show();
         }
