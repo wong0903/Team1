@@ -20,11 +20,8 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class AttractionManager {
-    private String apiURL;
-    private List<String> informationList;
-    public AttractionManager() {
-        apiURL = "";
-    }
+    private String apiURL= "";
+    private List<String> informationList = new ArrayList<>();
 
     public List<String> retrieveBasicInformation(String matchedURL){
         List<String> basicInformationList = new ArrayList<>();
