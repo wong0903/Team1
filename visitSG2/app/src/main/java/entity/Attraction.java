@@ -22,6 +22,7 @@ public class Attraction implements Parcelable{
     private String name;
     private String address;
     private String description;
+    private String thumbnailUrl;
     private String operatingHours;
     private String weatherType;
     private double overallRating;
@@ -37,7 +38,7 @@ public class Attraction implements Parcelable{
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      String operatingHours,double overallRating){
+                      String operatingHours,double overallRating, String category, String thumbnailUrl){
         this.id = attractionID;
         this.name = name;
         this.address = address;
@@ -45,6 +46,9 @@ public class Attraction implements Parcelable{
         this.webURL = webURL;
         this.operatingHours = operatingHours;
         this.overallRating = overallRating;
+        this.category = category;
+        this.thumbnailUrl = thumbnailUrl;
+
     }
 
     protected Attraction(Parcel in) {
@@ -144,6 +148,14 @@ public class Attraction implements Parcelable{
         parcel.writeString(address);
         parcel.writeString(operatingHours);
 
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
 }
