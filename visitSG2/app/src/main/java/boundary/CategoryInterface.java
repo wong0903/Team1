@@ -53,27 +53,20 @@ public class CategoryInterface extends AppCompatActivity implements View.OnClick
     }
 
     public void onClick(View view){
-        ArrayList<String> matchedURLList = new ArrayList<>();
         category = ((Button) view).getText().toString();
-        matchedURLList = categoryManager.getAttractionsUnderCategory(category);
-//            int index = 0;
-//            for(String url: matchURLList) {
-//                Attraction attraction = new Attraction();
-//                basicInformationList = attractionManager.retrieveBasicInformation(url);
-//                if (basicInformationList != null) {
-//                    attraction.setName(basicInformationList.get(0));
-//                    attraction.setAddress(basicInformationList.get(1));
-//                    attraction.setOperatingHours(basicInformationList.get(2));
-//                    matchedAttractionList.add(attraction);
-//                }
-//            }
-        Bundle information = new Bundle();
-        information.putStringArrayList("matchedURLList", matchedURLList);
-        Intent intent = new Intent(CategoryInterface.this, ViewInterface.class);
-        intent.putExtras(information);
-        startActivity(intent);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<String> matchedURLList;
+                matchedURLList = categoryManager.getAttractionsUnderCategory(category);
+                Bundle information = new Bundle();
+                information.putStringArrayList("matchedURLList", matchedURLList);
+                Intent intent = new Intent(CategoryInterface.this, ViewInterface.class);
+                intent.putExtras(information);
+                startActivity(intent);
+            }
+        }).start();
         }
-
     }
 
 
