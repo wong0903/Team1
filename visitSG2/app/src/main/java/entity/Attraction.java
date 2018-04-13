@@ -18,6 +18,7 @@ public class Attraction {
     private String name;
     private String address;
     private String description;
+    private String thumbnailUrl;
     @PrimaryKey @NonNull
     private String webURL;
     private String operatingHours;
@@ -37,7 +38,7 @@ public class Attraction {
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      String operatingHours,double overallRating, String category){
+                      String operatingHours,double overallRating, String category, String thumbnailUrl){
         this.id = attractionID;
         this.name = name;
         this.address = address;
@@ -46,6 +47,7 @@ public class Attraction {
         this.operatingHours = operatingHours;
         this.overallRating = overallRating;
         this.category = category;
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public void getDirection(String address) {
@@ -122,5 +124,13 @@ public class Attraction {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }
