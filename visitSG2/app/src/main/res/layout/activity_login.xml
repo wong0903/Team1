@@ -30,11 +30,5 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_up_button"/>
 
-    <TextView android:id="@+id/login_error"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#e30000"
-        android:padding="10dip"
-        android:textStyle="bold"/>
 
 </LinearLayout>

@@ -19,7 +19,7 @@ public class UserManager {
     public static boolean login(AppDatabase db, String loginID, String password){
         User user = db.userDao().findByID(loginID);
         if(user != null){
-            if (user.getPassword() == password) {
+            if (user.getPassword().equals(password)) {
                 return true;
             } else
                 return false;
@@ -28,13 +28,17 @@ public class UserManager {
     }
 
     public static boolean verifyLoginID(AppDatabase db, String loginID) {
-        User user = db.userDao().findByID(loginID);
-        //if login ID is not found in the local database
-        if (user != null) {
-            return false;
-        }else if(loginID.length() < 1 && loginID.length() >20) {
-            return false;
-        }else
+        if(db != null) {
+            User user = db.userDao().findByID(loginID);
+            //if login ID is not found in the local database
+            if (user != null) {
+                return false;
+            } else if (loginID.length() < 1 && loginID.length() > 20) {
+                return false;
+            } else
+                return true;
+        }
+        else
             return true;
     }
 

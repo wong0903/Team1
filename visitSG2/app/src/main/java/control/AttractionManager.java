@@ -2,9 +2,7 @@ package control;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.util.Pair;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -15,51 +13,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import Database.AppDatabase;
-import entity.Attraction;
-import entity.Category;
 
 /**
- * Created by wong0903 on 20/3/2018.
+ * Created by wong0903 on 11/4/2018.
  */
 
-public class CategoryManager {
-    private List<Pair<String,String>> categoryList = new ArrayList<>();
-    private List<String> urlList = new ArrayList<>();
+public class AttractionManager {
+    String webURL = "";
+    String name, address, operatingHours;
+    List<String> informationList = new ArrayList<>();
 
-    public List<Pair<String,String>> getCategories(){
-        //return a list of Categories from the local database
+    public List<String> retrieveBasicInformation(String matchedURL){
+        webURL = matchedURL;
         try {
-            categoryList = new RetrieveFeedTask().execute().get();
+            return new RetrieveFeedTask().execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        return categoryList;
+        return null;
     }
 
-    public List<String> getAttractionsUnderCategory(String category){
-        /*call to the visitSingapore API and return
-        the basic information of the attraction in the category list
-         */
-        categoryList = getCategories();
-        for(int i=0; i < categoryList.size(); i++) {
-            Log.d("a", categoryList.get(i).first);
-            if(categoryList.get(i).second.replaceAll("[-+.^:,&]","").
-                    equalsIgnoreCase(category.replaceAll("[-+.^:,&]",""))) {
-                urlList.add(categoryList.get(i).first);
-            }
-        }
-       return urlList;
-    }
+     class RetrieveFeedTask extends AsyncTask<Void, Void, List<String>> {
 
-    class RetrieveFeedTask extends AsyncTask<Void, Void, List<Pair<String, String>>> {
-
-        protected  List<Pair<String, String>> doInBackground(Void... urls) {
+        protected List<String> doInBackground(Void... urls) {
             // Do some validation here
             try {
-                URL url = new URL("http://www.visitsingapore.com/ysapi-services/RequestAPI?format=listing&locale=en&pageid=2");
+                URL url = new URL(webURL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
@@ -73,20 +54,17 @@ public class CategoryManager {
                         stringBuilder.append(line);
                     }
                     bufferedReader.close();
+
                     JSONObject json = new JSONObject(stringBuilder.toString());
-                    JSONArray contents = json.getJSONArray("details");
-                    int size = contents.length();
-                    int count = 0;
-                    while (size != 0) {
-                        String pURL = contents.getJSONObject(count).getString("purl");
-                        String[] separated = pURL.split("/");
-                        String category = separated[4];
-                        categoryList.add(new Pair<>(contents.getJSONObject(count).getString("url"),
-                                category));
-                        size--;
-                        count++;
+                    if(!json.has("error")) {
+                        name = json.getString("title");
+                        informationList.add(name);
+                        address = json.getString("address");
+                        informationList.add(address);
+                        operatingHours = json.getString("opening-hours");
+                        informationList.add(operatingHours);
                     }
-                    return categoryList;
+                    return informationList;
                 } finally {
                     urlConnection.disconnect();
                 }
@@ -106,3 +84,4 @@ public class CategoryManager {
         }
     }
 }
+

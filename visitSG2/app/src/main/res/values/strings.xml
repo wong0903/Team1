@@ -11,6 +11,7 @@
     <string name="username">username</string>
     <string name="confirm">confirm password</string>
     <string name="email">email</string>
+    <string name="error">errorMsg</string>
 
     <!-- Strings related to signup -->
     <string name="name_sign">Username:</string>
@@ -18,5 +19,17 @@
     <string name="email_sign">Email:</string>
     <string name="confirm_pass">Confirm Password:</string>
     <string name="register">Register</string>
+
+    <!-- Strings related to search -->
+    <string name="name">Name:</string>
+
+    <!-- Strings related to categories -->
+    <string name="category1">Neighbourhoods</string>
+    <string name="category2">Arts</string>
+    <string name="category3">History</string>
+    <string name="category4">Architecture</string>
+    <string name="category5">Culture</string>
+    <string name="category6">Recreation</string>
+    <string name="category7">Nature &amp; Wildlife</string>
 
 </resources>

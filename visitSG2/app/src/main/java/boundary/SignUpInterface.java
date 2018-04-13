@@ -33,11 +33,19 @@ public class SignUpInterface extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "database-name").build();
 
+        txtName = findViewById(R.id.name_sign);
+        txtPassword = findViewById(R.id.pass_sign);
+        txtConfirmPass = findViewById(R.id.confirm_pass);
+        txtEmail = findViewById(R.id.email_sign);
+
         Button btnRegister = findViewById(R.id.btnRegister);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
                         final String username = txtName.getText().toString();
                         final String password1 = txtPassword.getText().toString();
                         final String password2 = txtConfirmPass.getText().toString();
@@ -47,7 +55,7 @@ public class SignUpInterface extends AppCompatActivity {
                                 if (control.UserManager.confirmPassword(password1, password2)) {
                                     control.UserManager.signUp(db, username, password1, email);
                                     Toast.makeText(getApplicationContext(), "Sign Up successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(SignUpInterface.this, MainInterface.class);
+                                    Intent intent = new Intent(SignUpInterface.this, SearchInterface.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
@@ -62,7 +70,10 @@ public class SignUpInterface extends AppCompatActivity {
                     }
                 });
             }
+        });
+        //});
     }
+}
 
 
 

@@ -1,5 +1,9 @@
 package entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the Attraction entity with
@@ -8,15 +12,18 @@ package entity;
  * to the attraction.
  */
 
+@Entity(tableName = "attractions")
 public class Attraction {
-    private int attractionID;
+    private int id;
     private String name;
     private String address;
     private String description;
+    @PrimaryKey @NonNull
     private String webURL;
-    private int operatingHours;
+    private String operatingHours;
     private String weatherType;
     private double overallRating;
+    private String category;
 
     public Attraction(){
         this.setName("");
@@ -26,17 +33,19 @@ public class Attraction {
         this.setWebURL("");
         this.setOverallRating(0.0);
         this.setWeatherType("");
+        this.setCategory("");
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      int operatingHours,double overallRating){
-        this.attractionID = attractionID;
+                      String operatingHours,double overallRating, String category){
+        this.id = attractionID;
         this.name = name;
         this.address = address;
         this.description = description;
         this.webURL = webURL;
         this.operatingHours = operatingHours;
         this.overallRating = overallRating;
+        this.category = category;
     }
 
     public void getDirection(String address) {
@@ -60,11 +69,11 @@ public class Attraction {
     }
 
     public int getAttractionID() {
-        return attractionID;
+        return id;
     }
 
     public void setAttractionID(int attractionID) {
-        this.attractionID = attractionID;
+        this.id = attractionID;
     }
 
     public String getAddress() {
@@ -83,11 +92,11 @@ public class Attraction {
         this.description = description;
     }
 
-    public int getOperatingHours() {
+    public String getOperatingHours() {
         return operatingHours;
     }
 
-    public void setOperatingHours(int operatingHours) {
+    public void setOperatingHours(String operatingHours) {
         this.operatingHours = operatingHours;
     }
 
@@ -105,5 +114,13 @@ public class Attraction {
 
     public void setWeatherType(String weatherType) {
         this.weatherType = weatherType;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -1,12 +1,22 @@
 package control;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import android.util.Pair;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import entity.Attraction;
+import static android.icu.lang.UCharacter.toLowerCase;
 
 /**
  * Created by wong0903 on 20/3/2018.
@@ -14,29 +24,88 @@ import entity.Attraction;
  * matches the input text.
  */
 
+
 public class SearchManager {
-    int index = 0;
-    String information;
-    private static List<Attraction> attractionList = new ArrayList<Attraction>();
-    public static List<Attraction> search(String inputText) throws JSONException {
-//        attractionList = retrieveAllAttraction();
-//        while (attractionList.size() != 0) {
-//            if (attractionList.get(index).getName().toLowerCase().contains(inputText.toLowerCase())) {
-//                information = RetrieveBasicInformation.retrieve(attractionList.get(index).getWebURL());
-//                JSONObject object = new JSONObject(information);
-//                Attraction attraction = new Attraction();
-//                attraction.setName(object.getString("title"));
-//                attraction.setAddress();
-        /*call retrieveAllAttraction() to return the attraction list
-        and match the input text with the attraction list.If it is found
-        call retrieve() in the RetrieveBasicInformation class else keep looping until
-        the attraction list ends.
-         */
+    private List<String> urlList = new ArrayList<>();
+    private List<Pair<String, String>> attractionList = new ArrayList<>();
+
+    public List<String> search(String attraction) throws JSONException {
+        attractionList = retrieveAllAttractions();
+        Log.d("size",String.valueOf(attractionList.size()));
+        for(int i=0; i < attractionList.size(); i++) {
+            Log.d("a", attractionList.get(i).first);
+            if(attractionList.get(i).second.toLowerCase().trim().replace(" ","").
+                    contains(attraction.toLowerCase().trim().replace(" ",""))) {
+                urlList.add(attractionList.get(i).first);
+            }
+        }
+        for(int i=0; i<urlList.size();i++){
+            Log.d("b", urlList.get(i));
+        }
+        Log.d("sizeurl",String.valueOf(urlList.size()));
+        return urlList;
+    }
+
+    public List<Pair<String, String>> retrieveAllAttractions() {
+        try {
+            attractionList = new RetrieveFeedTask().execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         return attractionList;
+    }
+
+     class RetrieveFeedTask extends AsyncTask<Void, Void, List<Pair<String, String>>> {
+
+        protected  List<Pair<String, String>> doInBackground(Void... urls) {
+            // Do some validation here
+            try {
+                URL url = new URL("http://www.visitsingapore.com/ysapi-services/RequestAPI?format=listing&locale=en&pageid=2");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
+                urlConnection.setRequestProperty("token", "407ab3a352953114d6f09f653c1386a06f5d78"
+                        + "a680ec02d643984782a8305bfd4231274fa545d2501fc9f65359eb61b1a64acc1a47f2c87f87147de47c07ab1d");
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line);
+                    }
+                    bufferedReader.close();
+                    JSONObject json = new JSONObject(stringBuilder.toString());
+                    JSONArray contents = json.getJSONArray("details");
+                    int size = contents.length();
+                    int count = 0;
+                    while (size != 0) {
+                        attractionList.add(new Pair<>(contents.getJSONObject(count).getString("url"),
+                                contents.getJSONObject(count).getString("ptitle")));
+                        size--;
+                        count++;
+                    }
+                    return attractionList;
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
             }
         }
 
-
+        protected void onPostExecute(String response) {
+            if (response == null) {
+                response = "THERE WAS AN ERROR";
+            }
+            Log.i("INFO", response);
+            // TODO: check this.exception
+            // TODO: do something with the feed
+        }
+    }
+}
 //    public List<Attraction> retrieveAllAttraction(){
 //        //call to the visitSingapore API and return the list of attractions
 //    }
