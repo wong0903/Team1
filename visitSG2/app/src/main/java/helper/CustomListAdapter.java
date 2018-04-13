@@ -62,14 +62,13 @@ public class CustomListAdapter extends BaseAdapter {
         NetworkImageView thumbNail = (NetworkImageView) convertView.findViewById(R.id.thumbnail);
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView address = (TextView) convertView.findViewById(R.id.address);
-//        TextView rating = (TextView) convertView.findViewById(R.id.rating);
+        TextView rating = (TextView) convertView.findViewById(R.id.rating);
         TextView operationHours = (TextView) convertView.findViewById(R.id.operationHours);
 
         // getting movie data for the row
         Attraction a = attractionItems.get(position);
 
         // thumbnail image
-//        thumbNail.setImageUrl(a.getThumbnailUrl(), imageLoader);
         thumbNail.setImageUrl(a.getThumbnailUrl(), imageLoader);
 
         // title
@@ -80,6 +79,7 @@ public class CustomListAdapter extends BaseAdapter {
 
         // rating
 //        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
+        rating.setText("Rating: " + String.valueOf(0));
 
 //        // genre
 //        String genreStr = "";

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp" />
+
+    <TextView android:id="@+id/targetAttractionName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#ffffff"/>
+
+    <TextView android:id="@+id/targetAttractionOverallRating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#ffffff"/>
+
+    <TextView android:id="@+id/targetAttractionAddress"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#ffffff"/>
+
+    <TextView android:id="@+id/targetAttractionDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#ffffff"/>
+
+    <TextView android:id="@+id/targetAttractionWebUrl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dip"
+        android:textStyle="bold"
+        android:padding="10dip"
+        android:textColor="#ffffff"/>
+
+</LinearLayout>

@@ -52,5 +52,7 @@ public class ViewInterface extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+
+
     }
 }
