@@ -2,6 +2,8 @@ package entity;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 /**
@@ -13,28 +15,26 @@ import android.support.annotation.NonNull;
  */
 
 @Entity(tableName = "attractions")
-public class Attraction {
+public class Attraction implements Parcelable{
+    @PrimaryKey @NonNull
+    private String webURL;
     private int id;
     private String name;
     private String address;
     private String description;
     private String thumbnailUrl;
-    @PrimaryKey @NonNull
-    private String webURL;
     private String operatingHours;
     private String weatherType;
     private double overallRating;
-    private String category;
 
     public Attraction(){
+        this.setId(0);
         this.setName("");
-        this.setAttractionID(0);
         this.setAddress("");
         this.setDescription("");
         this.setWebURL("");
         this.setOverallRating(0.0);
         this.setWeatherType("");
-        this.setCategory("");
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
@@ -48,7 +48,26 @@ public class Attraction {
         this.overallRating = overallRating;
         this.category = category;
         this.thumbnailUrl = thumbnailUrl;
+
     }
+
+    protected Attraction(Parcel in) {
+        name = in.readString();
+        address = in.readString();
+        operatingHours = in.readString();
+    }
+
+    public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
+        @Override
+        public Attraction createFromParcel(Parcel in) {
+            return new Attraction(in);
+        }
+
+        @Override
+        public Attraction[] newArray(int size) {
+            return new Attraction[size];
+        }
+    };
 
     public void getDirection(String address) {
         //Display the route to the attraction by calling GoogleMap API
@@ -70,11 +89,11 @@ public class Attraction {
         this.webURL = webURL;
     }
 
-    public int getAttractionID() {
+    public int getId() {
         return id;
     }
 
-    public void setAttractionID(int attractionID) {
+    public void setId(int attractionID) {
         this.id = attractionID;
     }
 
@@ -118,12 +137,17 @@ public class Attraction {
         this.weatherType = weatherType;
     }
 
-    public String getCategory() {
-        return category;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(address);
+        parcel.writeString(operatingHours);
+
     }
 
     public String getThumbnailUrl() {
@@ -133,4 +157,5 @@ public class Attraction {
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
     }
+
 }

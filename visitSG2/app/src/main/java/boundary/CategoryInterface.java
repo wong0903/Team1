@@ -1,8 +1,10 @@
 package boundary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +32,7 @@ public class CategoryInterface extends AppCompatActivity implements View.OnClick
     AttractionManager attractionManager = new AttractionManager();
     List<String> matchURLList = new ArrayList<>();
     List<String> basicInformationList = new ArrayList<>();
+    ArrayList<Attraction> matchedAttractionList = new ArrayList<>();
     String category;
     @Override
     protected void onCreate(Bundle savedInstancedState) {
@@ -56,23 +59,25 @@ public class CategoryInterface extends AppCompatActivity implements View.OnClick
 
     public void onClick(View view){
         category = ((Button) view).getText().toString();
-        new Thread(new Runnable() {
-        @Override
-        public void run() {
+            Log.d("text",category);
             matchURLList = categoryManager.getAttractionsUnderCategory(category);
             for(String url: matchURLList) {
                 Attraction attraction = new Attraction();
                 basicInformationList = attractionManager.retrieveBasicInformation(url);
-                if (basicInformationList == null) {
+                if (basicInformationList != null) {
                     attraction.setName(basicInformationList.get(0));
                     attraction.setAddress(basicInformationList.get(1));
                     attraction.setOperatingHours(basicInformationList.get(2));
+                    matchedAttractionList.add(attraction);
                 }
             }
+        Log.d("size", String.valueOf(matchedAttractionList.size()));
+        Bundle information = new Bundle();
+        information.putParcelableArrayList("matchedAttractionList", matchedAttractionList);
+        Intent intent = new Intent(CategoryInterface.this, ViewInterface.class);
+        intent.putExtras(information);
+        startActivity(intent);
         }
-        });
     }
-
-}
 
 
