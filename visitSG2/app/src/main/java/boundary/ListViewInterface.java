@@ -21,7 +21,7 @@ import helper.CustomListAdapter;
  * Created by wong0903 on 13/4/2018.
  */
 
-public class ViewInterface extends AppCompatActivity {
+public class ListViewInterface extends AppCompatActivity {
     List<String> matchedURLList = new ArrayList<>();
     List<String> basicInformationList = new ArrayList<>();
     List<Attraction> matchedAttractionList = new ArrayList<>();

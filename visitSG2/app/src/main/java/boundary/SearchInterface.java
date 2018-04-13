@@ -2,19 +2,13 @@ package boundary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v4.widget.ListViewAutoScrollHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.wong0903.visitsg.R;
 
@@ -24,10 +18,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.AttractionManager;
 import control.SearchManager;
 import entity.Attraction;
-import helper.CustomListAdapter;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -100,7 +92,7 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
                             ArrayList<String> matchedURLList = searchManager.search(attraction);
                             Bundle information = new Bundle();
                             information.putStringArrayList("matchedURLList", matchedURLList);
-                            Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
+                            Intent intent = new Intent(SearchInterface.this, ListViewInterface.class);
                             intent.putExtras(information);
                             startActivity(intent);
                         }
