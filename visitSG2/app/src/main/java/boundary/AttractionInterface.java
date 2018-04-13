@@ -10,6 +10,9 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.example.wong0903.visitsg.R;
 
 import control.AppController;
+import java.util.ArrayList;
+import java.util.List;
+
 import control.AttractionManager;
 import entity.Attraction;
 
@@ -19,7 +22,9 @@ import entity.Attraction;
 
 public class AttractionInterface extends AppCompatActivity {
 
+
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+    List<String> informationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +32,11 @@ public class AttractionInterface extends AppCompatActivity {
         setContentView(R.layout.activity_attraction_view);
 
         Intent i = getIntent();
-        String attractionURL = i.getStringExtra("attractionURL");
+        Attraction attraction = i.getExtras().getParcelable("attraction");
 
         AttractionManager attractionManager = new AttractionManager();
-        attractionManager.retrieveDetailedInformation(attractionURL);
+        informationList = attractionManager.retrieveDetailedInformation(attraction.getApiURL());
+        attraction.setDescription(informationList.get(informationList.size()));
 
 
         if (imageLoader == null)
