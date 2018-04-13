@@ -26,10 +26,11 @@ import static android.icu.lang.UCharacter.toLowerCase;
 
 
 public class SearchManager {
-    private List<String> urlList = new ArrayList<>();
-    private List<Pair<String, String>> attractionList = new ArrayList<>();
+    private ArrayList<String> urlList;
+    private List<Pair<String, String>> attractionList ;
 
-    public List<String> search(String attraction) throws JSONException {
+    public ArrayList<String> search(String attraction) throws JSONException {
+        urlList = new ArrayList<>();
         attractionList = retrieveAllAttractions();
         Log.d("size",String.valueOf(attractionList.size()));
         for(int i=0; i < attractionList.size(); i++) {
@@ -80,6 +81,7 @@ public class SearchManager {
                     JSONArray contents = json.getJSONArray("details");
                     int size = contents.length();
                     int count = 0;
+                    attractionList = new ArrayList<>();
                     while (size != 0) {
                         attractionList.add(new Pair<>(contents.getJSONObject(count).getString("url"),
                                 contents.getJSONObject(count).getString("ptitle")));

@@ -60,10 +60,13 @@ public class CustomListAdapter extends BaseAdapter {
             imageLoader = AppController.getInstance().getImageLoader();
         NetworkImageView thumbNail = (NetworkImageView) convertView
                 .findViewById(R.id.thumbnail);
-
+//        TextView title = (TextView) convertView.findViewById(R.id.title);
+//        TextView rating = (TextView) convertView.findViewById(R.id.rating);
+//        TextView genre = (TextView) convertView.findViewById(R.id.genre);
+//        TextView year = (TextView) convertView.findViewById(R.id.releaseYear);
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView address = (TextView) convertView.findViewById(R.id.address);
-//        TextView rating = (TextView) convertView.findViewById(R.id.rating);
+        TextView rating = (TextView) convertView.findViewById(R.id.rating);
         TextView operationHours = (TextView) convertView.findViewById(R.id.operationHours);
 
         // getting movie data for the row
@@ -79,7 +82,16 @@ public class CustomListAdapter extends BaseAdapter {
         address.setText(a.getAddress());
 
         // rating
-//        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
+        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
+
+//        // genre
+//        String genreStr = "";
+//        for (String str : a.getGenre()) {
+//            genreStr += str + ", ";
+//        }
+//        genreStr = genreStr.length() > 0 ? genreStr.substring(0,
+//                genreStr.length() - 2) : genreStr;
+//        genre.setText(genreStr);
 
         // operating hours
         operationHours.setText(String.valueOf(a.getOperatingHours()));

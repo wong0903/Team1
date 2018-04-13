@@ -82,7 +82,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
             case R.id.btnSignUp:
                 Intent intent = new Intent(this, SignUpInterface.class);
                 startActivity(intent);
-//                Toast.makeText(getApplicationContext(), "Sign Up successful3", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             default:
                 break;

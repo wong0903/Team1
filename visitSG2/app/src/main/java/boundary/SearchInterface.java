@@ -46,7 +46,7 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
     List<Attraction> matchedAttractionList;
 //    private ListView listView;
 //    private CustomListAdapter adapter;
-//    private ProgressDialog pDialog;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,36 +93,18 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            SearchManager searchManager = new SearchManager();
-                            AttractionManager attractionManager = new AttractionManager();
-                            ArrayList<Attraction> matchedAttractionList = new ArrayList<>();
-                            attraction = inputText.getText().toString();
-                            List<String> matchedURLList = searchManager.search(attraction);
-                            if (!matchedURLList.isEmpty()) {
-                                for (String url : matchedURLList) {
-                                    Log.d("url", url);
-                                    Attraction attraction = new Attraction();
-                                    List<String> basicInformationList = attractionManager.retrieveBasicInformation(url);
-                                    if (basicInformationList != null) {
-                                        attraction.setName(basicInformationList.get(0));
-                                        attraction.setAddress(basicInformationList.get(1));
-                                        attraction.setOperatingHours(basicInformationList.get(2));
-                                        matchedAttractionList.add(attraction);
-                                    }
-                                }
-                                Log.d("size", String.valueOf(matchedAttractionList.size()));
-                                Bundle information = new Bundle();
-                                information.putParcelableArrayList("matchedAttractionList", matchedAttractionList);
-                                Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
-                                intent.putExtras(information);
-                                startActivity(intent);
-                            } else
-                                Toast.makeText(getApplicationContext(), "No attractions found", Toast.LENGTH_SHORT).show();
+                    try {
+                        SearchManager searchManager = new SearchManager();
+                        attraction = inputText.getText().toString();
+                        ArrayList<String> matchedURLList = searchManager.search(attraction);
+                        Bundle information = new Bundle();
+                        information.putStringArrayList("matchedURLList", matchedURLList);
+                        Intent intent = new Intent(SearchInterface.this, ViewInterface.class);
+                        intent.putExtras(information);
+                        startActivity(intent);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 }).start();
                     break;
