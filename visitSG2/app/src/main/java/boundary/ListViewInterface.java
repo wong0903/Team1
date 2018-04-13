@@ -57,7 +57,6 @@ public class ListViewInterface extends AppCompatActivity {
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-<<<<<<< HEAD:visitSG2/app/src/main/java/boundary/ListViewInterface.java
         ListView lv = getListView();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,9 +77,5 @@ public class ListViewInterface extends AppCompatActivity {
 
     public ListView getListView() {
         return listView;
-=======
-
-
->>>>>>> d15fd61e6f810f377dfebd4ab93704b312525f59:visitSG2/app/src/main/java/boundary/ViewInterface.java
     }
 }
