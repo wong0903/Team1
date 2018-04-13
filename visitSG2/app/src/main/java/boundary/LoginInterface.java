@@ -82,7 +82,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
             case R.id.btnSignUp:
                 Intent intent = new Intent(this, SignUpInterface.class);
                 startActivity(intent);
-//                finish();
+                finish();
                 break;
             default:
                 break;

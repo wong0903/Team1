@@ -3,6 +3,7 @@ package control;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -19,9 +20,11 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class AttractionManager {
-    String webURL = "";
-    String name, address, operatingHours;
-    List<String> informationList;
+    private String webURL;
+
+    public AttractionManager() {
+        webURL = "";
+    }
 
     public List<String> retrieveBasicInformation(String matchedURL){
         webURL = matchedURL;
@@ -56,14 +59,17 @@ public class AttractionManager {
                     bufferedReader.close();
 
                     JSONObject json = new JSONObject(stringBuilder.toString());
-                    informationList = new ArrayList<>();
+                    JSONArray images = json.getJSONArray("images");
+                    List<String> informationList = new ArrayList<>();
                     if(!json.has("error")) {
-                        name = json.getString("title");
+                        String name = json.getString("title");
                         informationList.add(name);
-                        address = json.getString("address");
+                        String address = json.getString("address");
                         informationList.add(address);
-                        operatingHours = json.getString("opening-hours");
+                        String operatingHours = json.getString("opening-hours");
                         informationList.add(operatingHours);
+                        String image = images.getJSONObject(0).getString("url");
+                        informationList.add(image);
                     }
                     return informationList;
                 } finally {
