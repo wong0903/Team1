@@ -1,20 +1,20 @@
 package boundary;
 
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.MenuItem;
+
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.wong0903.visitsg.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Database.AppDatabase;
 import control.AttractionManager;
 import control.CategoryManager;
 import entity.Attraction;
@@ -27,12 +27,7 @@ import entity.Attraction;
 public class CategoryInterface extends AppCompatActivity implements View.OnClickListener {
 
     Button category1,category2,category3,category4,category5,category6,category7;
-    private AppDatabase db;
     CategoryManager categoryManager = new CategoryManager();
-    AttractionManager attractionManager = new AttractionManager();
-    List<String> matchURLList = new ArrayList<>();
-    List<String> basicInformationList = new ArrayList<>();
-    ArrayList<Attraction> matchedAttractionList = new ArrayList<>();
     String category;
     @Override
     protected void onCreate(Bundle savedInstancedState) {
@@ -58,26 +53,27 @@ public class CategoryInterface extends AppCompatActivity implements View.OnClick
     }
 
     public void onClick(View view){
+        ArrayList<String> matchedURLList = new ArrayList<>();
         category = ((Button) view).getText().toString();
-            Log.d("text",category);
-            matchURLList = categoryManager.getAttractionsUnderCategory(category);
-            for(String url: matchURLList) {
-                Attraction attraction = new Attraction();
-                basicInformationList = attractionManager.retrieveBasicInformation(url);
-                if (basicInformationList != null) {
-                    attraction.setName(basicInformationList.get(0));
-                    attraction.setAddress(basicInformationList.get(1));
-                    attraction.setOperatingHours(basicInformationList.get(2));
-                    matchedAttractionList.add(attraction);
-                }
-            }
-        Log.d("size", String.valueOf(matchedAttractionList.size()));
+        matchedURLList = categoryManager.getAttractionsUnderCategory(category);
+//            int index = 0;
+//            for(String url: matchURLList) {
+//                Attraction attraction = new Attraction();
+//                basicInformationList = attractionManager.retrieveBasicInformation(url);
+//                if (basicInformationList != null) {
+//                    attraction.setName(basicInformationList.get(0));
+//                    attraction.setAddress(basicInformationList.get(1));
+//                    attraction.setOperatingHours(basicInformationList.get(2));
+//                    matchedAttractionList.add(attraction);
+//                }
+//            }
         Bundle information = new Bundle();
-        information.putParcelableArrayList("matchedAttractionList", matchedAttractionList);
+        information.putStringArrayList("matchedURLList", matchedURLList);
         Intent intent = new Intent(CategoryInterface.this, ViewInterface.class);
         intent.putExtras(information);
         startActivity(intent);
         }
+
     }
 
 

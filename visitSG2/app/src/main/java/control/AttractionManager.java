@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
 public class AttractionManager {
     String webURL = "";
     String name, address, operatingHours;
-    List<String> informationList = new ArrayList<>();
+    List<String> informationList;
 
     public List<String> retrieveBasicInformation(String matchedURL){
         webURL = matchedURL;
@@ -56,6 +56,7 @@ public class AttractionManager {
                     bufferedReader.close();
 
                     JSONObject json = new JSONObject(stringBuilder.toString());
+                    informationList = new ArrayList<>();
                     if(!json.has("error")) {
                         name = json.getString("title");
                         informationList.add(name);

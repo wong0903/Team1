@@ -46,7 +46,6 @@ public class Attraction implements Parcelable{
         this.webURL = webURL;
         this.operatingHours = operatingHours;
         this.overallRating = overallRating;
-        this.category = category;
         this.thumbnailUrl = thumbnailUrl;
 
     }

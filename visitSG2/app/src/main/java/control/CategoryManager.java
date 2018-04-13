@@ -24,8 +24,8 @@ import entity.Category;
  */
 
 public class CategoryManager {
-    private List<Pair<String,String>> categoryList = new ArrayList<>();
-    private List<String> urlList = new ArrayList<>();
+    private List<Pair<String,String>> categoryList;
+    private ArrayList<String> urlList;
 
     public List<Pair<String,String>> getCategories(){
         //return a list of Categories from the local database
@@ -39,10 +39,11 @@ public class CategoryManager {
         return categoryList;
     }
 
-    public List<String> getAttractionsUnderCategory(String category){
+    public ArrayList<String> getAttractionsUnderCategory(String category){
         /*call to the visitSingapore API and return
         the basic information of the attraction in the category list
          */
+        urlList = new ArrayList<>();
         categoryList = getCategories();
         for(int i=0; i < categoryList.size(); i++) {
             if(categoryList.get(i).second.replaceAll("[-+.^:,&]","").
@@ -76,6 +77,7 @@ public class CategoryManager {
                     JSONArray contents = json.getJSONArray("details");
                     int size = contents.length();
                     int count = 0;
+                    categoryList = new ArrayList<>();
                     while (size != 0) {
                         String pURL = contents.getJSONObject(count).getString("purl");
                         String[] separated = pURL.split("/");
