@@ -2,7 +2,6 @@ package control;
 
 import java.util.List;
 
-import entity.OverallRating;
 import entity.RatingAndReview;
 
 /**
@@ -13,7 +12,6 @@ import entity.RatingAndReview;
 
 public class RateReviewManager {
     private List<RatingAndReview> ratingAndReviewList;
-    private List<OverallRating> overallRatingList;
     private double overallRating;
 
 

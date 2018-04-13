@@ -43,11 +43,10 @@ public class ViewInterface extends AppCompatActivity {
                 attraction.setName(basicInformationList.get(0));
                 attraction.setAddress(basicInformationList.get(1));
                 attraction.setOperatingHours(basicInformationList.get(2));
+                attraction.setThumbnailUrl(basicInformationList.get(3));
                 matchedAttractionList.add(attraction);
             }
         }
-        Log.d("a",String.valueOf(matchedAttractionList.size()));
-        Log.d("b",String.valueOf(basicInformationList.size()));
         listView = findViewById(R.id.list);
         adapter = new CustomListAdapter(this, matchedAttractionList);
         listView.setAdapter(adapter);

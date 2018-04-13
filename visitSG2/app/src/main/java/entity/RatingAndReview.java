@@ -1,5 +1,7 @@
 package entity;
 
+import android.arch.persistence.room.Entity;
+
 import java.util.Date;
 
 /**
@@ -8,16 +10,17 @@ import java.util.Date;
  * attributes rating and creationDate.
  */
 
+@Entity(tableName = "ratings")
 public class RatingAndReview {
     private int rating;
-    private String attractionID;
+    private String attractionURL;
     private Date date;
     private String review;
     private String loginID;
 
     public RatingAndReview(){
         this.setRating(0);
-        this.setAttractionID("");
+        this.setAttractionURL("");
         this.setDate(null);
         this.setReview("");
         this.setLoginID("");
@@ -25,7 +28,7 @@ public class RatingAndReview {
 
     public RatingAndReview(int rating, String attractionID, Date date, String review, String loginID) {
         this.rating = rating;
-        this.attractionID = attractionID;
+        this.attractionURL = attractionURL;
         this.date = date;
         this.review = review;
         this.loginID = loginID;
@@ -39,12 +42,12 @@ public class RatingAndReview {
         this.rating = rating;
     }
 
-    public String getAttractionID() {
-        return attractionID;
+    public String getAttractionURL() {
+        return attractionURL;
     }
 
-    public void setAttractionID(String attractionID) {
-        this.attractionID = attractionID;
+    public void setAttractionURL(String attractionID) {
+        this.attractionURL = attractionURL;
     }
 
     public Date getDate() {
