@@ -45,13 +45,12 @@ public class CategoryManager {
          */
         categoryList = getCategories();
         for(int i=0; i < categoryList.size(); i++) {
-            Log.d("a", categoryList.get(i).first);
             if(categoryList.get(i).second.replaceAll("[-+.^:,&]","").
-                    equalsIgnoreCase(category.replaceAll("[-+.^:,&]",""))) {
+                    equalsIgnoreCase(category.replaceAll("[-+.^:,&\\s]",""))) {
                 urlList.add(categoryList.get(i).first);
             }
         }
-       return urlList;
+        return urlList;
     }
 
     class RetrieveFeedTask extends AsyncTask<Void, Void, List<Pair<String, String>>> {

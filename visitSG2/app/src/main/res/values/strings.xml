@@ -24,12 +24,12 @@
     <string name="name">Name:</string>
 
     <!-- Strings related to categories -->
-    <string name="category1">Neighbourhoods</string>
+    <string name="category1">Places to See</string>
     <string name="category2">Arts</string>
     <string name="category3">History</string>
     <string name="category4">Architecture</string>
-    <string name="category5">Culture</string>
-    <string name="category6">Recreation</string>
+    <string name="category5">Culture-Heritage</string>
+    <string name="category6">Recreation &amp; Leisure</string>
     <string name="category7">Nature &amp; Wildlife</string>
 
 </resources>

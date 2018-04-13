@@ -37,6 +37,17 @@
             android:theme = "@style/FullscreenTheme">
         </activity>
 
+        <activity android:name="boundary.ViewInterface"
+            android:label="Registration"
+            android:theme = "@style/FullscreenTheme">
+        </activity>
+
+        <activity android:name="boundary.CategoryInterface"
+            android:label="Registration"
+            android:theme = "@style/FullscreenTheme">
+        </activity>
+
+
     </application>
 
 </manifest>
