@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="VISIT_SG_KEY"> 407ab3a352953114d6f09f653c1386a06f5d78
+        a680ec02d643984782a8305bfd4231274fa545d2501fc9f65359eb61b1a64acc1a47f2c87f87147de47c07ab1d</string>
+    <string name="API_EMAIL">lleong009@e.ntu.edu.sg</string>
+    <string name="API_URL">http://www.visitsingapore.com/ysapi-services/RequestAPI?format=listing&amp;locale=en&amp;pageid=2</string>
+</resources>
