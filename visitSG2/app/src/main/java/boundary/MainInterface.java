@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ import helper.SessionManager;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class MainInterface extends AppCompatActivity {
+public class MainInterface extends AppCompatActivity implements View.OnClickListener{
 
     EditText inputText;
     TextView responseView;
@@ -40,6 +41,7 @@ public class MainInterface extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private ImageButton btn_login;
 
     //tatic final String API_URL = "http://www.visitsingapore.com/ysapi-services/RequestAPI?format=details&locale=en&pageid=84";
 
@@ -63,11 +65,12 @@ public class MainInterface extends AppCompatActivity {
         inputText = findViewById(R.id.inputText);
         progressBar = findViewById(R.id.progressBar);
 
+
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
         session = new SessionManager(getApplicationContext());
 
-
+        btn_login = findViewById(R.id.btn_login);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -107,35 +110,21 @@ public class MainInterface extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        switch(view.getId()){
-//            case R.id.btn_search:
-//                Intent intent1 = new Intent(this, SearchInterface.class);
-//                intent1.putExtra("attraction", inputText.getText().toString());
-//                startActivity(intent1);
-//                break;
-//            case R.id.btn_categories:
-//                Intent intent2 = new Intent(this, CategoryInterface.class);
-//                startActivity(intent2);
-//                break;
-//            case R.id.btn_suggestions:
-//                Intent intent3 = new Intent(this, SuggestionInterface.class);
-//                startActivity(intent3);
-//                break;
-//            case R.id.btn_login:
-//                Intent intent4 = new Intent(MainInterface.this, LoginInterface.class);
-//                startActivity(intent4);
-//                break;
-//            default:
-//                break;
-//        }
-//
-//    }
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.btn_login:
+                Intent intent1 = new Intent(this, LoginInterface.class);
+                startActivity(intent1);
+                break;
+            default:
+                break;
+        }
+
+    }
 
 
-//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
-//
+//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> //
 //        private Exception exception;
 //
 //        protected void onPreExecute() {
@@ -208,4 +197,4 @@ public class MainInterface extends AppCompatActivity {
 //                return results;
 //        }
 //    }
-}
+
