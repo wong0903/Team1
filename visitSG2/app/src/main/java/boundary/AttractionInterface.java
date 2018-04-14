@@ -1,6 +1,7 @@
 package boundary;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -85,8 +86,16 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.btn_navigation:
                 Log.d("navigate?","yes");
-                attractionManager.getNavigation(informationList.get(7),informationList.get(8));
+                Log.d("log: ",informationList.get(7));
+                Log.d("lat: ",informationList.get(8));
+//                attractionManager.getNavigation(informationList.get(7),informationList.get(8));
+//                Uri gmmIntentUri = Uri.parse("google.navigation:q="+informationList.get(8)+","+informationList.get(7));
+//                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+//                mapIntent.setPackage("com.google.android.apps.maps");
+//                startActivity(mapIntent);
+
                 break;
+
             default:
                 break;
         }
