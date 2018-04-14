@@ -15,6 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.wong0903.visitsg.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 
@@ -23,7 +29,7 @@ import java.util.ArrayList;
 import control.SearchManager;
 
 
-public class SearchFragment extends Fragment implements View.OnClickListener {
+public class SearchFragment extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
     EditText inputText;
     String attraction;
@@ -50,6 +56,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
         btn_search = (Button) view.findViewById(R.id.btn_search);
         btn_search.setOnClickListener(this);
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         return view;
     }
@@ -84,4 +94,23 @@ public class SearchFragment extends Fragment implements View.OnClickListener {
 
     }
 
+    /**
+     * Manipulates the map when it's available.
+     * The API invokes this callback when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user receives a prompt to install
+     * Play services inside the SupportMapFragment. The API invokes this method after the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Add a marker in Sydney, Australia,
+        // and move the map's camera to the same location.
+        LatLng singapore = new LatLng(1.338709, 103.819519);
+        googleMap.addMarker(new MarkerOptions().position(singapore)
+                .title("Marker in Singapore"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(11),3000,null);
+    }
 }
