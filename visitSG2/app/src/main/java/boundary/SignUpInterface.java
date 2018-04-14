@@ -53,7 +53,7 @@ public class SignUpInterface extends AppCompatActivity {
                 final String email = txtEmail.getText().toString();
 
                 if (task != null) return;
-                task = new SignUpTask(username, password1,email, getApplicationContext());
+                task = new SignUpTask(username, password1, password2, email, getApplicationContext());
                 task.execute((Void) null);
             }
         });
@@ -63,16 +63,19 @@ public class SignUpInterface extends AppCompatActivity {
         private final String mUsername;
         private final String mEmail;
         private final String mPassword;
+        private final String cPassword;
 
-        SignUpTask(String username, String password, String mail,Context c) {
+        SignUpTask(String username, String password1, String password2, String mail,Context c) {
             mUsername = username;
             mEmail = mail;
-            mPassword = password;
+            mPassword = password1;
+            cPassword = password2;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(UserManager.verifyLoginID(db,mUsername) == false)
+            if(UserManager.verifyLoginID(db,mUsername) && UserManager.verifyPassword(mPassword)
+                    && UserManager.confirmPassword(mPassword,cPassword))
                 return false;
             UserManager.signUp(db, mUsername, mPassword, mEmail);
             return true;

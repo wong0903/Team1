@@ -7,6 +7,7 @@ package boundary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         category1 = view.findViewById(R.id.category1);
         category2 = view.findViewById(R.id.category2);
@@ -69,11 +70,17 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
             public void run() {
                 ArrayList<String> matchedURLList;
                 matchedURLList = categoryManager.getAttractionsUnderCategory(category);
+                Fragment fragment = new Fragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, someFragment ); // give your fragment container id in first parameter
+                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
+                transaction.commit();
                 Bundle information = new Bundle();
                 information.putStringArrayList("matchedURLList", matchedURLList);
-                Intent intent = new Intent(getActivity(), ListViewInterface.class);
-                intent.putExtras(information);
-                startActivity(intent);
+                fragment.setArguments(information);
+//                Intent intent = new Intent(getActivity(), ListViewInterface.class);
+//                intent.putExtras(information);
+//                startActivity(intent);
             }
         }).start();
     }

@@ -20,6 +20,7 @@ import com.example.wong0903.visitsg.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Database.AppDatabase;
 import helper.SessionManager;
 
 /**
@@ -33,6 +34,8 @@ public class MainInterface extends AppCompatActivity {
     ProgressBar progressBar;
 
     private SessionManager session;
+
+    AppDatabase db;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -59,6 +62,11 @@ public class MainInterface extends AppCompatActivity {
         responseView = findViewById(R.id.responseView);
         inputText = findViewById(R.id.inputText);
         progressBar = findViewById(R.id.progressBar);
+
+        db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        session = new SessionManager(getApplicationContext());
+
 
     }
 

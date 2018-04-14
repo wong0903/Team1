@@ -1,10 +1,13 @@
 package boundary;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,22 +27,33 @@ import helper.CustomListAdapter;
  * Created by wong0903 on 13/4/2018.
  */
 
-public class ListViewInterface extends AppCompatActivity {
+public class ListViewInterface extends Fragment {
     List<String> matchedURLList = new ArrayList<>();
     List<String> basicInformationList = new ArrayList<>();
     List<Attraction> matchedAttractionList = new ArrayList<>();
     private ListView listView;
     private CustomListAdapter adapter;
+
+    public ListViewInterface() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_attraction_list_view);
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.activity_attraction_list_view, container, false);
 
         Bundle information = getIntent().getExtras();
         matchedURLList = information.getStringArrayList("matchedURLList");
 
         AttractionManager attractionManager = new AttractionManager();
-        for(String url: matchedURLList) {
+        for (String url : matchedURLList) {
             Attraction attraction = new Attraction();
             basicInformationList = attractionManager.retrieveBasicInformation(url);
             if (basicInformationList != null) {
@@ -65,7 +79,8 @@ public class ListViewInterface extends AppCompatActivity {
                                     int position, long id) {
 
                 // selected item
-                Attraction attraction = matchedAttractionList.get(position);;
+                Attraction attraction = matchedAttractionList.get(position);
+                ;
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
@@ -74,7 +89,10 @@ public class ListViewInterface extends AppCompatActivity {
             }
         });
 
+        return view;
     }
+
+
 
     public ListView getListView() {
         return listView;
