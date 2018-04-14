@@ -74,7 +74,6 @@ public class ListViewInterface extends AppCompatActivity {
             }
         });
 
-    }
 
     public ListView getListView() {
         return listView;

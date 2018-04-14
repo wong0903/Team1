@@ -43,10 +43,20 @@
             android:textSize="@dimen/address"
             android:padding="8dip" />
 
+        <Button
+            android:id="@+id/btn_navigation"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/targetAttractionAddress"
+            android:layout_centerHorizontal="true"
+            android:text="@string/btn_navigation"
+            android:textColorLink="@color/colorAccent"/>
+
         <TextView android:id="@+id/targetAttractionDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/targetAttractionAddress"
+            android:layout_below="@id/btn_navigation"
             android:textSize="@dimen/description"
             android:padding="2dip" />
 
