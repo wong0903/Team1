@@ -16,11 +16,11 @@
     <!-- Attraction Name -->
     <TextView
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/thumbnail"
         android:layout_toRightOf="@+id/thumbnail"
-        android:textSize="@dimen/title"
+        android:textSize="@dimen/name_list"
         android:textStyle="bold" />
 
     <!-- Rating -->
@@ -43,7 +43,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/genre"
-        android:textSize="@dimen/genre" />
+        android:textSize="@dimen/address" />
 
     <!-- Release Year -->
     <!-- Operating Hours -->
@@ -55,6 +55,6 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/year"
-        android:textSize="@dimen/year" />
+        android:textSize="@dimen/operatingHours" />
 
 </RelativeLayout>

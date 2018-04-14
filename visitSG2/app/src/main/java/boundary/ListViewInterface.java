@@ -49,6 +49,7 @@ public class ListViewInterface extends AppCompatActivity {
                 attraction.setThumbnailUrl(basicInformationList.get(3));
                 attraction.setWebURL(basicInformationList.get(4));
                 attraction.setApiURL(basicInformationList.get(5));
+                attraction.setOverallRating(0);
                 matchedAttractionList.add(attraction);
             }
         }

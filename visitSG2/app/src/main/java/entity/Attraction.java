@@ -129,7 +129,7 @@ public class Attraction implements Parcelable{
     }
 
     public void setOverallRating(double overallRating) {
-        this.overallRating = overallRating;
+        this.overallRating = 0;
     }
 
     public String getWeatherType() {

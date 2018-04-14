@@ -1,55 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="8dp" />
-
-    <TextView android:id="@+id/targetAttractionName"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dip"
-        android:textStyle="bold"
-        android:padding="10dip"
-        android:textColor="#ffffff"/>
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart">
 
-    <TextView android:id="@+id/targetAttractionOverallRating"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dip"
-        android:textStyle="bold"
-        android:padding="10dip"
-        android:textColor="#ffffff"/>
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/targetAttractionThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            />
 
-    <TextView android:id="@+id/targetAttractionAddress"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dip"
-        android:textStyle="bold"
-        android:padding="10dip"
-        android:textColor="#ffffff"/>
+        <TextView android:id="@+id/targetAttractionName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionThumbnail"
+            android:textSize="@dimen/name"
+            android:textStyle="bold"
+            android:padding="2dip" />
 
-    <TextView android:id="@+id/targetAttractionDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dip"
-        android:textStyle="bold"
-        android:padding="10dip"
-        android:textColor="#ffffff"/>
+        <TextView android:id="@+id/targetAttractionOverallRating"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionName"
+            android:textSize="@dimen/rating"
+            android:textStyle="bold"
+            android:padding="2dip" />
 
-    <TextView android:id="@+id/targetAttractionWebUrl"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25dip"
-        android:textStyle="bold"
-        android:padding="10dip"
-        android:textColor="#ffffff"/>
+        <TextView android:id="@+id/targetAttractionAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionOverallRating"
+            android:textSize="@dimen/address"
+            android:padding="8dip" />
 
-</LinearLayout>
+        <TextView android:id="@+id/targetAttractionDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionAddress"
+            android:textSize="@dimen/description"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionWebUrl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionDescription"
+            android:textSize="@dimen/url"
+            android:padding="2dip" />
+
+    </RelativeLayout>
+</ScrollView>

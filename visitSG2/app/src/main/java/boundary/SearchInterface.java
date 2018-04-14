@@ -62,61 +62,50 @@ public class SearchInterface extends AppCompatActivity implements View.OnClickLi
 //        getActionBar().setBackgroundDrawable(
 //                new ColorDrawable(Color.parseColor("#1b1b1b")));
 
-        btn_search = findViewById(R.id.btn_search);
-        btn_categories = findViewById(R.id.btn_categories);
-        btn_suggestions = findViewById(R.id.btn_suggestions);
-        btn_login = findViewById(R.id.btn_login);
-
-        btn_search.setOnClickListener(this);
-        btn_categories.setOnClickListener(this);
-        btn_suggestions.setOnClickListener(this);
-        btn_login.setOnClickListener(this);
-//        session = new SessionManager(getApplicationContext());
+//        btn_search = findViewById(R.id.btn_search);
 //
-//        if(!session.isLoggedIn()){
-//            //log out
-//        }
+//        btn_search.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_search:
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                    try {
-                        SearchManager searchManager = new SearchManager();
-                        attraction = inputText.getText().toString();
-                        if(!attraction.isEmpty()) {
-                            ArrayList<String> matchedURLList = searchManager.search(attraction);
-                            Bundle information = new Bundle();
-                            information.putStringArrayList("matchedURLList", matchedURLList);
-                            Intent intent = new Intent(SearchInterface.this, ListViewInterface.class);
-                            intent.putExtras(information);
-                            startActivity(intent);
-                        }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }).start();
-                    break;
-            case R.id.btn_categories:
-                Intent intent2 = new Intent(this, CategoryInterface.class);
-                startActivity(intent2);
-                break;
-            case R.id.btn_suggestions:
-                Intent intent3 = new Intent(this, SuggestionInterface.class);
-                startActivity(intent3);
-                break;
-            case R.id.btn_login:
-                Intent intent4 = new Intent(SearchInterface.this, LoginInterface.class);
-                startActivity(intent4);
-                break;
-            default:
-                break;
-        }
+//        switch (view.getId()) {
+//            case R.id.btn_search:
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                    try {
+//                        SearchManager searchManager = new SearchManager();
+//                        attraction = inputText.getText().toString();
+//                        if(!attraction.isEmpty()) {
+//                            ArrayList<String> matchedURLList = searchManager.search(attraction);
+//                            Bundle information = new Bundle();
+//                            information.putStringArrayList("matchedURLList", matchedURLList);
+//                            Intent intent = new Intent(SearchInterface.this, ListViewInterface.class);
+//                            intent.putExtras(information);
+//                            startActivity(intent);
+//                        }
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    }
+//                }).start();
+//                break;
+////            case R.id.btn_categories:
+////                Intent intent2 = new Intent(this, CategoryInterface.class);
+////                startActivity(intent2);
+////                break;
+////            case R.id.btn_suggestions:
+////                Intent intent3 = new Intent(this, SuggestionInterface.class);
+////                startActivity(intent3);
+////                break;
+////            case R.id.btn_login:
+////                Intent intent4 = new Intent(SearchInterface.this, LoginInterface.class);
+////                startActivity(intent4);
+////                break;
+//            default:
+//                break;
+//        }
 
     }
 }

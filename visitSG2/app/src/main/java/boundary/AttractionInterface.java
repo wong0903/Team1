@@ -44,10 +44,10 @@ public class AttractionInterface extends AppCompatActivity {
 
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.thumbnail);
+        NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.targetAttractionThumbnail);
         TextView name = findViewById(R.id.targetAttractionName);
         TextView address = findViewById(R.id.targetAttractionAddress);
-//        TextView rating = findViewById(R.id.targetAttractionOverallRating);
+        TextView rating = findViewById(R.id.targetAttractionOverallRating);
         TextView description = findViewById(R.id.targetAttractionDescription);
 //        TextView operationHours = findViewById(R.id.targ);
 
@@ -66,7 +66,7 @@ public class AttractionInterface extends AppCompatActivity {
 
         //overall rating
 //        rating.setText(a.getOverallRating());
-//        rating.setText(0);
+        rating.setText(String.valueOf(attraction.getOverallRating()));
 
     }
 }

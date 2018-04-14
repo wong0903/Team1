@@ -1,10 +1,15 @@
 package boundary;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,22 +17,27 @@ import android.widget.TextView;
 import com.example.wong0903.visitsg.R;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import helper.SessionManager;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class MainInterface extends AppCompatActivity implements View.OnClickListener {
+public class MainInterface extends AppCompatActivity {
 
     EditText inputText;
     TextView responseView;
     ProgressBar progressBar;
-    Button queryButton1;
-    Button queryButton2;
-    Button queryButton3;
-    Button queryButton4;
+
     private SessionManager session;
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+
     //tatic final String API_URL = "http://www.visitsingapore.com/ysapi-services/RequestAPI?format=details&locale=en&pageid=84";
 
     @Override
@@ -35,53 +45,85 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
         responseView = findViewById(R.id.responseView);
         inputText = findViewById(R.id.inputText);
         progressBar = findViewById(R.id.progressBar);
 
-        queryButton1 = findViewById(R.id.btn_search);
-        queryButton2 = findViewById(R.id.btn_categories);
-        queryButton3 = findViewById(R.id.btn_suggestions);
-        queryButton4 = findViewById(R.id.btn_login);
-
-        queryButton1.setOnClickListener(this);
-        queryButton2.setOnClickListener(this);
-        queryButton3.setOnClickListener(this);
-        queryButton4.setOnClickListener(this);
-
-       // session = new SessionManager(getApplicationContext());
-//
-//        if(!session.isLoggedIn()){
-//            //log out
-//        }
-
     }
 
-    @Override
-    public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.btn_search:
-                Intent intent1 = new Intent(this, SearchInterface.class);
-                intent1.putExtra("attraction", inputText.getText().toString());
-                startActivity(intent1);
-                break;
-            case R.id.btn_categories:
-                Intent intent2 = new Intent(this, CategoryInterface.class);
-                startActivity(intent2);
-                break;
-            case R.id.btn_suggestions:
-                Intent intent3 = new Intent(this, SuggestionInterface.class);
-                startActivity(intent3);
-                break;
-            case R.id.btn_login:
-                Intent intent4 = new Intent(MainInterface.this, LoginInterface.class);
-                startActivity(intent4);
-                break;
-            default:
-                break;
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SearchFragment(), "Search");
+        adapter.addFragment(new CategoryFragment(), "Categories");
+        adapter.addFragment(new SuggestionFragment(), "Suggestion");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
         }
 
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
+
+//    @Override
+//    public void onClick(View view) {
+//        switch(view.getId()){
+//            case R.id.btn_search:
+//                Intent intent1 = new Intent(this, SearchInterface.class);
+//                intent1.putExtra("attraction", inputText.getText().toString());
+//                startActivity(intent1);
+//                break;
+//            case R.id.btn_categories:
+//                Intent intent2 = new Intent(this, CategoryInterface.class);
+//                startActivity(intent2);
+//                break;
+//            case R.id.btn_suggestions:
+//                Intent intent3 = new Intent(this, SuggestionInterface.class);
+//                startActivity(intent3);
+//                break;
+//            case R.id.btn_login:
+//                Intent intent4 = new Intent(MainInterface.this, LoginInterface.class);
+//                startActivity(intent4);
+//                break;
+//            default:
+//                break;
+//        }
+//
+//    }
 
 
 //    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
