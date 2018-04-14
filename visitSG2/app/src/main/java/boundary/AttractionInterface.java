@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.toolbox.ImageLoader;
@@ -16,17 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import control.AttractionManager;
+import control.UserManager;
 import entity.Attraction;
 
 /**
  * Created by wong0903 on 9/4/2018.
  */
 
-public class AttractionInterface extends AppCompatActivity {
+public class AttractionInterface extends AppCompatActivity implements View.OnClickListener{
 
 
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     List<String> informationList = new ArrayList<>();
+    Button  btn_navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +54,7 @@ public class AttractionInterface extends AppCompatActivity {
         TextView address = findViewById(R.id.targetAttractionAddress);
         TextView rating = findViewById(R.id.targetAttractionOverallRating);
         TextView description = findViewById(R.id.targetAttractionDescription);
-//        TextView operationHours = findViewById(R.id.targ);
+        btn_navigation = findViewById(R.id.btn_navigation);
 
 
         // thumbnail image
@@ -74,6 +79,28 @@ public class AttractionInterface extends AppCompatActivity {
         //overall rating
 //        rating.setText(a.getOverallRating());
         rating.setText(String.valueOf(attraction.getOverallRating()));
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.btn_navigation:
+                if (UserManager.login(db, username, password)) {
+                    session.setLogin(true);
+                    Toast.makeText(getApplicationContext(), "Redirecting...",
+                            Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, MainInterface.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
 
     }
 }

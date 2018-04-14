@@ -85,7 +85,7 @@ public class ListViewInterface extends Fragment {
             }
         });
 
-        return view
+        return view;
     }
 
 

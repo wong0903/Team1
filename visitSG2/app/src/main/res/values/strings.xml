@@ -37,5 +37,9 @@
 
     <string name="google_maps_key">AIzaSyA3hqVe3y1vzLCXdHnForV5YXT1mIPXKr4</string>
 
+    <!--String related to attraction view-->
+    <string name="btn_navigation">Get Navigation</string>
+
+
 
 </resources>
