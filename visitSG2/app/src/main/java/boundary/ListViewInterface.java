@@ -3,6 +3,7 @@ package boundary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,16 +31,22 @@ public class ListViewInterface extends AppCompatActivity {
     List<Attraction> matchedAttractionList = new ArrayList<>();
     private ListView listView;
     private CustomListAdapter adapter;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attraction_list_view);
 
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Bundle information = getIntent().getExtras();
         matchedURLList = information.getStringArrayList("matchedURLList");
 
         AttractionManager attractionManager = new AttractionManager();
-        for(String url: matchedURLList) {
+        for (String url : matchedURLList) {
             Attraction attraction = new Attraction();
             basicInformationList = attractionManager.retrieveBasicInformation(url);
             if (basicInformationList != null) {
@@ -65,7 +72,8 @@ public class ListViewInterface extends AppCompatActivity {
                                     int position, long id) {
 
                 // selected item
-                Attraction attraction = matchedAttractionList.get(position);;
+                Attraction attraction = matchedAttractionList.get(position);
+                ;
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
@@ -73,6 +81,7 @@ public class ListViewInterface extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
 
 
     public ListView getListView() {

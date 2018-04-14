@@ -84,23 +84,23 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.btn_navigation:
-                if (UserManager.login(db, username, password)) {
-                    session.setLogin(true);
-                    Toast.makeText(getApplicationContext(), "Redirecting...",
-                            Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, MainInterface.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
-        }
+//        switch(view.getId()) {
+//            case R.id.btn_navigation:
+//                if (UserManager.login(db, username, password)) {
+//                    session.setLogin(true);
+//                    Toast.makeText(getApplicationContext(), "Redirecting...",
+//                            Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(this, MainInterface.class);
+//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(intent);
+//                    finish();
+//                } else {
+//                    Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
 
     }
 }

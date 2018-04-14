@@ -44,11 +44,6 @@
             android:theme = "@style/FullscreenTheme">
         </activity>
 
-        <activity android:name="boundary.CategoryInterface"
-            android:label="Categories"
-            android:theme = "@style/FullscreenTheme">
-        </activity>
-
         <activity
             android:name="boundary.AttractionInterface"
             android:label="Attraction"
