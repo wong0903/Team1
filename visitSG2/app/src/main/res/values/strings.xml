@@ -2,6 +2,7 @@
     <string name="app_name">visitSG</string>
 
     <string name="search_button">Search</string>
+    <string name="search_hint">Enter an attraction or keyword</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="login_button">Login </string>

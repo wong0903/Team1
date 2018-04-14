@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wong0903.visitsg.R;
@@ -25,6 +26,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
 
     EditText txtPassword,txtName;
     String username,password;
+    TextView txtSignUp;
     ProgressDialog pDialog;
     SessionManager session;
     private AppDatabase db;
@@ -38,7 +40,8 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
         txtPassword = findViewById(R.id.password);
 
         Button btnLogin = findViewById(R.id.btnLogin);
-        Button btnSignUp = findViewById(R.id.btnSignUp);
+        txtSignUp = findViewById(R.id.txt_signup);
+//        Button btnSignUp = findViewById(R.id.btnSignUp);
 
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
@@ -57,7 +60,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
         }
 
         btnLogin.setOnClickListener(this);
-        btnSignUp.setOnClickListener(this);
+//        btnSignUp.setOnClickListener(this);
 
     }
 
@@ -79,7 +82,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(getApplicationContext(),"error" , Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.btnSignUp:
+            case R.id.txt_signup:
                 Intent intent = new Intent(this, SignUpInterface.class);
                 startActivity(intent);
                 break;
