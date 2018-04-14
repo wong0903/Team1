@@ -84,8 +84,9 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_navigation:
-                Log.d("navigate?","yes");
-                attractionManager.getNavigation(informationList.get(7),informationList.get(8));
+                String latitude = informationList.get(7);
+                String longitude = informationList.get(8);
+                attractionManager.getNavigation(latitude ,longitude ,getApplicationContext());
                 break;
             default:
                 break;

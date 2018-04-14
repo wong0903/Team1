@@ -1,5 +1,6 @@
 package control;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 
 public class NavigationManager extends AppCompatActivity {
 
-    private String longitude;
-    private String latitude;
-
-    public void getNavigation(String longitude, String latitude){
+    public void getNavigation(String latitude, String longitude, Context c){
         Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
+        c.startActivity(mapIntent);
     }
 }
 

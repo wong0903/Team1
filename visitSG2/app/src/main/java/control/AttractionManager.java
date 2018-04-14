@@ -1,5 +1,6 @@
 package control;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -58,8 +59,8 @@ public class AttractionManager extends NavigationManager{
     }
 
     @Override
-    public void getNavigation(String longitude, String latitude){
-        super.getNavigation(longitude, latitude);
+    public void getNavigation(String latitude, String longitude, Context c){
+        super.getNavigation(latitude, longitude, c);
     }
 
      class RetrieveFeedTask extends AsyncTask<Void, Void, List<String>> {
@@ -110,11 +111,11 @@ public class AttractionManager extends NavigationManager{
                         String content = json.getString("shortContent");
                         informationList.add(content);
 
-                        String longitude = json.getString("longitude");
-                        informationList.add(longitude);
-
                         String latitude = json.getString("latitude");
                         informationList.add(latitude);
+
+                        String longitude = json.getString("longitude");
+                        informationList.add(longitude);
                     }
                     return informationList;
                 } finally {
