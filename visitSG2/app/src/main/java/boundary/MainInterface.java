@@ -61,9 +61,9 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        responseView = findViewById(R.id.responseView);
-        inputText = findViewById(R.id.inputText);
-        progressBar = findViewById(R.id.progressBar);
+//        responseView = findViewById(R.id.responseView);
+//        inputText = findViewById(R.id.inputText);
+//        progressBar = findViewById(R.id.progressBar);
 
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
@@ -76,8 +76,8 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new SearchFragment(), "Search");
-        adapter.addFragment(new CategoryFragment(), "Categories");
-        adapter.addFragment(new SuggestionFragment(), "Suggestion");
+        adapter.addFragment(new CategoryInterface(), "Categories");
+        adapter.addFragment(new SuggestionInterface(), "Suggestion");
         viewPager.setAdapter(adapter);
     }
 

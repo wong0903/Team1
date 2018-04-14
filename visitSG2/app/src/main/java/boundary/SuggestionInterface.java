@@ -1,35 +1,33 @@
 package boundary;
 
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.wong0903.visitsg.R;
 
 /**
- * Created by wong0903 on 20/3/2018.
- * This class displays the sorted list of attractions
- * retrieved by the method in suggested manager.
+ * Created by nigelleong on 14/4/18.
  */
 
-public class SuggestionInterface extends AppCompatActivity {
+public class SuggestionInterface extends Fragment {
 
-    protected void onCreate(Bundle savedInstancedState){
-        super.onCreate(savedInstancedState);
-        setContentView(R.layout.activity_categories);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+    public SuggestionInterface() {
+        // Required empty public constructor
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.activity_suggestions, container, false);
     }
 
 }
