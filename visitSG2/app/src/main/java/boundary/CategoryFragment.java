@@ -69,7 +69,6 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
             public void run() {
                 ArrayList<String> matchedURLList;
                 matchedURLList = categoryManager.getAttractionsUnderCategory(category);
-
                 Bundle information = new Bundle();
                 information.putStringArrayList("matchedURLList", matchedURLList);
                 Intent intent = new Intent(getActivity(), ListViewInterface.class);
