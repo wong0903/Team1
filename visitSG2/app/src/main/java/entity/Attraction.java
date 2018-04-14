@@ -26,6 +26,8 @@ public class Attraction implements Parcelable{
     private String operatingHours;
     private String weatherType;
     private double overallRating;
+    private String longitude;
+    private String latitude;
 
     public Attraction(){
         this.setId(0);
@@ -38,7 +40,7 @@ public class Attraction implements Parcelable{
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      String operatingHours,double overallRating, String category, String thumbnailUrl){
+                      String operatingHours,double overallRating, String thumbnailUrl){
         this.id = attractionID;
         this.name = name;
         this.address = address;
@@ -57,6 +59,8 @@ public class Attraction implements Parcelable{
         thumbnailUrl = in.readString();
         description = in.readString();
         apiURL = in.readString();
+        latitude = in.readString();
+        longitude = in.readString();
     }
 
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
@@ -152,7 +156,8 @@ public class Attraction implements Parcelable{
         parcel.writeString(thumbnailUrl);
         parcel.writeString(description);
         parcel.writeString(apiURL);
-
+        parcel.writeString(latitude);
+        parcel.writeString(longitude);
     }
 
     public String getThumbnailUrl() {
@@ -169,5 +174,21 @@ public class Attraction implements Parcelable{
 
     public void setApiURL(String apiURL) {
         this.apiURL = apiURL;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }
