@@ -54,7 +54,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         TextView rating = findViewById(R.id.targetAttractionOverallRating);
         TextView description = findViewById(R.id.targetAttractionDescription);
         btn_navigation = findViewById(R.id.btn_navigation);
-
+        btn_navigation.setOnClickListener(this);
 
         // thumbnail image
         thumbNail.setImageUrl(attraction.getThumbnailUrl(), imageLoader);
@@ -78,13 +78,13 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         //overall rating
 //        rating.setText(a.getOverallRating());
         rating.setText(String.valueOf(attraction.getOverallRating()));
-
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_navigation:
+                Log.d("navigate?","yes");
                 attractionManager.getNavigation(informationList.get(7),informationList.get(8));
                 break;
             default:
