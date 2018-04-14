@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
  * Created by wong0903 on 11/4/2018.
  */
 
-public class AttractionManager {
+public class AttractionManager extends NavigationManager{
     private String apiURL= "";
     private List<String> informationList = new ArrayList<>();
 
@@ -55,6 +55,11 @@ public class AttractionManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void getNavigation(String longitude, String latitude){
+        super.getNavigation(longitude, latitude);
     }
 
      class RetrieveFeedTask extends AsyncTask<Void, Void, List<String>> {
@@ -104,6 +109,12 @@ public class AttractionManager {
 
                         String content = json.getString("shortContent");
                         informationList.add(content);
+
+                        String longitude = json.getString("longitude");
+                        informationList.add(longitude);
+
+                        String latitude = json.getString("latitude");
+                        informationList.add(latitude);
                     }
                     return informationList;
                 } finally {

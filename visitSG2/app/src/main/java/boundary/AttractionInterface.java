@@ -26,13 +26,13 @@ import entity.Attraction;
  * Created by wong0903 on 9/4/2018.
  */
 
-public class AttractionInterface extends AppCompatActivity implements View.OnClickListener{
+public class AttractionInterface extends AppCompatActivity implements View.OnClickListener {
 
 
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     List<String> informationList = new ArrayList<>();
-    Button  btn_navigation;
-
+    Button btn_navigation;
+    AttractionManager attractionManager = new AttractionManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +41,14 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         Intent i = getIntent();
         Attraction attraction = i.getExtras().getParcelable("attraction");
 
-        AttractionManager attractionManager = new AttractionManager();
-        Log.d("url",attraction.getApiURL());
+        Log.d("url", attraction.getApiURL());
         informationList = attractionManager.retrieveDetailedInformation(attraction.getApiURL());
-        attraction.setDescription(informationList.get(informationList.size()-1));
+        attraction.setDescription(informationList.get(6));
 
 
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView)findViewById(R.id.targetAttractionThumbnail);
+        NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.targetAttractionThumbnail);
         TextView name = findViewById(R.id.targetAttractionName);
         TextView address = findViewById(R.id.targetAttractionAddress);
         TextView rating = findViewById(R.id.targetAttractionOverallRating);
@@ -58,21 +57,21 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
 
 
         // thumbnail image
-            thumbNail.setImageUrl(attraction.getThumbnailUrl(), imageLoader);
+        thumbNail.setImageUrl(attraction.getThumbnailUrl(), imageLoader);
 
 
         // title
-        if(attraction.getName() != null) {
+        if (attraction.getName() != null) {
             name.setText(attraction.getName());
         }
 
         // address
-        if(attraction.getAddress() != null) {
+        if (attraction.getAddress() != null) {
             address.setText(attraction.getAddress());
         }
 
         // description
-        if(attraction.getDescription() != null) {
+        if (attraction.getDescription() != null) {
             description.setText(attraction.getDescription());
         }
 
@@ -84,23 +83,12 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View view) {
-//        switch(view.getId()) {
-//            case R.id.btn_navigation:
-//                if (AttractionManager.getNavigation()) {
-//                    session.setLogin(true);
-//                    Toast.makeText(getApplicationContext(), "Redirecting...",
-//                            Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(this, MainInterface.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(intent);
-//                    finish();
-//                } else {
-//                    Toast.makeText(getApplicationContext(),"Unable to get navigation" , Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-
+        switch (view.getId()) {
+            case R.id.btn_navigation:
+                attractionManager.getNavigation(informationList.get(7),informationList.get(8));
+                break;
+            default:
+                break;
+        }
     }
 }
