@@ -23,6 +23,8 @@ public abstract class AppDatabase extends RoomDatabase{
 
     public abstract AttractionDao attractionDao();
 
+    public abstract RatingAndReviewDao ratingAndReviewDao();
+
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE =

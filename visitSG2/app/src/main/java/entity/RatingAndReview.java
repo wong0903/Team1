@@ -1,5 +1,6 @@
 package entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 
 import java.util.Date;
@@ -12,26 +13,28 @@ import java.util.Date;
 
 @Entity(tableName = "ratings")
 public class RatingAndReview {
-    private int rating;
     private String attractionURL;
+    @ColumnInfo(name = "user")
+    private String username;
+    private int rating = 0;
+    private String review = "";
     private Date date;
-    private String review;
-    private String loginID;
+
 
     public RatingAndReview(){
         this.setRating(0);
         this.setAttractionURL("");
         this.setDate(null);
         this.setReview("");
-        this.setLoginID("");
+        this.setUsername("");
     }
 
-    public RatingAndReview(int rating, String attractionID, Date date, String review, String loginID) {
+    public RatingAndReview(int rating, String attractionURL, Date date, String review, String username) {
         this.rating = rating;
         this.attractionURL = attractionURL;
         this.date = date;
         this.review = review;
-        this.loginID = loginID;
+        this.username = username;
     }
 
     public int getRating() {
@@ -66,11 +69,11 @@ public class RatingAndReview {
         this.review = review;
     }
 
-    public String getLoginID() {
-        return loginID;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLoginID(String loginID) {
-        this.loginID = loginID;
+    public void setUsername(String loginID) {
+        this.username = username;
     }
 }

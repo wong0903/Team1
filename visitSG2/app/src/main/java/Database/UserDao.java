@@ -20,6 +20,9 @@ public interface UserDao {
     @Query("SELECT * FROM users")
     List<User> getAll();
 
+//    @Query("SELECT ")
+//    User getUser();
+
     @Query("SELECT * FROM users where loginID = :loginID")
     User findByID(String loginID);
 

@@ -90,8 +90,12 @@ public class AttractionManager {
                         String operatingHours = json.getString("opening-hours");
                         informationList.add(operatingHours);
 
-                        String image = images.getJSONObject(0).getString("url");
-                        informationList.add(image);
+                        if(images.length() != 0) {
+                            String image = images.getJSONObject(0).getString("url");
+                            informationList.add(image);
+                        }else
+                            informationList.add("");
+
 
                         String webURL = json.getString("url");
                         informationList.add(webURL);

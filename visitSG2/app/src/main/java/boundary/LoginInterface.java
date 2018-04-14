@@ -53,9 +53,10 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
 
 
         // Check if user is already logged in or not
+
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginInterface.this, SearchInterface.class);
+            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
             startActivity(intent);
         }
 
@@ -74,12 +75,12 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                     session.setLogin(true);
                     Toast.makeText(getApplicationContext(), "Redirecting...",
                             Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, SearchInterface.class);
+                    Intent intent = new Intent(this, MainInterface.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(getApplicationContext(),"error" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.txt_signup:

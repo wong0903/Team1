@@ -53,16 +53,23 @@ public class AttractionInterface extends AppCompatActivity {
 
 
         // thumbnail image
-        thumbNail.setImageUrl(attraction.getThumbnailUrl(), imageLoader);
+            thumbNail.setImageUrl(attraction.getThumbnailUrl(), imageLoader);
+
 
         // title
-        name.setText(attraction.getName());
+        if(attraction.getName() != null) {
+            name.setText(attraction.getName());
+        }
 
         // address
-        address.setText(attraction.getAddress());
+        if(attraction.getAddress() != null) {
+            address.setText(attraction.getAddress());
+        }
 
         // description
-        description.setText(attraction.getDescription());
+        if(attraction.getDescription() != null) {
+            description.setText(attraction.getDescription());
+        }
 
         //overall rating
 //        rating.setText(a.getOverallRating());

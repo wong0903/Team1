@@ -21,6 +21,7 @@ import com.example.wong0903.visitsg.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Database.AppDatabase;
 import helper.SessionManager;
 
 /**
@@ -34,6 +35,8 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
     ProgressBar progressBar;
 
     private SessionManager session;
+
+    AppDatabase db;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -61,6 +64,11 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         responseView = findViewById(R.id.responseView);
         inputText = findViewById(R.id.inputText);
         progressBar = findViewById(R.id.progressBar);
+
+
+        db = AppDatabase.getAppDatabase(getApplicationContext());
+
+        session = new SessionManager(getApplicationContext());
 
         btn_login = findViewById(R.id.btn_login);
     }
@@ -116,8 +124,7 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
     }
 
 
-//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
-//
+//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> //
 //        private Exception exception;
 //
 //        protected void onPreExecute() {
@@ -190,4 +197,4 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
 //                return results;
 //        }
 //    }
-}
+
