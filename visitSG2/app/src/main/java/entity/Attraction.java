@@ -1,5 +1,6 @@
 package entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -10,13 +11,11 @@ import android.support.annotation.NonNull;
  * Created by wong0903 on 20/3/2018.
  * This class implements the Attraction entity with
  * the attributes attractionID, name, address, description, webURL,
- * operatingHours, weatherType and overallRating. This class can get the direction
+ * operatingHours, weatherType and OverallRating. This class can get the direction
  * to the attraction.
  */
 
-@Entity(tableName = "attractions")
 public class Attraction implements Parcelable{
-    @PrimaryKey @NonNull
     private String webURL;
     private String apiURL;
     private int id;

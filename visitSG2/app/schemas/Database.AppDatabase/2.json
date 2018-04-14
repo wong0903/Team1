@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "2f2752626eb6a678b3c44043b58ceade",
+    "identityHash": "59089b2a540a2c75101a4105b5677d1c",
     "entities": [
       {
         "tableName": "users",
@@ -37,62 +37,14 @@
         "foreignKeys": []
       },
       {
-        "tableName": "attractions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`webURL` TEXT NOT NULL, `apiURL` TEXT, `id` INTEGER NOT NULL, `name` TEXT, `address` TEXT, `description` TEXT, `thumbnailUrl` TEXT, `operatingHours` TEXT, `weatherType` TEXT, `overallRating` REAL NOT NULL, PRIMARY KEY(`webURL`))",
+        "tableName": "OverallRating",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attractionURL` TEXT NOT NULL, `overallRating` REAL NOT NULL, PRIMARY KEY(`attractionURL`))",
         "fields": [
           {
-            "fieldPath": "webURL",
-            "columnName": "webURL",
+            "fieldPath": "attractionURL",
+            "columnName": "attractionURL",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "apiURL",
-            "columnName": "apiURL",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "address",
-            "columnName": "address",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "thumbnailUrl",
-            "columnName": "thumbnailUrl",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "operatingHours",
-            "columnName": "operatingHours",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "weatherType",
-            "columnName": "weatherType",
-            "affinity": "TEXT",
-            "notNull": false
           },
           {
             "fieldPath": "overallRating",
@@ -103,7 +55,46 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "webURL"
+            "attractionURL"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ratings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attractionURL` TEXT NOT NULL, `user` TEXT NOT NULL, `rating` INTEGER NOT NULL, `review` TEXT, PRIMARY KEY(`attractionURL`, `user`))",
+        "fields": [
+          {
+            "fieldPath": "attractionURL",
+            "columnName": "attractionURL",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "user",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "review",
+            "columnName": "review",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "attractionURL",
+            "user"
           ],
           "autoGenerate": false
         },
@@ -113,7 +104,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2f2752626eb6a678b3c44043b58ceade\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"59089b2a540a2c75101a4105b5677d1c\")"
     ]
   }
 }

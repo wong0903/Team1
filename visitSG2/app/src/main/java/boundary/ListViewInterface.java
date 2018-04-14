@@ -34,10 +34,6 @@ public class ListViewInterface extends Fragment {
     private ListView listView;
     private CustomListAdapter adapter;
 
-    public ListViewInterface() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +43,7 @@ public class ListViewInterface extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_attraction_list_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
 
         Bundle information = getIntent().getExtras();
         matchedURLList = information.getStringArrayList("matchedURLList");
@@ -89,9 +85,8 @@ public class ListViewInterface extends Fragment {
             }
         });
 
-        return view;
+        return view
     }
-
 
 
     public ListView getListView() {
