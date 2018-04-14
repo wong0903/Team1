@@ -28,7 +28,7 @@ import helper.SessionManager;
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-public class MainInterface extends AppCompatActivity implements View.OnClickListener{
+public class MainInterface extends AppCompatActivity implements View.OnClickListener {
 
     EditText inputText;
     TextView responseView;
@@ -112,7 +112,7 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.btn_login:
                 Intent intent1 = new Intent(this, LoginInterface.class);
                 startActivity(intent1);
@@ -122,6 +122,7 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         }
 
     }
+}
 
 
 //    class RetrieveFeedTask extends AsyncTask<Void, Void, String> //

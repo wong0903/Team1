@@ -15,10 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import Database.AppDatabase;
-import entity.Attraction;
-import entity.Category;
-
 /**
  * Created by wong0903 on 20/3/2018.
  */

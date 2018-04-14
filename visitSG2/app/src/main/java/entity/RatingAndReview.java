@@ -2,6 +2,8 @@ package entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.Date;
 
@@ -11,28 +13,27 @@ import java.util.Date;
  * attributes rating and creationDate.
  */
 
-@Entity(tableName = "ratings")
+@Entity(tableName = "ratings", primaryKeys = {"attractionURL","user"})
 public class RatingAndReview {
+    @NonNull
     private String attractionURL;
     @ColumnInfo(name = "user")
+    @NonNull
     private String username;
-    private int rating = 0;
-    private String review = "";
-    private Date date;
+    private int rating;
+    private String review;
 
 
     public RatingAndReview(){
         this.setRating(0);
         this.setAttractionURL("");
-        this.setDate(null);
         this.setReview("");
         this.setUsername("");
     }
 
-    public RatingAndReview(int rating, String attractionURL, Date date, String review, String username) {
+    public RatingAndReview(int rating, String attractionURL, String review, String username) {
         this.rating = rating;
         this.attractionURL = attractionURL;
-        this.date = date;
         this.review = review;
         this.username = username;
     }
@@ -51,14 +52,6 @@ public class RatingAndReview {
 
     public void setAttractionURL(String attractionID) {
         this.attractionURL = attractionURL;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getReview() {

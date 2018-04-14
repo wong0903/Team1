@@ -54,11 +54,11 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
 
         // Check if user is already logged in or not
 
-        if (session.isLoggedIn()) {
-            // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
-            startActivity(intent);
-        }
+//        if (session.isLoggedIn()) {
+//            // User is already logged in. Take him to main activity
+//            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
+//            startActivity(intent);
+//        }
 
         btnLogin.setOnClickListener(this);
 //        btnSignUp.setOnClickListener(this);

@@ -7,7 +7,6 @@ package boundary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,17 +69,12 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
             public void run() {
                 ArrayList<String> matchedURLList;
                 matchedURLList = categoryManager.getAttractionsUnderCategory(category);
-                Fragment fragment = new Fragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, someFragment ); // give your fragment container id in first parameter
-                transaction.addToBackStack(null);  // if written, this transaction will be added to backstack
-                transaction.commit();
+
                 Bundle information = new Bundle();
                 information.putStringArrayList("matchedURLList", matchedURLList);
-                fragment.setArguments(information);
-//                Intent intent = new Intent(getActivity(), ListViewInterface.class);
-//                intent.putExtras(information);
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ListViewInterface.class);
+                intent.putExtras(information);
+                startActivity(intent);
             }
         }).start();
     }

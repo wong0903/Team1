@@ -1,6 +1,9 @@
 package control;
 
+import android.widget.Toast;
+
 import Database.AppDatabase;
+import entity.OverallRating;
 import entity.User;
 
 /**
@@ -43,7 +46,7 @@ public class UserManager {
     }
 
     public static boolean verifyPassword(String password){
-        if(password.matches("[A-Za-z0-9]+")){
+        if(!password.matches("[A-Za-z0-9]+")){
             return false;
         }else if( password.length() < 8 && password.length() > 20) {
             return false;

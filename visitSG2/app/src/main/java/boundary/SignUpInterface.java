@@ -34,8 +34,7 @@ public class SignUpInterface extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         txtName = findViewById(R.id.name_sign);
         txtPassword = findViewById(R.id.pass_sign);
@@ -74,8 +73,8 @@ public class SignUpInterface extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(UserManager.verifyLoginID(db,mUsername) && UserManager.verifyPassword(mPassword)
-                    && UserManager.confirmPassword(mPassword,cPassword))
+            if(!(UserManager.verifyLoginID(db,mUsername) && UserManager.verifyPassword(mPassword)
+                    && UserManager.confirmPassword(mPassword,cPassword)))
                 return false;
             UserManager.signUp(db, mUsername, mPassword, mEmail);
             return true;
