@@ -1,6 +1,7 @@
 package boundary;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,7 +18,9 @@ import org.w3c.dom.Attr;
 import java.util.ArrayList;
 import java.util.List;
 
+import Database.AppDatabase;
 import control.AttractionManager;
+import control.RateReviewManager;
 import entity.Attraction;
 import helper.CustomListAdapter;
 
@@ -32,6 +35,7 @@ public class ListViewInterface extends AppCompatActivity {
     private ListView listView;
     private CustomListAdapter adapter;
     private Toolbar toolbar;
+    AppDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,10 +49,14 @@ public class ListViewInterface extends AppCompatActivity {
         Bundle information = getIntent().getExtras();
         matchedURLList = information.getStringArrayList("matchedURLList");
 
+        db = AppDatabase.getAppDatabase(getApplicationContext());
+
         AttractionManager attractionManager = new AttractionManager();
+        RateReviewManager rateReviewManager = new RateReviewManager();
         for (String url : matchedURLList) {
             Attraction attraction = new Attraction();
             basicInformationList = attractionManager.retrieveBasicInformation(url);
+            double overallRating = rateReviewManager.retrieveAttractionOverallRating(db,url);
             if (basicInformationList != null) {
                 attraction.setName(basicInformationList.get(0));
                 attraction.setAddress(basicInformationList.get(1));
@@ -56,9 +64,10 @@ public class ListViewInterface extends AppCompatActivity {
                 attraction.setThumbnailUrl(basicInformationList.get(3));
                 attraction.setWebURL(basicInformationList.get(4));
                 attraction.setApiURL(basicInformationList.get(5));
-                attraction.setOverallRating(0);
-                matchedAttractionList.add(attraction);
             }
+            attraction.setOverallRating(overallRating);
+            matchedAttractionList.add(attraction);
+            db.attractionDao().insertAttraction(attraction);
         }
         listView = findViewById(R.id.list);
         adapter = new CustomListAdapter(this, matchedAttractionList);
@@ -73,7 +82,6 @@ public class ListViewInterface extends AppCompatActivity {
 
                 // selected item
                 Attraction attraction = matchedAttractionList.get(position);
-                ;
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity

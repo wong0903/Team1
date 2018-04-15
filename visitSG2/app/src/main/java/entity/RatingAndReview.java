@@ -31,7 +31,7 @@ public class RatingAndReview {
         this.setUsername("");
     }
 
-    public RatingAndReview(int rating, String attractionURL, String review, String username) {
+    public RatingAndReview(int rating, String review, String attractionURL, String username) {
         this.rating = rating;
         this.attractionURL = attractionURL;
         this.review = review;

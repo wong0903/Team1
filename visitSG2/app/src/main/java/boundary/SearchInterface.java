@@ -1,111 +1,115 @@
 package boundary;
 
-import android.app.ProgressDialog;
+/**
+ * Created by nigelleong on 14/4/18.
+ */
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.example.wong0903.visitsg.R;
-
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import control.SearchManager;
-import entity.Attraction;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
-public class SearchInterface extends AppCompatActivity implements View.OnClickListener {
+
+public class SearchInterface extends Fragment implements View.OnClickListener, OnMapReadyCallback {
 
     EditText inputText;
-    TextView responseView;
-    ProgressBar progressBar;
-    Button btn_search;
-    Button btn_categories;
-    Button btn_suggestions;
-    Button btn_login;
     String attraction;
-    List<Attraction> matchedAttractionList;
-//    private ListView listView;
-//    private CustomListAdapter adapter;
-    private ProgressDialog pDialog;
+    Button btn_search;
+
+    public SearchInterface() {
+        // Required empty public constructor
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-//        listView = (ListView) findViewById(R.id.list);
-//        adapter = new CustomListAdapter(this, matchedAttractionList);
-//        listView.setAdapter(adapter);
+    }
 
-//        pDialog = new ProgressDialog(this);
-//        // Showing progress dialog before making http request
-//        pDialog.setMessage("Loading...");
-//        pDialog.show();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-//        responseView = findViewById(R.id.responseView);
-        inputText = (EditText) findViewById(R.id.inputText);
-//        progressBar = findViewById(R.id.progressBar);
 
-        // changing action bar color
-//        getActionBar().setBackgroundDrawable(
-//                new ColorDrawable(Color.parseColor("#1b1b1b")));
+        // Inflate the layout for this fragment
+        View view =  inflater.inflate(R.layout.fragment_search, container, false);
+        inputText = (EditText) view.findViewById(R.id.inputText);
 
-//        btn_search = findViewById(R.id.btn_search);
-//
-//        btn_search.setOnClickListener(this);
+        btn_search = (Button) view.findViewById(R.id.btn_search);
+        btn_search.setOnClickListener(this);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        return view;
     }
 
     @Override
     public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.btn_search:
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                    try {
-//                        SearchManager searchManager = new SearchManager();
-//                        attraction = inputText.getText().toString();
-//                        if(!attraction.isEmpty()) {
-//                            ArrayList<String> matchedURLList = searchManager.search(attraction);
-//                            Bundle information = new Bundle();
-//                            information.putStringArrayList("matchedURLList", matchedURLList);
-//                            Intent intent = new Intent(SearchInterface.this, ListViewInterface.class);
-//                            intent.putExtras(information);
-//                            startActivity(intent);
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//                    }
-//                }).start();
-//                break;
-////            case R.id.btn_categories:
-////                Intent intent2 = new Intent(this, CategoryInterface.class);
-////                startActivity(intent2);
-////                break;
-////            case R.id.btn_suggestions:
-////                Intent intent3 = new Intent(this, SuggestionInterface.class);
-////                startActivity(intent3);
-////                break;
-////            case R.id.btn_login:
-////                Intent intent4 = new Intent(SearchInterface.this, LoginInterface.class);
-////                startActivity(intent4);
-////                break;
-//            default:
-//                break;
-//        }
+        switch (view.getId()) {
+            case R.id.btn_search:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                    try {
+                        SearchManager searchManager = new SearchManager();
+                        attraction = inputText.getText().toString();
+                        if(!attraction.isEmpty()) {
+                            ArrayList<String> matchedURLList = searchManager.search(attraction);
+                            Bundle information = new Bundle();
+                            information.putStringArrayList("matchedURLList", matchedURLList);
+                            Intent intent = new Intent(getActivity(), ListViewInterface.class);
+                            intent.putExtras(information);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    }
+                }).start();
+                break;
+            default:
+                break;
+        }
 
+    }
+
+    /**
+     * Manipulates the map when it's available.
+     * The API invokes this callback when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user receives a prompt to install
+     * Play services inside the SupportMapFragment. The API invokes this method after the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        // Add a marker in Sydney, Australia,
+        // and move the map's camera to the same location.
+        LatLng singapore = new LatLng(1.338709, 103.819519);
+        googleMap.addMarker(new MarkerOptions().position(singapore)
+                .title("Marker in Singapore"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(singapore));
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(11),3000,null);
     }
 }

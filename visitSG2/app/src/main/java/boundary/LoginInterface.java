@@ -2,6 +2,7 @@ package boundary;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,8 @@ import com.example.wong0903.visitsg.R;
 
 import Database.AppDatabase;
 import control.UserManager;
+import entity.LoggedInUser;
+import entity.User;
 import helper.SessionManager;
 
 /**
@@ -28,8 +31,8 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
     String username,password;
     TextView txtSignUp;
     ProgressDialog pDialog;
-    SessionManager session;
     private AppDatabase db;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,22 +49,20 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
-        // Session manager
-        session = new SessionManager(getApplicationContext());
-
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
+        sp = getSharedPreferences("login",MODE_PRIVATE);
 
         // Check if user is already logged in or not
 
-//        if (session.isLoggedIn()) {
-//            // User is already logged in. Take him to main activity
-//            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
-//            startActivity(intent);
-//        }
+        if(sp.getBoolean("logged",false)){
+            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
+            startActivity(intent);
+        }
+
 
         btnLogin.setOnClickListener(this);
-//        btnSignUp.setOnClickListener(this);
+        //btnSignUp.setOnClickListener(this);
 
     }
 
@@ -72,12 +73,15 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                 username = txtName.getText().toString();
                 password = txtPassword.getText().toString();
                 if (UserManager.login(db, username, password)) {
-                    session.setLogin(true);
+                    String email = db.userDao().retrieveEmail(username);
+                    LoggedInUser user = new LoggedInUser(username,password,email);
+                    db.loggedInUserDao().insertUser(user);
                     Toast.makeText(getApplicationContext(), "Redirecting...",
                             Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, MainInterface.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    sp.edit().putBoolean("logged",true).apply();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();

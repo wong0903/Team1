@@ -49,8 +49,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/targetAttractionAddress"
-            android:layout_centerHorizontal="true"
             android:text="@string/btn_navigation"
+            android:textColorLink="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/btn_rating"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/targetAttractionAddress"
+            android:layout_toRightOf="@id/btn_navigation"
+            android:text="@string/btn_rating"
             android:textColorLink="@color/colorAccent"/>
 
         <TextView android:id="@+id/targetAttractionDescription"

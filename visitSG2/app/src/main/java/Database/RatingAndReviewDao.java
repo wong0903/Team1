@@ -8,7 +8,6 @@ import android.arch.persistence.room.Query;
 import java.util.List;
 
 import entity.RatingAndReview;
-import entity.User;
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
@@ -21,6 +20,12 @@ public interface RatingAndReviewDao {
 
     @Query("SELECT * FROM ratings WHERE attractionURL = :attractionURL")
     List<RatingAndReview> getAttractionRatingAndReview(String attractionURL);
+
+    @Query("SELECT COUNT(rating) FROM ratings WHERE attractionURL = :attractionURL")
+    int getNumberOfRaters(String attractionURL);
+
+    @Query("SELECT SUM(rating) FROM ratings WHERE attractionURL = :attractionURL")
+    int getTotalRatings(String attractionURL);
 
     @Insert(onConflict = IGNORE)
     void insertRatingAndReview(RatingAndReview ratingAndReview);

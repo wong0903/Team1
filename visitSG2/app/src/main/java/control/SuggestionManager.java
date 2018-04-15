@@ -3,6 +3,7 @@ package control;
 import java.util.ArrayList;
 import java.util.List;
 
+import Database.AppDatabase;
 import entity.Attraction;
 
 /**
@@ -12,18 +13,12 @@ import entity.Attraction;
  */
 
 public class SuggestionManager {
-    private List<Attraction> suggestedList = new ArrayList<Attraction>();
-    public List<Attraction> retrieveSortedRatingList(){
+    private static List<String> suggestedList = new ArrayList<String>();
+    public static List<String> retrieveSortedAttractionList(AppDatabase db){
         //return a list of attraction with overall ratings and name from the local database.
+        suggestedList = db.attractionDao().getSortedAttractionList();
         return suggestedList;
     }
 
-    public List<Attraction> getSuggestions(){
-        suggestedList = retrieveSortedRatingList();
-        /*call to the visitSingapore API and
-        return the basic information of the attraction in the sorted list
-        */
-        return suggestedList;
-    }
 
 }

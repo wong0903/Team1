@@ -1,9 +1,6 @@
 package control;
 
-import android.widget.Toast;
-
 import Database.AppDatabase;
-import entity.OverallRating;
 import entity.User;
 
 /**

@@ -15,8 +15,10 @@ import android.support.annotation.NonNull;
  * to the attraction.
  */
 
+@Entity(tableName = "attraction")
 public class Attraction implements Parcelable{
     private String webURL;
+    @PrimaryKey @NonNull
     private String apiURL;
     private int id;
     private String name;
@@ -25,9 +27,12 @@ public class Attraction implements Parcelable{
     private String thumbnailUrl;
     private String operatingHours;
     private String weatherType;
-    private double overallRating;
     private String longitude;
     private String latitude;
+    @ColumnInfo(name = "overallRating")
+    private double overallRating;
+    @ColumnInfo(name = "count")
+    private int numberOfRaters;
 
     public Attraction(){
         this.setId(0);
@@ -35,21 +40,19 @@ public class Attraction implements Parcelable{
         this.setAddress("");
         this.setDescription("");
         this.setWebURL("");
-        this.setOverallRating(0.0);
         this.setWeatherType("");
         this.setLatitude("");
         this.setLongitude("");
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      String operatingHours,double overallRating, String thumbnailUrl){
+                      String operatingHours, String thumbnailUrl){
         this.id = attractionID;
         this.name = name;
         this.address = address;
         this.description = description;
         this.webURL = webURL;
         this.operatingHours = operatingHours;
-        this.overallRating = overallRating;
         this.thumbnailUrl = thumbnailUrl;
 
     }
@@ -130,14 +133,6 @@ public class Attraction implements Parcelable{
         this.operatingHours = operatingHours;
     }
 
-    public double getOverallRating() {
-        return overallRating;
-    }
-
-    public void setOverallRating(double overallRating) {
-        this.overallRating = 0;
-    }
-
     public String getWeatherType() {
         return weatherType;
     }
@@ -194,5 +189,21 @@ public class Attraction implements Parcelable{
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public double getOverallRating() {
+        return overallRating;
+    }
+
+    public void setOverallRating(double overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public int getNumberOfRaters() {
+        return numberOfRaters;
+    }
+
+    public void setNumberOfRaters(int numberOfRaters) {
+        this.numberOfRaters = numberOfRaters;
     }
 }

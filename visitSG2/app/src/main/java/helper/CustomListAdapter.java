@@ -11,6 +11,7 @@ import entity.Attraction;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.NetworkImageView;
 
 public class CustomListAdapter extends BaseAdapter {
     private Activity activity;
+    private Fragment fragment;
     private LayoutInflater inflater;
     private List<Attraction> attractionItems;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
@@ -79,7 +81,7 @@ public class CustomListAdapter extends BaseAdapter {
 
         // rating
 //        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
-        rating.setText("Rating: " + String.valueOf(0));
+        rating.setText(String.valueOf(a.getOverallRating()));
 
 //        // genre
 //        String genreStr = "";

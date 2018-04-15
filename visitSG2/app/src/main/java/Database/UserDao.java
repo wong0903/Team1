@@ -20,11 +20,11 @@ public interface UserDao {
     @Query("SELECT * FROM users")
     List<User> getAll();
 
-//    @Query("SELECT ")
-//    User getUser();
-
     @Query("SELECT * FROM users where loginID = :loginID")
     User findByID(String loginID);
+
+    @Query("SELECT email FROM users where loginID = :loginID")
+    String retrieveEmail(String loginID);
 
     @Insert(onConflict = IGNORE)
     void insertUser(User user);

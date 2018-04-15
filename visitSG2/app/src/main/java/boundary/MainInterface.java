@@ -30,20 +30,12 @@ import helper.SessionManager;
  */
 public class MainInterface extends AppCompatActivity implements View.OnClickListener {
 
-    EditText inputText;
-    TextView responseView;
-    ProgressBar progressBar;
-
-    private SessionManager session;
-
     AppDatabase db;
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageButton btn_login;
-
-    //tatic final String API_URL = "http://www.visitsingapore.com/ysapi-services/RequestAPI?format=details&locale=en&pageid=84";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,21 +53,14 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-//        responseView = findViewById(R.id.responseView);
-//        inputText = findViewById(R.id.inputText);
-//        progressBar = findViewById(R.id.progressBar);
-
-
         db = AppDatabase.getAppDatabase(getApplicationContext());
-
-        session = new SessionManager(getApplicationContext());
 
         btn_login = findViewById(R.id.btn_login);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new SearchFragment(), "Search");
+        adapter.addFragment(new SearchInterface(), "Search");
         adapter.addFragment(new CategoryInterface(), "Categories");
         adapter.addFragment(new SuggestionInterface(), "Suggestion");
         viewPager.setAdapter(adapter);

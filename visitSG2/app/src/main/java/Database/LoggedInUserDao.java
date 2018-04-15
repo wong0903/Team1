@@ -7,7 +7,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import entity.OverallRating;
+import entity.LoggedInUser;
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
@@ -16,14 +16,18 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
  */
 
 @Dao
-public interface OverallRatingDao {
+public interface LoggedInUserDao {
 
-    @Query("SELECT * FROM OverallRating")
-    List<OverallRating> getOverallRatingList();
+    @Query("SELECT * FROM loggedinuser")
+    LoggedInUser getUser();
+
+    @Query("SELECT * FROM loggedinuser where loginID = :loginID")
+    LoggedInUser findByID(String loginID);
 
     @Insert(onConflict = IGNORE)
-    void insertOverallRating(OverallRating overallRating);
+    void insertUser(LoggedInUser user);
 
     @Delete
-    void delete(OverallRating overallRating);
+    void delete(LoggedInUser user);
 }
+

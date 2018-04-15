@@ -7,7 +7,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
-import entity.OverallRating;
+import entity.Attraction;
+import entity.LoggedInUser;
 import entity.RatingAndReview;
 import entity.User;
 
@@ -16,7 +17,7 @@ import entity.User;
  */
 
 
-@Database(entities = {User.class, OverallRating.class, RatingAndReview.class}, version = 2)
+@Database(entities = {User.class, Attraction.class, RatingAndReview.class, LoggedInUser.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase{
 
     private static AppDatabase INSTANCE;
@@ -24,12 +25,23 @@ public abstract class AppDatabase extends RoomDatabase{
     public abstract UserDao userDao();
 
     public abstract RatingAndReviewDao ratingAndReviewDao();
-    public abstract OverallRatingDao overallRatingDao();
+
+    public abstract AttractionDao attractionDao();
+
+    public abstract LoggedInUserDao loggedInUserDao();
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             // Since we didn't alter the table, there's nothing else to do here.
+        }
+    };
+
+    static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE OverallRating "
+                    + " ADD COLUMN count INTEGER NOT NULL DEFAULT 0");
         }
     };
 
@@ -40,7 +52,8 @@ public abstract class AppDatabase extends RoomDatabase{
                             // allow queries on the main thread.
                             // Don't do this on a real app! See PersistenceBasicSample for an example.
                             .allowMainThreadQueries()
-                            .addMigrations(MIGRATION_1_2)
+                            .fallbackToDestructiveMigration()
+                            //.addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                             .build();
         }
         return INSTANCE;
