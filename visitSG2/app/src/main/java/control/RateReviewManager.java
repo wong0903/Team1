@@ -20,15 +20,18 @@ public class RateReviewManager {
         db.attractionDao().updateNumberOfRaters(attractionURL);
     }
 
-    public void calculateOverallRating(AppDatabase db, String attractionURL, int rating) {
+    public double calculateOverallRating(AppDatabase db, String attractionURL, int rating) {
         int count = db.attractionDao().getCountbyAttractionURL(attractionURL);
         if(count > 1) {
             double oldOverallRating = db.attractionDao().getOverallRatingByAttractionURL(attractionURL);
-            double newOverallRating = (rating + oldOverallRating)/count;
+            double oldTotalRatings = oldOverallRating * (count - 1);
+            double newOverallRating = (rating + oldTotalRatings)/count;
             db.attractionDao().updateOverallRating(attractionURL, newOverallRating);
+            return newOverallRating;
         }
         else {
             db.attractionDao().updateOverallRating(attractionURL, rating);
+            return rating;
         }
     }
 

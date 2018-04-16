@@ -1,9 +1,7 @@
 package boundary;
 
 import android.app.ProgressDialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +14,6 @@ import com.example.wong0903.visitsg.R;
 
 import Database.AppDatabase;
 import control.UserManager;
-import helper.SessionManager;
 
 /**
  * Created by wong0903 on 10/4/2018.
@@ -25,7 +22,6 @@ import helper.SessionManager;
 public class SignUpInterface extends AppCompatActivity {
     EditText txtPassword, txtName, txtConfirmPass, txtEmail;
     ProgressDialog pDialog;
-    SessionManager session;
     private SignUpTask task = null;
     private AppDatabase db;
 

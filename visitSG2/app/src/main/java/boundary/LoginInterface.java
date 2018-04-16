@@ -16,8 +16,6 @@ import com.example.wong0903.visitsg.R;
 import Database.AppDatabase;
 import control.UserManager;
 import entity.LoggedInUser;
-import entity.User;
-import helper.SessionManager;
 
 /**
  * Created by wong0903 on 20/3/2018.

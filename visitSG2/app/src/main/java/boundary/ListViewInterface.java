@@ -57,7 +57,7 @@ public class ListViewInterface extends AppCompatActivity {
             Attraction attraction = new Attraction();
             basicInformationList = attractionManager.retrieveBasicInformation(url);
             double overallRating = rateReviewManager.retrieveAttractionOverallRating(db,url);
-            if (basicInformationList != null) {
+            if (basicInformationList != null && basicInformationList.size() > 0) {
                 attraction.setName(basicInformationList.get(0));
                 attraction.setAddress(basicInformationList.get(1));
                 attraction.setOperatingHours(basicInformationList.get(2));

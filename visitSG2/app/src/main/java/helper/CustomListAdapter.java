@@ -24,7 +24,6 @@ import com.android.volley.toolbox.NetworkImageView;
 
 public class CustomListAdapter extends BaseAdapter {
     private Activity activity;
-    private Fragment fragment;
     private LayoutInflater inflater;
     private List<Attraction> attractionItems;
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();

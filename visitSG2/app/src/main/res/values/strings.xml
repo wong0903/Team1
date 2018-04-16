@@ -33,6 +33,20 @@
     <string name="category6">Recreation &amp; Leisure</string>
     <string name="category7">Nature &amp; Wildlife</string>
 
+    <string name="image1">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/places-to-see/sentosa-carousel01-rect-norender.jpg</string>
+
+    <string name="image2">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/arts/the-esplanade-carousel01-rect.jpg</string>
+
+    <string name="image3">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/history/dalhousie-obelisk-carousel01-rect.jpg</string>
+
+    <string name="image4">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/architecture/lau-pa-sat-carousel01-rect.jpg</string>
+
+    <string name="image5">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/culture-heritage/sultan-mosque-carousel01-rect-norender.jpg</string>
+
+    <string name="image6">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/recreation-leisure/singapore-flyer-carousel01-rect-norender.jpg</string>
+
+    <string name="image7">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/chinese-garden-carousel01-rect.jpg</string>
+
     <!-- Strings related to suggestions -->
     <string name="top">Top 20</string>
 

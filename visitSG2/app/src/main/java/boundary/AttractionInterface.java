@@ -48,6 +48,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     AttractionManager attractionManager = new AttractionManager();
     RateReviewManager rateReviewManager = new RateReviewManager();
     AppDatabase db;
+    TextView rating;
     String username = "Anonymous";
     private String attractionName;
     TextView value;
@@ -66,9 +67,9 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         Intent i = getIntent();
         attraction = i.getExtras().getParcelable("attraction");
 
-        Log.d("url", attraction.getApiURL());
-        informationList = attractionManager.retrieveDetailedInformation(attraction.getApiURL());
+        informationList = attractionManager.retrieveDetailedInformation(db ,attraction.getApiURL());
         attraction.setDescription(informationList.get(6));
+        attraction.setOverallRating(Double.parseDouble(informationList.get(informationList.size()-1)));
 
 
         if (imageLoader == null)
@@ -76,7 +77,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.targetAttractionThumbnail);
         name = findViewById(R.id.targetAttractionName);
         TextView address = findViewById(R.id.targetAttractionAddress);
-        TextView rating = findViewById(R.id.targetAttractionOverallRating);
+        rating = findViewById(R.id.targetAttractionOverallRating);
         TextView description = findViewById(R.id.targetAttractionDescription);
 
         btn_navigation = findViewById(R.id.btn_navigation);
@@ -105,8 +106,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         }
 
         //overall rating
-//        rating.setText(a.getOverallRating());
-        //rating.setText(String.valueOf(attraction.getOverallRating()));
+        rating.setText(String.valueOf(attraction.getOverallRating()));
     }
 
     @Override
@@ -144,9 +144,11 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                 EditText txtReview = dialog.findViewById(R.id.reviewED);
                                 String review = txtReview.getText().toString();
                                 String attractionURL = attraction.getApiURL();
-                                int rating = ratingBar.getNumStars();
-                                rateReviewManager.RateAndReview(db,rating,review,attractionURL,username);
-                                rateReviewManager.calculateOverallRating(db, attractionURL, rating);
+                                int ratings = (int) ratingBar.getRating();
+                                rateReviewManager.RateAndReview(db,ratings,review,attractionURL,username);
+                                attraction.setOverallRating(rateReviewManager.calculateOverallRating(db,attractionURL,ratings));
+                                Log.d("rating",String.valueOf(attraction.getOverallRating()));
+                                rating.setText(String.valueOf(attraction.getOverallRating()));
                                 dialog.dismiss();
                             }
                         }).start();

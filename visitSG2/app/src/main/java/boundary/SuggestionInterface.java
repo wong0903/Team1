@@ -69,7 +69,7 @@ public class SuggestionInterface extends Fragment implements View.OnClickListene
                 returnList = SuggestionManager.retrieveSortedAttractionList(db);
                 suggestedList = (ArrayList) returnList;
                 Bundle information = new Bundle();
-                information.putStringArrayList("matchedURLList", (ArrayList) suggestedList);
+                information.putStringArrayList("matchedURLList", suggestedList);
                 Intent intent = new Intent(getActivity(), ListViewInterface.class);
                 intent.putExtras(information);
                 startActivity(intent);

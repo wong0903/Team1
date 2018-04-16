@@ -5,6 +5,7 @@
     android:background="@drawable/list_row_selector"
     android:padding="8dp" >
 
+
     <!-- Thumbnail Image -->
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/thumbnail"
@@ -56,5 +57,6 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="@color/year"
         android:textSize="@dimen/operatingHours" />
+
 
 </RelativeLayout>

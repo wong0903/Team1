@@ -50,16 +50,16 @@
         android:layout_centerHorizontal="true" />
 
     <EditText
-        android:layout_below="@+id/errorTV"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="20dp"
+        android:id="@+id/reviewED"
+        style="@android:style/Widget.Holo.Light.EditText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Write Your Review(max 200 Characters)"
+        android:layout_below="@+id/errorTV"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="0dp"
         android:gravity="top"
-        android:lines="5"
-        android:id="@+id/reviewED"
-        />
+        android:hint="Write Your Review(max 200 Characters)"
+        android:lines="5" />
 
     <LinearLayout
         android:layout_width="fill_parent"

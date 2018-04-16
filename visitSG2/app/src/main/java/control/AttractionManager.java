@@ -31,8 +31,10 @@ public class AttractionManager extends NavigationManager{
         apiURL = matchedURL;
         try {
             informationList = new RetrieveFeedTask().execute().get();
-            for(int i = 0; i < 6; i++) {
-                basicInformationList.add(informationList.get(i));
+            if(informationList.size() != 0) {
+                for (int i = 0; i < 6; i++) {
+                    basicInformationList.add(informationList.get(i));
+                }
             }
             return basicInformationList;
         } catch (InterruptedException e) {
@@ -43,13 +45,16 @@ public class AttractionManager extends NavigationManager{
         return null;
     }
 
-    public List<String> retrieveDetailedInformation(String matchedURL){
+    public List<String> retrieveDetailedInformation(AppDatabase db, String matchedURL){
         List<String> detailedInformationList = new ArrayList<>();
         apiURL = matchedURL;
         try {
             informationList = new RetrieveFeedTask().execute().get();
-            for(int i = 0; i < informationList.size(); i++) {
-                detailedInformationList.add(informationList.get(i));
+            if(informationList.size() != 0) {
+                for (int i = 0; i < informationList.size(); i++) {
+                    detailedInformationList.add(informationList.get(i));
+                }
+                detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
             }
             return detailedInformationList;
         } catch (InterruptedException e) {
@@ -86,24 +91,22 @@ public class AttractionManager extends NavigationManager{
                     bufferedReader.close();
 
                     JSONObject json = new JSONObject(stringBuilder.toString());
-                    JSONArray images = json.getJSONArray("images");
                     informationList = new ArrayList<>();
                     if(!json.has("error")) {
                         String name = json.getString("title");
                         informationList.add(name);
-
                         String address = json.getString("address");
                         informationList.add(address);
 
                         String operatingHours = json.getString("opening-hours");
                         informationList.add(operatingHours);
 
-                        if(images.length() != 0) {
+                        JSONArray images = json.getJSONArray("images");
+                        if(images != null && images.length() > 0) {
                             String image = images.getJSONObject(0).getString("url");
                             informationList.add(image);
                         }else
                             informationList.add("");
-
 
                         String webURL = json.getString("url");
                         informationList.add(webURL);
