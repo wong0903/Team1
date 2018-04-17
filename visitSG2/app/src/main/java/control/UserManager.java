@@ -61,6 +61,7 @@ public class UserManager {
             return false;
         }else if(loginID.matches("")){
             toast(c,"You did not enter a username");
+
             return false;
         } else
             return true;
@@ -72,6 +73,8 @@ public class UserManager {
             return false;
         }else if( password.length() < 8 || password.length() > 20) {
             toast(c, "Password must be 8-20words.Please try again!");
+
+            toast(c, "Password characters out of range(1-20words).Please try again!");
             return false;
         }else {
             Log.d("password", String.valueOf(password.length()));
