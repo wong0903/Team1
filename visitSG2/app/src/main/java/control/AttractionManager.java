@@ -31,7 +31,6 @@ public class AttractionManager extends NavigationManager{
         apiURL = matchedURL;
         try {
             informationList = new RetrieveFeedTask().execute().get();
-            Log.d("size",String.valueOf(informationList.size()));
             if(informationList.size() != 0) {
                 for (int i = 0; i < 6; i++) {
                     basicInformationList.add(informationList.get(i));
@@ -53,9 +52,7 @@ public class AttractionManager extends NavigationManager{
         try {
             informationList = new RetrieveFeedTask().execute().get();
             if(informationList.size() != 0) {
-                for (int i = 0; i < informationList.size(); i++) {
-                    detailedInformationList.add(informationList.get(i));
-                }
+                detailedInformationList.addAll(informationList);
             }
             detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
             return detailedInformationList;

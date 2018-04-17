@@ -67,7 +67,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         attraction = i.getExtras().getParcelable("attraction");
 
         informationList = attractionManager.retrieveDetailedInformation(db, attraction.getApiURL());
-        attraction.setDescription(informationList.get(6));
+
 
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
@@ -97,12 +97,14 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
             address.setText(attraction.getAddress());
         }
 
+        attraction.setDescription(informationList.get(6));
         // description
         if (attraction.getDescription() != null) {
             description.setText(attraction.getDescription());
         }
 
         //overall rating
+        attraction.setOverallRating(db.attractionDao().getOverallRatingByAttractionURL(attraction.getApiURL()));
         rating.setText(String.valueOf(attraction.getOverallRating()));
     }
 
@@ -144,7 +146,6 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                 int ratings = (int) ratingBar.getRating();
                                 rateReviewManager.RateAndReview(db,ratings,review,attractionURL,username);
                                 attraction.setOverallRating(rateReviewManager.calculateOverallRating(db,attractionURL,ratings));
-                                Log.d("rating1",String.valueOf(attraction.getOverallRating()));
                                 rating.setText(String.valueOf(attraction.getOverallRating()));
                                 dialog.dismiss();
                             }

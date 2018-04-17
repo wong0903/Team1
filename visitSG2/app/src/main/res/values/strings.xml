@@ -3,9 +3,6 @@
 
     <string name="search_button">Search</string>
     <string name="search_hint">Enter an attraction or keyword</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="sign_up_button">Sign Up</string>
-    <string name="login_button">Login </string>
 
     <!-- Strings related to login -->
     <string name="password">password</string>
@@ -13,6 +10,11 @@
     <string name="confirm">confirm password</string>
     <string name="email">email</string>
     <string name="error">errorMsg</string>
+    <string name="login_button">Login </string>
+
+
+    <!-- Strings related to logout -->
+    <string name="logout_button">Log Out </string>
 
     <!-- Strings related to signup -->
     <string name="name_sign">Username:</string>

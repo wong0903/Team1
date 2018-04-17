@@ -85,6 +85,7 @@ public class ListViewInterface extends AppCompatActivity {
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
+                Log.d("ratingwer",String.valueOf(attraction.getOverallRating()));
                 i.putExtra("attraction", attraction);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);

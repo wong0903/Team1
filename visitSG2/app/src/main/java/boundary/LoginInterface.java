@@ -3,6 +3,7 @@ package boundary;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaCas;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.example.wong0903.visitsg.R;
 import Database.AppDatabase;
 import control.UserManager;
 import entity.LoggedInUser;
+import helper.SessionManager;
 
 /**
  * Created by wong0903 on 20/3/2018.
@@ -31,7 +33,8 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
     TextView txtSignUp;
     ProgressDialog pDialog;
     private AppDatabase db;
-    SharedPreferences sp;
+    SessionManager session;
+    //SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -50,17 +53,26 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        sp = getSharedPreferences("login",MODE_PRIVATE);
+        //sp = getSharedPreferences("login",MODE_PRIVATE);
 
         // Check if user is already logged in or not
 
-        if(sp.getBoolean("logged",false)){
+//        if(sp.getBoolean("logged",false)){
+//            Intent intent = new Intent(LoginInterface.this, UserInterface.class);
+//            intent.putExtra("user",db.loggedInUserDao().getUser());
+//            startActivity(intent);
+//            finish();
+//        }
+
+        session = new SessionManager(getApplicationContext());
+
+        // Check if user is already logged in or not
+        if (session.isLoggedIn()) {
             Intent intent = new Intent(LoginInterface.this, UserInterface.class);
             intent.putExtra("user",db.loggedInUserDao().getUser());
             startActivity(intent);
             finish();
         }
-
 
         btnLogin.setOnClickListener(this);
         //btnSignUp.setOnClickListener(this);
@@ -81,7 +93,8 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                     Intent intent = new Intent(this, MainInterface.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    sp.edit().putBoolean("logged",true).apply();
+                    session.setLogin(true);
+                    //sp.edit().putBoolean("logged",true).apply();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();

@@ -1,6 +1,7 @@
 package boundary;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.example.wong0903.visitsg.R;
 
 import Database.AppDatabase;
 import entity.LoggedInUser;
+import helper.SessionManager;
 
 /**
  * Created by wong0903 on 17/4/2018.
@@ -20,7 +22,8 @@ import entity.LoggedInUser;
 
 public class UserInterface extends AppCompatActivity {
     LoggedInUser user;
-    AppDatabase db
+    AppDatabase db;
+    private SessionManager session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +35,13 @@ public class UserInterface extends AppCompatActivity {
         TextView username = findViewById(R.id.displayName);
         username.setText("Username: " + user.getLoginID());
         Button logout = findViewById(R.id.btnLogout);
+
+        session = new SessionManager(getApplicationContext());
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                session.setLogin(false);
                 db.loggedInUserDao().delete(user);
                 Intent intent = new Intent(UserInterface.this, MainInterface.class);
                 startActivity(intent);

@@ -43,6 +43,7 @@ public class Attraction implements Parcelable{
         this.setWeatherType("");
         this.setLatitude("");
         this.setLongitude("");
+        this.setOverallRating(0.0);
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
