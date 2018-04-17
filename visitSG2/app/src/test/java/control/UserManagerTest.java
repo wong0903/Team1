@@ -3,6 +3,7 @@ package control;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.test.UiThreadTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import Database.AppDatabase;
 import Database.UserDao;
 import entity.User;
 
-import static control.AndroidMockUtil.mockMainThreadHandler;
+//import static control.AndroidMockUtil.mockMainThreadHandler;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -39,24 +40,19 @@ public class UserManagerTest {
 
     @Test
     public void signUpTest() throws Exception {
-//        Context c;
 
         Boolean expected = true;
         Boolean output;
 
-
-
         Context mMockContext = mock(Context.class);
         AppDatabase mMockDB = mock(AppDatabase.class);
-        User mMockUser = mock(User.class);
+//        User mMockUser = mock(User.class);
+        User mMockUser = null;
         UserDao mMockUserDao = mock(UserDao.class);
         List<User> mMockListUser = mock(List.class);
-        Looper mMockLooper = mock(Looper.class);
-        Handler mMockHandler = mock(Handler.class);
-//        User mMockUser = new User("validuser","abcd1234");
+        UserManager mMockUserManager = new UserManager();
 
-
-        String loginID = "user";
+        String loginID = "user1";
         String password1 = "abcd1234";
         String password2 = "abcd1234";
 
@@ -64,28 +60,10 @@ public class UserManagerTest {
         when(mMockDB.userDao().getAll()).thenReturn(mMockListUser);
         when(mMockDB.userDao().getAll().size()).thenReturn(1);
         when(mMockDB.userDao().findByID(loginID)).thenReturn(mMockUser);
-        when(mMockLooper.getMainLooper()).thenReturn(mMockLooper);
-        mMockHandler = Handler(mMockLooper);
 
-
-
-
-
-        output = UserManager.signUp(mMockContext, mMockDB, loginID, password1, password2);
+        output = mMockUserManager.signUp(mMockContext, mMockDB, loginID, password1, password2);
 
         assertEquals(expected, output);
-    }
-
-    @Test
-    public void verifyLoginID() throws Exception {
-    }
-
-    @Test
-    public void verifyPassword() throws Exception {
-    }
-
-    @Test
-    public void confirmPassword() throws Exception {
     }
 
 }
