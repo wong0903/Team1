@@ -128,30 +128,35 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                 ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        value.setText(String.valueOf(v));
+                        value.setText(String.format("%.2f",v));
                     }
                 });
 
                 Button submitRateBtn = (Button) dialog.findViewById(R.id.submitRateBtn);
                 Button cancelBtn = (Button) dialog.findViewById(R.id.cancelRateBtn);
                 submitRateBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                EditText txtReview = dialog.findViewById(R.id.reviewED);
-                                String review = txtReview.getText().toString();
-                                String attractionURL = attraction.getApiURL();
-                                int ratings = (int) ratingBar.getRating();
-                                rateReviewManager.RateAndReview(db,ratings,review,attractionURL,username);
-                                attraction.setOverallRating(rateReviewManager.calculateOverallRating(db,attractionURL,ratings));
-                                rating.setText(String.valueOf(attraction.getOverallRating()));
-                                dialog.dismiss();
-                            }
-                        }).start();
-                            }
-                        });
+                    @Override
+                        public void onClick(View view) {
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    int ratings;
+                                    String attractionURL,review;
+                                    EditText txtReview = dialog.findViewById(R.id.reviewED);
+                                    review = txtReview.getText().toString();
+                                    attractionURL = attraction.getApiURL();
+                                    ratings = (int) ratingBar.getRating();
+                                    if(rateReviewManager.verfiyRating(getApplicationContext(),ratings)) {
+                                        rateReviewManager.RateAndReview(db, ratings, review, attractionURL, username);
+                                        attraction.setOverallRating(rateReviewManager.calculateOverallRating(db, attractionURL, ratings));
+                                        rating.setText(String.format("%.2f", attraction.getOverallRating()));
+                                        dialog.dismiss();
+                                    }
+                                    return;
+                                }
+                            }).start();
+                        }
+                });
                 cancelBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

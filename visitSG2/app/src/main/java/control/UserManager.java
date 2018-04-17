@@ -17,9 +17,17 @@ import entity.User;
 
 public class UserManager {
 
-    public static void signUp(AppDatabase db, String loginID, String password){
-            User user = new User(loginID, password);
-            db.userDao().insertUser(user);
+    public static boolean signUp(Context c, AppDatabase db, String loginID, String password1, String password2){
+        if(verifyLoginID(c,db,loginID)){
+            if(verifyPassword(c,password1)){
+                if(confirmPassword(c,password1,password2)){
+                    User user = new User(loginID, password1);
+                    db.userDao().insertUser(user);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static boolean login(AppDatabase db, String loginID, String password){
@@ -33,7 +41,7 @@ public class UserManager {
             return false;
     }
 
-    public boolean verifyLoginID(Context c, AppDatabase db, String loginID) {
+    public static boolean verifyLoginID(Context c, AppDatabase db, String loginID) {
         if(db.userDao().getAll().size() != 0) {
             User user = db.userDao().findByID(loginID);
             //if login ID is not found in the local database
@@ -58,7 +66,7 @@ public class UserManager {
             return true;
     }
 
-    public boolean verifyPassword(final Context c, String password){
+    public static boolean verifyPassword(final Context c, String password){
         if(!(password.matches((".*[A-Za-z].*")) && password.matches(".*[0-9].*") && password.matches("[A-Za-z0-9]*"))){
             toast(c, "Password must be alphanumeric(etc \"abc123\". Please try again!");
             return false;
@@ -69,7 +77,7 @@ public class UserManager {
             return true;
     }
 
-    public boolean confirmPassword(final Context c, String password1, String password2) {
+    public static boolean confirmPassword(final Context c, String password1, String password2) {
         if (password1.matches(password2)) {
             return true;
         } else {
@@ -78,7 +86,7 @@ public class UserManager {
         }
     }
 
-    public void toast(final Context context, final String text) {
+    public static void toast(final Context context, final String text) {
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             public void run() {

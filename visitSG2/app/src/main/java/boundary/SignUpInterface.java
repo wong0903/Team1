@@ -65,15 +65,10 @@ public class SignUpInterface extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if((userManager.verifyLoginID(getApplicationContext(),db,mUsername))){
-                if((userManager.verifyPassword(getApplicationContext(), mPassword))) {
-                    if ((userManager.confirmPassword(getApplicationContext(),mPassword, cPassword))) {
-                        userManager.signUp(db, mUsername, mPassword);
-                        return true;
-                    }
-                }
-            }
-            return false;
+            if(userManager.signUp(getApplicationContext(), db, mUsername, mPassword, cPassword)){
+                return true;
+            }else
+                return false;
         }
 
         @Override

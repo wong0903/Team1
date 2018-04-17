@@ -57,7 +57,9 @@
         android:layout_below="@+id/errorTV"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="0dp"
-        android:gravity="top"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="top|start"
         android:hint="Write Your Review(max 200 Characters)"
         android:background="@drawable/textinputborder"
         android:lines="5" />
