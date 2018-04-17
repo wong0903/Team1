@@ -17,7 +17,7 @@ import entity.User;
 
 public class UserManager {
 
-    public static boolean signUp(Context c, AppDatabase db, String loginID, String password1, String password2){
+    public static boolean signUp(Context c, AppDatabase db, String loginID, String password1,String password2){
         if(verifyLoginID(c,db,loginID)){
             if(verifyPassword(c,password1)){
                 if(confirmPassword(c,password1,password2)){
@@ -48,7 +48,7 @@ public class UserManager {
             if (user != null) {
                 toast(c, "Someone has used the same ID. Please try again!");
                 return false;
-            } else if (loginID.length() < 1 && loginID.length() > 20) {
+            } else if (loginID.length() < 1 || loginID.length() > 20) {
                 toast(c, "LoginID characters out of range(1-20words).Please try again!");
                 return false;
             }else if(loginID.matches("")){
@@ -56,7 +56,7 @@ public class UserManager {
                 return false;
             } else
                 return true;
-        } else if(loginID.length() < 1 && loginID.length() > 201) {
+        } else if(loginID.length() < 1 || loginID.length() > 20) {
             Log.d("name", String.valueOf(loginID.length()));
             return false;
         }else if(loginID.matches("")){
@@ -70,11 +70,13 @@ public class UserManager {
         if(!(password.matches((".*[A-Za-z].*")) && password.matches(".*[0-9].*") && password.matches("[A-Za-z0-9]*"))){
             toast(c, "Password must be alphanumeric(etc \"abc123\". Please try again!");
             return false;
-        }else if( password.length() < 8 && password.length() > 20) {
-            toast(c, "Password characters out of range(1-20words).Please try again!");
+        }else if( password.length() < 8 || password.length() > 20) {
+            toast(c, "Password must be 8-20words.Please try again!");
             return false;
-        }else
+        }else {
+            Log.d("password", String.valueOf(password.length()));
             return true;
+        }
     }
 
     public static boolean confirmPassword(final Context c, String password1, String password2) {
