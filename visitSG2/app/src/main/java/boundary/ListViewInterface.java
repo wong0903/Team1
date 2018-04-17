@@ -2,6 +2,7 @@ package boundary;
 
 import android.content.Intent;
 import android.media.Rating;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -53,22 +54,8 @@ public class ListViewInterface extends AppCompatActivity {
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
-        AttractionManager attractionManager = new AttractionManager();
-        for (String url : matchedURLList) {
-            Attraction attraction = new Attraction();
-            basicInformationList = attractionManager.retrieveBasicInformation(db ,url);
-            if (basicInformationList != null && basicInformationList.size() > 0) {
-                attraction.setName(basicInformationList.get(0));
-                attraction.setAddress(basicInformationList.get(1));
-                attraction.setOperatingHours(basicInformationList.get(2));
-                attraction.setThumbnailUrl(basicInformationList.get(3));
-                attraction.setWebURL(basicInformationList.get(4));
-                attraction.setApiURL(basicInformationList.get(5));
-                attraction.setOverallRating(Double.parseDouble(basicInformationList.get(6)));
-                matchedAttractionList.add(attraction);
-                db.attractionDao().insertAttraction(attraction);
-            }
-        }
+        parseResponse();
+
         listView = findViewById(R.id.list);
         adapter = new CustomListAdapter(this, matchedAttractionList);
         listView.setAdapter(adapter);
@@ -85,13 +72,48 @@ public class ListViewInterface extends AppCompatActivity {
                 // Launching new Activity on selecting single List Item
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
-                Log.d("ratingwer",String.valueOf(attraction.getOverallRating()));
                 i.putExtra("attraction", attraction);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });
     }
+
+    @Override
+    public void onRestart()
+    {
+        super.onRestart();
+        matchedAttractionList.clear();
+        parseResponse();
+        adapter = new CustomListAdapter(this, matchedAttractionList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+
+    private void parseResponse(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (String url : matchedURLList) {
+                    AttractionManager attractionManager = new AttractionManager();
+                    Attraction attraction = new Attraction();
+                    basicInformationList = attractionManager.retrieveBasicInformation(db, url);
+                    if (basicInformationList != null && basicInformationList.size() > 0) {
+                        attraction.setName(basicInformationList.get(0));
+                        attraction.setAddress(basicInformationList.get(1));
+                        attraction.setOperatingHours(basicInformationList.get(2));
+                        attraction.setThumbnailUrl(basicInformationList.get(3));
+                        attraction.setWebURL(basicInformationList.get(4));
+                        attraction.setApiURL(basicInformationList.get(5));
+                        attraction.setOverallRating(Double.parseDouble(basicInformationList.get(6)));
+                        matchedAttractionList.add(attraction);
+                        db.attractionDao().insertAttraction(attraction);
+                    }
+                }
+            }
+        });
+    }
+
 
     public ListView getListView() {
         return listView;

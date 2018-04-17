@@ -105,7 +105,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
 
         //overall rating
         attraction.setOverallRating(db.attractionDao().getOverallRatingByAttractionURL(attraction.getApiURL()));
-        rating.setText(String.valueOf(attraction.getOverallRating()));
+        rating.setText(String.format("%.2f",attraction.getOverallRating()));
     }
 
     @Override

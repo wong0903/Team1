@@ -33,6 +33,7 @@ public class CustomListAdapter extends BaseAdapter {
         this.attractionItems = attractionItems;
     }
 
+
     @Override
     public int getCount() {
         return attractionItems.size();
@@ -80,7 +81,7 @@ public class CustomListAdapter extends BaseAdapter {
 
         // rating
 //        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
-        rating.setText(String.valueOf(a.getOverallRating()));
+        rating.setText(String.format("%.2f",a.getOverallRating()));
 
 //        // genre
 //        String genreStr = "";
