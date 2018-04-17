@@ -17,7 +17,7 @@ import entity.User;
  */
 
 
-@Database(entities = {User.class, Attraction.class, RatingAndReview.class, LoggedInUser.class}, version = 4)
+@Database(entities = {User.class, Attraction.class, RatingAndReview.class, LoggedInUser.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase{
 
     private static AppDatabase INSTANCE;

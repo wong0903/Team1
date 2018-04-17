@@ -23,9 +23,6 @@ public interface UserDao {
     @Query("SELECT * FROM users where loginID = :loginID")
     User findByID(String loginID);
 
-    @Query("SELECT email FROM users where loginID = :loginID")
-    String retrieveEmail(String loginID);
-
     @Insert(onConflict = IGNORE)
     void insertUser(User user);
 

@@ -66,7 +66,7 @@ public class SuggestionInterface extends Fragment implements View.OnClickListene
             public void run() {
                 List<String> returnList;
                 ArrayList<String> suggestedList;
-                returnList = SuggestionManager.retrieveSortedAttractionList(db);
+                returnList = SuggestionManager.retrieveSortedAttractionURLList(db);
                 suggestedList = (ArrayList) returnList;
                 Bundle information = new Bundle();
                 information.putStringArrayList("matchedURLList", suggestedList);

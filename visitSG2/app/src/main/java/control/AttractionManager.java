@@ -26,16 +26,18 @@ public class AttractionManager extends NavigationManager{
     private String apiURL= "";
     private List<String> informationList = new ArrayList<>();
 
-    public List<String> retrieveBasicInformation(String matchedURL){
+    public List<String> retrieveBasicInformation(AppDatabase db, String matchedURL){
         List<String> basicInformationList = new ArrayList<>();
         apiURL = matchedURL;
         try {
             informationList = new RetrieveFeedTask().execute().get();
+            Log.d("size",String.valueOf(informationList.size()));
             if(informationList.size() != 0) {
                 for (int i = 0; i < 6; i++) {
                     basicInformationList.add(informationList.get(i));
                 }
             }
+            basicInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
             return basicInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -54,8 +56,8 @@ public class AttractionManager extends NavigationManager{
                 for (int i = 0; i < informationList.size(); i++) {
                     detailedInformationList.add(informationList.get(i));
                 }
-                detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
             }
+            detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
             return detailedInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();

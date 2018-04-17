@@ -81,10 +81,6 @@ public class Attraction implements Parcelable{
         }
     };
 
-    public void getDirection(String address) {
-        //Display the route to the attraction by calling GoogleMap API
-    }
-
     public String getName() {
         return name;
     }

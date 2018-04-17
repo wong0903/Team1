@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,8 +55,10 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
         // Check if user is already logged in or not
 
         if(sp.getBoolean("logged",false)){
-            Intent intent = new Intent(LoginInterface.this, MainInterface.class);
+            Intent intent = new Intent(LoginInterface.this, UserInterface.class);
+            intent.putExtra("user",db.loggedInUserDao().getUser());
             startActivity(intent);
+            finish();
         }
 
 
@@ -71,8 +74,7 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                 username = txtName.getText().toString();
                 password = txtPassword.getText().toString();
                 if (UserManager.login(db, username, password)) {
-                    String email = db.userDao().retrieveEmail(username);
-                    LoggedInUser user = new LoggedInUser(username,password,email);
+                    LoggedInUser user = new LoggedInUser(username,password);
                     db.loggedInUserDao().insertUser(user);
                     Toast.makeText(getApplicationContext(), "Redirecting...",
                             Toast.LENGTH_SHORT).show();

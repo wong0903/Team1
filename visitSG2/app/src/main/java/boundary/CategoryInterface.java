@@ -6,9 +6,11 @@ package boundary;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -57,6 +59,7 @@ public class CategoryInterface extends Fragment {
 
         return rootView;
     }
+
 
 //        category1 = view.findViewById(R.id.category1);
 //        category2 = view.findViewById(R.id.category2);

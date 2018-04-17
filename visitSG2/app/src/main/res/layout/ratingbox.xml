@@ -59,6 +59,7 @@
         android:layout_marginTop="0dp"
         android:gravity="top"
         android:hint="Write Your Review(max 200 Characters)"
+        android:background="@drawable/textinputborder"
         android:lines="5" />
 
     <LinearLayout

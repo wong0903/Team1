@@ -5,6 +5,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -21,14 +22,11 @@ public class User{
     private String loginID;
     @ColumnInfo(name = "password")
     private String password;
-    @ColumnInfo(name = "email")
-    private String email;
 
 
-    public User(String loginID, String password, String email) {
+    public User(String loginID, String password) {
         this.loginID = loginID;
         this.password = password;
-        this.email = email;
     }
 
     public String getLoginID() {
@@ -47,11 +45,4 @@ public class User{
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

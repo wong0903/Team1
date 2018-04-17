@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,17 +44,14 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     List<String> informationList = new ArrayList<>();
     Button btn_navigation, btn_rating;
-    TextView name;
+    TextView name, address, rating, description, value;
     Attraction attraction;
     LoggedInUser user;
+    AppDatabase db;
+    String username = "Anonymous", attractionName;
+    RatingBar ratingBar;
     AttractionManager attractionManager = new AttractionManager();
     RateReviewManager rateReviewManager = new RateReviewManager();
-    AppDatabase db;
-    TextView rating;
-    String username = "Anonymous";
-    private String attractionName;
-    TextView value;
-    RatingBar ratingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,18 +66,16 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         Intent i = getIntent();
         attraction = i.getExtras().getParcelable("attraction");
 
-        informationList = attractionManager.retrieveDetailedInformation(db ,attraction.getApiURL());
+        informationList = attractionManager.retrieveDetailedInformation(db, attraction.getApiURL());
         attraction.setDescription(informationList.get(6));
-        attraction.setOverallRating(Double.parseDouble(informationList.get(informationList.size()-1)));
-
 
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
         NetworkImageView thumbNail = (NetworkImageView) findViewById(R.id.targetAttractionThumbnail);
         name = findViewById(R.id.targetAttractionName);
-        TextView address = findViewById(R.id.targetAttractionAddress);
+        address = findViewById(R.id.targetAttractionAddress);
         rating = findViewById(R.id.targetAttractionOverallRating);
-        TextView description = findViewById(R.id.targetAttractionDescription);
+        description = findViewById(R.id.targetAttractionDescription);
 
         btn_navigation = findViewById(R.id.btn_navigation);
         btn_rating = findViewById(R.id.btn_rating);
@@ -147,7 +144,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                 int ratings = (int) ratingBar.getRating();
                                 rateReviewManager.RateAndReview(db,ratings,review,attractionURL,username);
                                 attraction.setOverallRating(rateReviewManager.calculateOverallRating(db,attractionURL,ratings));
-                                Log.d("rating",String.valueOf(attraction.getOverallRating()));
+                                Log.d("rating1",String.valueOf(attraction.getOverallRating()));
                                 rating.setText(String.valueOf(attraction.getOverallRating()));
                                 dialog.dismiss();
                             }
@@ -166,6 +163,17 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
             default:
                 break;
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

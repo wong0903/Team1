@@ -3,9 +3,11 @@ package boundary;
 import android.content.Intent;
 import android.media.Rating;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -52,11 +54,9 @@ public class ListViewInterface extends AppCompatActivity {
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
         AttractionManager attractionManager = new AttractionManager();
-        RateReviewManager rateReviewManager = new RateReviewManager();
         for (String url : matchedURLList) {
             Attraction attraction = new Attraction();
-            basicInformationList = attractionManager.retrieveBasicInformation(url);
-            double overallRating = rateReviewManager.retrieveAttractionOverallRating(db,url);
+            basicInformationList = attractionManager.retrieveBasicInformation(db ,url);
             if (basicInformationList != null && basicInformationList.size() > 0) {
                 attraction.setName(basicInformationList.get(0));
                 attraction.setAddress(basicInformationList.get(1));
@@ -64,10 +64,10 @@ public class ListViewInterface extends AppCompatActivity {
                 attraction.setThumbnailUrl(basicInformationList.get(3));
                 attraction.setWebURL(basicInformationList.get(4));
                 attraction.setApiURL(basicInformationList.get(5));
+                attraction.setOverallRating(Double.parseDouble(basicInformationList.get(6)));
+                matchedAttractionList.add(attraction);
+                db.attractionDao().insertAttraction(attraction);
             }
-            attraction.setOverallRating(overallRating);
-            matchedAttractionList.add(attraction);
-            db.attractionDao().insertAttraction(attraction);
         }
         listView = findViewById(R.id.list);
         adapter = new CustomListAdapter(this, matchedAttractionList);
@@ -86,13 +86,24 @@ public class ListViewInterface extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), AttractionInterface.class);
                 // sending data to new activity
                 i.putExtra("attraction", attraction);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });
     }
 
-
     public ListView getListView() {
         return listView;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

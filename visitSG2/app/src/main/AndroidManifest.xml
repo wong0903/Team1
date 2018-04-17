@@ -21,6 +21,7 @@
         <activity
             android:name="boundary.MainInterface"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="stateHidden"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -29,25 +30,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="boundary.UserInterface"
+            android:label="Login"
+            android:theme = "@style/FullscreenTheme"
+            android:parentActivityName ="boundary.MainInterface">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="boundary.MainInterface" />
+
+        </activity>
+
         <activity android:name="boundary.LoginInterface"
             android:label="Login"
-            android:theme = "@style/FullscreenTheme">
+            android:theme = "@style/FullscreenTheme"
+            android:parentActivityName ="boundary.MainInterface">
         </activity>
 
         <activity android:name="boundary.SignUpInterface"
             android:label="Registration"
-            android:theme = "@style/FullscreenTheme">
+            android:theme = "@style/FullscreenTheme"
+            android:parentActivityName ="boundary.LoginInterface">
         </activity>
 
         <activity android:name="boundary.ListViewInterface"
             android:label="Attractions"
-            android:theme = "@style/FullscreenTheme">
+            android:theme = "@style/FullscreenTheme"
+            android:parentActivityName ="boundary.MainInterface">
         </activity>
 
         <activity
             android:name="boundary.AttractionInterface"
             android:label="Attraction"
-            android:theme = "@style/FullscreenTheme">
+            android:theme = "@style/FullscreenTheme"
+            android:parentActivityName ="boundary.ListViewInterface">
         </activity>
 
         <activity

@@ -3,27 +3,39 @@ package entity;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+
+import java.io.Serializable;
 
 /**
  * Created by wong0903 on 14/4/2018.
  */
 
 @Entity(tableName = "LoggedInUser")
-public class LoggedInUser {
+public class LoggedInUser implements Parcelable {
     @PrimaryKey
     @NonNull
     private String loginID;
     @ColumnInfo(name = "password")
     private String password;
-    @ColumnInfo(name = "email")
-    private String email;
 
+    public static final Creator<LoggedInUser> CREATOR = new Creator<LoggedInUser>() {
+        @Override
+        public LoggedInUser createFromParcel(Parcel in) {
+            return new LoggedInUser(in);
+        }
 
-    public LoggedInUser(String loginID, String password, String email) {
+        @Override
+        public LoggedInUser[] newArray(int size) {
+            return new LoggedInUser[size];
+        }
+    };
+
+    public LoggedInUser(String loginID, String password) {
         this.loginID = loginID;
         this.password = password;
-        this.email = email;
     }
 
     public String getLoginID() {
@@ -42,12 +54,19 @@ public class LoggedInUser {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(loginID);
+    }
+
+    protected LoggedInUser(Parcel in) {
+        loginID = in.readString();
+
     }
 }
 

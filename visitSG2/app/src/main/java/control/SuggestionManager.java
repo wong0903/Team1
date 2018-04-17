@@ -14,7 +14,7 @@ import entity.Attraction;
 
 public class SuggestionManager {
     private static List<String> suggestedList = new ArrayList<String>();
-    public static List<String> retrieveSortedAttractionList(AppDatabase db){
+    public static List<String> retrieveSortedAttractionURLList(AppDatabase db){
         //return a list of attraction with overall ratings and name from the local database.
         suggestedList = db.attractionDao().getSortedAttractionList();
         return suggestedList;
