@@ -1,5 +1,10 @@
 package control;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
+
 import java.util.List;
 
 import Database.AppDatabase;
@@ -38,5 +43,22 @@ public class RateReviewManager {
     public double retrieveAttractionOverallRating(AppDatabase db, String attractionURL){
         double overallRating = db.attractionDao().getOverallRatingByAttractionURL(attractionURL);
         return overallRating;
+    }
+
+    public boolean verfiyRating(Context c, int rating){
+        if(rating == 0){
+            toast(c,"Rating must be 1 to 5");
+            return false;
+        }else
+            return true;
+    }
+
+    public static void toast(final Context context, final String text) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
