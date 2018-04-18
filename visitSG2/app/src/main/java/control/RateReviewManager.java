@@ -36,7 +36,7 @@ public class RateReviewManager {
         }
         else {
             db.attractionDao().updateOverallRating(attractionURL, rating);
-            return rating;
+            return (double) rating;
         }
     }
 

@@ -27,12 +27,22 @@
     <!-- Rating -->
     <TextView
         android:id="@+id/rating"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/name"
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:textSize="@dimen/rating" />
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/rating"
+        android:textSize="@dimen/rating"  />
 
     <!-- Genre -->
     <!-- Address -->

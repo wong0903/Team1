@@ -37,6 +37,7 @@ public class AttractionManager extends NavigationManager{
                 }
             }
             basicInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
+            basicInformationList.add(String.valueOf(db.attractionDao().getCountbyAttractionURL(matchedURL)));
             return basicInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -55,6 +56,7 @@ public class AttractionManager extends NavigationManager{
                 detailedInformationList.addAll(informationList);
             }
             detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
+            detailedInformationList.add(String.valueOf(db.attractionDao().getCountbyAttractionURL(matchedURL)));
             return detailedInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();

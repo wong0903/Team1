@@ -44,7 +44,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     ImageLoader imageLoader = AppController.getInstance().getImageLoader();
     List<String> informationList = new ArrayList<>();
     Button btn_navigation, btn_rating;
-    TextView name, address, rating, description, value;
+    TextView name, address, rating, description, value,raters;
     Attraction attraction;
     LoggedInUser user;
     AppDatabase db;
@@ -52,6 +52,8 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     RatingBar ratingBar;
     AttractionManager attractionManager = new AttractionManager();
     RateReviewManager rateReviewManager = new RateReviewManager();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +78,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         address = findViewById(R.id.targetAttractionAddress);
         rating = findViewById(R.id.targetAttractionOverallRating);
         description = findViewById(R.id.targetAttractionDescription);
+        raters = findViewById(R.id.targetAttractionRaters);
 
         btn_navigation = findViewById(R.id.btn_navigation);
         btn_rating = findViewById(R.id.btn_rating);
@@ -106,6 +109,9 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
         //overall rating
         attraction.setOverallRating(db.attractionDao().getOverallRatingByAttractionURL(attraction.getApiURL()));
         rating.setText(String.format("%.2f",attraction.getOverallRating()));
+
+        attraction.setNumberOfRaters(db.attractionDao().getCountbyAttractionURL(attraction.getApiURL()));
+        raters.setText(String.valueOf(attraction.getNumberOfRaters()));
     }
 
     @Override
@@ -137,7 +143,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                 submitRateBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                         public void onClick(View view) {
-                            new Thread(new Runnable() {
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     int ratings;
@@ -150,11 +156,13 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                         rateReviewManager.RateAndReview(db, ratings, review, attractionURL, username);
                                         attraction.setOverallRating(rateReviewManager.calculateOverallRating(db, attractionURL, ratings));
                                         rating.setText(String.format("%.2f", attraction.getOverallRating()));
+                                        attraction.setNumberOfRaters(db.attractionDao().getCountbyAttractionURL(attraction.getApiURL()));
+                                        raters.setText(String.valueOf(attraction.getNumberOfRaters()));
                                         dialog.dismiss();
                                     }
                                     return;
                                 }
-                            }).start();
+                            });
                         }
                 });
                 cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +178,10 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+
+//    public Dialog getDialog(){
+//        return dialog;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

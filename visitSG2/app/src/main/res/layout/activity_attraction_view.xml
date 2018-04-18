@@ -29,9 +29,19 @@
             android:padding="2dip" />
 
         <TextView android:id="@+id/targetAttractionOverallRating"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/targetAttractionName"
+            android:textSize="@dimen/rating"
+            android:textStyle="bold"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionRaters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionName"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/targetAttractionOverallRating"
             android:textSize="@dimen/rating"
             android:textStyle="bold"
             android:padding="2dip" />
@@ -77,4 +87,5 @@
             android:padding="2dip" />
 
     </RelativeLayout>
+
 </ScrollView>
