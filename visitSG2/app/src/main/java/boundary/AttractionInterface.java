@@ -39,7 +39,9 @@ import entity.User;
  * Created by wong0903 on 9/4/2018.
  * Responsible for showing the detailed information of the selected Attraction. The detailed information
  * is retrieve by calling the retrieveDetailedInformation method in the Attraction Manager.
- * Also allows user to rate and review via the RateAndReview method in the RateReviewManager and
+ *
+ * This class allows user to give rating and review by calling to the RateReviewInterface after clicking
+ * the Rate It! button. The rate and review is done via the RateAndReview method in the RateReviewManager and
  * update the overall Rating via the calculateOverallRating method in the RateReviewManager
  * and get the direction via the getNavigation method in the AttractionManager.
  * Applied Observer Pattern in the rate and review section, the rating will be updated once a
@@ -56,7 +58,6 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
     LoggedInUser user;
     AppDatabase db;
     String username = "Anonymous", attractionName;
-    RatingBar ratingBar;
     AttractionManager attractionManager = new AttractionManager();
     RateReviewManager rateReviewManager = new RateReviewManager();
 
@@ -130,20 +131,8 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                 attractionManager.getNavigation(latitude, longitude, getApplicationContext());
                 break;
             case R.id.btn_rating:
-                final Dialog dialog = new Dialog(this);
-                dialog.setContentView(R.layout.ratingbox);
-                ratingBar = (RatingBar)dialog.findViewById(R.id.ratingsBar);
-                value = dialog.findViewById(R.id.rateValue);
-                TextView title = dialog.findViewById(R.id.rateHeader);
-
-                title.setText(attractionName);
-
-                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        value.setText(String.format("%.2f",v));
-                    }
-                });
+                final RateReviewInterface dialog = new RateReviewInterface(this);
+                dialog.setTitle(attractionName);
 
                 Button submitRateBtn = (Button) dialog.findViewById(R.id.submitRateBtn);
                 Button cancelBtn = (Button) dialog.findViewById(R.id.cancelRateBtn);
@@ -155,10 +144,9 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                 public void run() {
                                     int ratings;
                                     String attractionURL,review;
-                                    EditText txtReview = dialog.findViewById(R.id.reviewED);
-                                    review = txtReview.getText().toString();
                                     attractionURL = attraction.getApiURL();
-                                    ratings = (int) ratingBar.getRating();
+                                    review = dialog.getReviewText();
+                                    ratings = dialog.getRatingValue();
                                     if(rateReviewManager.verifyRating(getApplicationContext(),ratings)) {
                                         rateReviewManager.RateAndReview(db, ratings, review, attractionURL, username);
                                         attraction.setOverallRating(rateReviewManager.calculateOverallRating(db, attractionURL, ratings));

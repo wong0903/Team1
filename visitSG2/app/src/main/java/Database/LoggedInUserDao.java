@@ -13,6 +13,7 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
 /**
  * Created by wong0903 on 14/4/2018.
+ * Contains the methods used for accessing the LoggedInUser database.
  */
 
 @Dao

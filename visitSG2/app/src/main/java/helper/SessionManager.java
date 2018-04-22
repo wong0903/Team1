@@ -1,5 +1,11 @@
 package helper;
 
+/**
+ * Created by wong0903 on 16/4/2018.
+ * This class helps to store user data (after login) outside your application,
+ * so that when the next time the user uses the application,
+ * he/she can easily get back his/her details and perform accordingly.
+ */
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;

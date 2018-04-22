@@ -14,6 +14,8 @@ import entity.User;
 
 /**
  * Created by wong0903 on 10/4/2018.
+ * Contains the database holder and serves as the main access point
+ * for the underlying connection to the app's persisted, relational data.
  */
 
 
