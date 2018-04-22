@@ -33,7 +33,10 @@ import entity.User;
 
 public class UserManager {
 
-    public static boolean signUp(Context c, AppDatabase db, String loginID, String password1,String password2){
+
+
+    public static boolean signUp(Context c, AppDatabase db, String loginID, String password1, String password2){
+
         if(verifyLoginID(c,db,loginID)){
             if(verifyPassword(c,password1)){
                 if(confirmPassword(c,password1,password2)){
@@ -103,12 +106,14 @@ public class UserManager {
     }
 
     public static void toast(final Context context, final String text) {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            public void run() {
-                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Handler handler = new Handler(Looper.getMainLooper());
+//        handler.post(new Runnable() {
+//            public void run() {
+//                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 }
