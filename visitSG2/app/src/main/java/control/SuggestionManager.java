@@ -8,8 +8,8 @@ import entity.Attraction;
 
 /**
  * Created by wong0903 on 20/3/2018.
- * This class will retrieve a list of attraction from the local database
- * and return a list of attraction order by the ratings in descending order.
+ * This class will retrieve a list of sorted attraction by the overall rating from the database
+ * and return the list to the caller.
  */
 
 public class SuggestionManager {

@@ -12,9 +12,7 @@ import java.util.Date;
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the User entity with
- * the attributes loginID, password, creationDate,
- * ratingAndReview and review.
- * User can rate and review the attractions.
+ * the attributes loginID, password.
  */
 @Entity(tableName = "users")
 public class User{

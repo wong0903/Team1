@@ -24,6 +24,8 @@ import helper.SessionManager;
  * Created by wong0903 on 20/3/2018.
  * This class display a login screen and allows
  * user to input their login ID and password.
+ * It will call to the login method in the User Manager in Boundary Class
+ * This class also allows user to call the SignUpInterface if the user wants to sign up.
  */
 
 public class LoginInterface extends AppCompatActivity implements View.OnClickListener {
@@ -34,7 +36,6 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
     ProgressDialog pDialog;
     private AppDatabase db;
     SessionManager session;
-    //SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -46,23 +47,11 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
 
         Button btnLogin = findViewById(R.id.btnLogin);
         txtSignUp = findViewById(R.id.txt_signup);
-//        Button btnSignUp = findViewById(R.id.btnSignUp);
 
         pDialog = new ProgressDialog(this);
         pDialog.setCancelable(false);
 
         db = AppDatabase.getAppDatabase(getApplicationContext());
-
-        //sp = getSharedPreferences("login",MODE_PRIVATE);
-
-        // Check if user is already logged in or not
-
-//        if(sp.getBoolean("logged",false)){
-//            Intent intent = new Intent(LoginInterface.this, UserInterface.class);
-//            intent.putExtra("user",db.loggedInUserDao().getUser());
-//            startActivity(intent);
-//            finish();
-//        }
 
         session = new SessionManager(getApplicationContext());
 
@@ -75,7 +64,6 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
         }
 
         btnLogin.setOnClickListener(this);
-        //btnSignUp.setOnClickListener(this);
 
     }
 
@@ -94,7 +82,6 @@ public class LoginInterface extends AppCompatActivity implements View.OnClickLis
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     session.setLogin(true);
-                    //sp.edit().putBoolean("logged",true).apply();
                     finish();
                 } else {
                     Toast.makeText(getApplicationContext(),"Username/Password invalid" , Toast.LENGTH_SHORT).show();

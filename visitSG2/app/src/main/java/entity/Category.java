@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by wong0903 on 16/4/2018.
+ * This class contains the type of category and the image url for each category.
  */
 
 public class Category extends Application{

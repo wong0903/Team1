@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the RatingAndReview entity with
- * attributes rating and creationDate.
+ * attributes rating, review, attractionURL and username.
  */
 
 @Entity(tableName = "ratings", primaryKeys = {"attractionURL","user"})

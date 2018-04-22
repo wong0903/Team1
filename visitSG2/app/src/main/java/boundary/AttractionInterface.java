@@ -37,6 +37,13 @@ import entity.User;
 
 /**
  * Created by wong0903 on 9/4/2018.
+ * Responsible for showing the detailed information of the selected Attraction. The detailed information
+ * is retrieve by calling the retrieveDetailedInformation method in the Attraction Manager.
+ * Also allows user to rate and review via the RateAndReview method in the RateReviewManager and
+ * update the overall Rating via the calculateOverallRating method in the RateReviewManager
+ * and get the direction via the getNavigation method in the AttractionManager.
+ * Applied Observer Pattern in the rate and review section, the rating will be updated once a
+ * new user has submitted the rating.
  */
 
 public class AttractionInterface extends AppCompatActivity implements View.OnClickListener {
@@ -152,7 +159,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
                                     review = txtReview.getText().toString();
                                     attractionURL = attraction.getApiURL();
                                     ratings = (int) ratingBar.getRating();
-                                    if(rateReviewManager.verfiyRating(getApplicationContext(),ratings)) {
+                                    if(rateReviewManager.verifyRating(getApplicationContext(),ratings)) {
                                         rateReviewManager.RateAndReview(db, ratings, review, attractionURL, username);
                                         attraction.setOverallRating(rateReviewManager.calculateOverallRating(db, attractionURL, ratings));
                                         rating.setText(String.format("%.2f", attraction.getOverallRating()));

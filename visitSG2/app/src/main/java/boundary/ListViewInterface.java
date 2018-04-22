@@ -29,6 +29,8 @@ import helper.CustomListAdapter;
 
 /**
  * Created by wong0903 on 13/4/2018.
+ * This class displays the list of attractions with their basic information. The basic information
+ * is retrieve by calling the retrieveBasicInformation method in the AttractionManager class.
  */
 
 public class ListViewInterface extends AppCompatActivity {

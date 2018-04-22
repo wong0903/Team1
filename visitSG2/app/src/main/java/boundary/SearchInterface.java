@@ -2,6 +2,8 @@ package boundary;
 
 /**
  * Created by nigelleong on 14/4/18.
+ * This class allows users to search by text. It will call the Search Manager in control class
+ * to do the input matching logic.
  */
 
 import android.content.Intent;

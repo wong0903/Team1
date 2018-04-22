@@ -27,14 +27,13 @@ import helper.CustomListAdapter;
 
 /**
  * Created by nigelleong on 14/4/18.
+ * This class will display the top 20 attractions sorted by overall ratings with basic information
+ * It will call the retrieveSortedAttractionList in the Suggestion Manager to retrieve the list.
  */
 
 public class SuggestionInterface extends Fragment implements View.OnClickListener {
 
-    List<Attraction> suggestedList = new ArrayList<>();
-    List<Attraction> matchedAttractionList = new ArrayList<>();
     Button btn_suggested;
-    ListView listView;
     AppDatabase db;
 
     public SuggestionInterface() {

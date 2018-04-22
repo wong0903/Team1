@@ -20,8 +20,12 @@ import static android.icu.lang.UCharacter.toLowerCase;
 
 /**
  * Created by wong0903 on 20/3/2018.
- * This class will search the attractions that
- * matches the input text.
+ * This class contains two key methods which is retrieveAllAttractions and search.
+ * retrieveAllAttractions will call to the visitSingapore API and retrieve a list of pair of
+ * attraction url and its corresponding name.
+ * search will call the retrieveAllAttractions to obtain the list pair and match the attraction name
+ * with the user input from the Search Interface and return a list of matched attraction url to the
+ * Search Interface.
  */
 
 

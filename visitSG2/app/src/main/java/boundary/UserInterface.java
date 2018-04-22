@@ -18,6 +18,8 @@ import helper.SessionManager;
 
 /**
  * Created by wong0903 on 17/4/2018.
+ * This class will display the Login Interface if the user is not logged in.
+ * Otherwise, it will display the user information.
  */
 
 public class UserInterface extends AppCompatActivity {

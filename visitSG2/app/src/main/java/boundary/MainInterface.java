@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -26,15 +27,17 @@ import java.util.List;
 import Database.AppDatabase;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * The main UI of the system. It has implemented the facade design pattern
+ * as it will display three different search methods as tab where users can
+ * choose which one to use. It will call to either SearchInterface,SuggestionInterface
+ * or CategoryInterface depending on the user selection. The default display screen is
+ * SearchInterface
  */
 public class MainInterface extends AppCompatActivity implements View.OnClickListener {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private ImageButton btn_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +57,6 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        btn_login = findViewById(R.id.btn_login);
-
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i));
@@ -73,13 +74,6 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
         }
         return super.onOptionsItemSelected(item);
     }
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new SearchInterface(), "Search");
-//        adapter.addFragment(new CategoryInterface(), "Categories");
-//        adapter.addFragment(new SuggestionInterface(), "Suggestion");
-//        viewPager.setAdapter(adapter);
-//    }
 
      class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -136,78 +130,4 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
 
 }
 
-
-//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> //
-//        private Exception exception;
-//
-//        protected void onPreExecute() {
-//            progressBar.setVisibility(View.VISIBLE);
-//            responseView.setText("");
-//        }
-//
-//        protected String doInBackground(Void... urls) {
-//            String attraction = inputText.getText().toString();
-//            // Do some validation here
-//            try {
-//                URL url = new URL(API_URL );
-//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//                urlConnection.setRequestProperty("Content-Type","application/json");
-//                urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
-//                urlConnection.setRequestProperty("token", API_KEY);
-//                try {
-//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//                    StringBuilder stringBuilder = new StringBuilder();
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        stringBuilder.append(line);
-//                    }
-//                    bufferedReader.close();
-//                    return stringBuilder.toString();
-//                }
-//                finally{
-//                    urlConnection.disconnect();
-//                }
-//            }
-//            catch(Exception e) {
-//                Log.e("ERROR", e.getMessage(), e);
-//                return null;
-//            }
-//        }
-//
-//        protected void onPostExecute(String response) {
-//            if(response == null) {
-//                response = "THERE WAS AN ERROR";
-//            }
-//            progressBar.setVisibility(View.GONE);
-//            Log.i("INFO", response);
-//            // TODO: check this.exception
-//            // TODO: do something with the feed
-//            try {
-//
-////                JSONObject json = new JSONObject(response);
-////                responseView.setText(json.toString(1))
-//                responseView.setText(retrieveBasicInformation(response));
-////                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-////                String requestID = object.getString("requestId");
-////                int likelihood = object.getInt("likelihood");
-////                JSONArray photos = object.getJSONArray("photos");
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        private String retrieveBasicInformation(String jsonString)
-//                throws JSONException {
-//                final String requestID = "id";
-//                final String TITLE = "title";
-//
-//                JSONObject json = new JSONObject(jsonString);
-//                String id = json.getString(requestID);
-//                String attraction = json.getString(TITLE);
-//
-//                String results = attraction + "-----" + id;
-//                return results;
-//        }
-//    }
 

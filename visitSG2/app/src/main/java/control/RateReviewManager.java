@@ -12,16 +12,21 @@ import entity.RatingAndReview;
 
 /**
  * Created by wong0903 on 20/3/2018.
- * This class contains the all the ratings
- * and reviews and he overall ratings of the attraction.
+ * This class contains three key methods which is RateAndReview, calculateOverallRating and verifyRating.
+ * The first method will update the user rating and review to the database and update the number of
+ * raters.
+ * The second method will retrieve the overall rating that is previously calculated and stored in
+ * the database and recalculate it with the current user input to obtain the new overall rating.
+ * If there is no record in the database, that means it nobody has rated this attraction so it will
+ * just take the user rating as the overall rating and update into the database.
+ * The third method is to check if the user input rating is not 0. If yes, then ask the user to input
+ * again.
  */
 
 public class RateReviewManager {
-    private List<RatingAndReview> ratingAndReviewList;
     public void RateAndReview(AppDatabase db, int rating, String review, String attractionURL, String username){
         RatingAndReview ratingAndReview = new RatingAndReview(rating,review,attractionURL,username);
         db.ratingAndReviewDao().insertRatingAndReview(ratingAndReview);
-        ratingAndReviewList = db.ratingAndReviewDao().getAttractionRatingAndReview(attractionURL);
         db.attractionDao().updateNumberOfRaters(attractionURL);
     }
 
@@ -40,12 +45,7 @@ public class RateReviewManager {
         }
     }
 
-    public double retrieveAttractionOverallRating(AppDatabase db, String attractionURL){
-        double overallRating = db.attractionDao().getOverallRatingByAttractionURL(attractionURL);
-        return overallRating;
-    }
-
-    public boolean verfiyRating(Context c, int rating){
+    public boolean verifyRating(Context c, int rating){
         if(rating == 0){
             toast(c,"Rating must be 1 to 5");
             return false;

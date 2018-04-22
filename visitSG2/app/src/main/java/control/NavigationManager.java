@@ -8,6 +8,9 @@ import android.util.Log;
 
 /**
  * Created by wong0903 on 14/4/2018.
+ * This class contains the getNavigation method which will call to the google map App on the device
+ * to get the direction to the attraction by passing the attraction's latitude and longitude as
+ * parameters.
  */
 
 public class NavigationManager extends AppCompatActivity {

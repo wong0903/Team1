@@ -18,6 +18,8 @@ import control.UserManager;
 
 /**
  * Created by wong0903 on 10/4/2018.
+ * This class allows user to sign up an account for the system
+ * It will call the sign up method in the UserManager in boundary class.
  */
 
 public class SignUpInterface extends AppCompatActivity {

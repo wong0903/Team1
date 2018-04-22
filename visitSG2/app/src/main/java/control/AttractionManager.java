@@ -20,6 +20,10 @@ import Database.AppDatabase;
 
 /**
  * Created by wong0903 on 11/4/2018.
+ * This class contains the retrieveBasicInformation, retrieveDetailedInformation and getNavigation
+ * method. This first method will call to visitSingapore API to retrieve the basic information.
+ * The second method will also call to visitSingapore API to retrieve the detailed information.
+ * The getNavigation method will call to its parent class getNavigation in the NavigationManager class.
  */
 
 public class AttractionManager extends NavigationManager{

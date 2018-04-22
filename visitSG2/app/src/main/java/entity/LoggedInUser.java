@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 /**
  * Created by wong0903 on 14/4/2018.
+ * This class implements the LoggedInUser with the attributes loginID and password.
  */
 
 @Entity(tableName = "LoggedInUser")

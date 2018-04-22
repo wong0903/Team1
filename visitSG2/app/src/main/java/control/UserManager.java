@@ -11,8 +11,24 @@ import entity.User;
 
 /**
  * Created by wong0903 on 20/3/2018.
- * This class creates a user and stores it in a local database.
- * This class allows user to log in and access to the system.
+ * This class contains 5 key methods, signUp,login,verifyLoginID,verifyPassword and confirmPassword.
+ *
+ * signUp method will call the verifyLoginID, verifyPassword and confirmPassword method in the
+ * stated order. It will return true if the input username and password passes all the three methods.
+ *
+ * login method will call to the user database and find if there is an existing user given the
+ * user input loginID. If yes, match the input password with the password corresponding to the existing
+ * loginID in the database and return true if it matches.
+ *
+ * verifyLoginID will call to the user database and find if there is an existing user given the user
+ * input loginID. If there is an existing account/input loginID is out of range/empty input return
+ * false. If there is no existing account, check for the length and check if its empty.
+ *
+ * verifyPassword will return false if the password is not alphanumeric and if the length of input password is
+ * less than 8 or more than 20.
+ *
+ * confirmPassword will match the input passwords and return true if it matches
+ *
  */
 
 public class UserManager {
