@@ -53,8 +53,8 @@ public class UserManagerTest {
         UserManager mMockUserManager = new UserManager();
 
         String loginID = "user1";
-        String password1 = "abcd1234";
-        String password2 = "abcd1234";
+        String password1 = "abcd123";
+        String password2 = "abcd123";
 
         when(mMockDB.userDao()).thenReturn(mMockUserDao);
         when(mMockDB.userDao().getAll()).thenReturn(mMockListUser);
