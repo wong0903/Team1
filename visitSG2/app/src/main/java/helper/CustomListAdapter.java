@@ -2,6 +2,7 @@ package helper;
 
 /**
  * Created by nigelleong on 13/4/18.
+ * It's an interface between the attraction basic information data and ListView Interface layout
  */
 
 import com.example.wong0903.visitsg.R;

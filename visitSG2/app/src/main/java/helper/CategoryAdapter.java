@@ -2,6 +2,7 @@ package helper;
 
 /**
  * Created by wong0903 on 16/4/2018.
+ * It's an interface between the category data and Category Interface layout
  */
 
 import android.content.Intent;
