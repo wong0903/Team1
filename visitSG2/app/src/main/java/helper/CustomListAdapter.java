@@ -6,13 +6,12 @@ package helper;
  */
 
 import com.example.wong0903.visitsg.R;
-import control.AppController;
+
 import entity.Attraction;
 
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +21,6 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-
-import org.w3c.dom.Text;
 
 public class CustomListAdapter extends BaseAdapter {
     private Activity activity;

@@ -1,6 +1,8 @@
 package control;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -21,12 +23,19 @@ import Database.AppDatabase;
 /**
  * Created by wong0903 on 11/4/2018.
  * This class contains the retrieveBasicInformation, retrieveDetailedInformation and getNavigation
- * method. This first method will call to visitSingapore API to retrieve the basic information.
+ * method.
+ *
+ * This first method will call to visitSingapore API to retrieve the basic information.
+ *
  * The second method will also call to visitSingapore API to retrieve the detailed information.
- * The getNavigation method will call to its parent class getNavigation in the NavigationManager class.
+ *
+ * The getNavigation method which will call to the google map App on the device
+ * to get the direction to the attraction by passing the attraction's latitude and longitude as
+ * parameters.
+ *
  */
 
-public class AttractionManager extends NavigationManager{
+public class AttractionManager {
     private String apiURL= "";
     private List<String> informationList = new ArrayList<>();
 
@@ -70,9 +79,11 @@ public class AttractionManager extends NavigationManager{
         return null;
     }
 
-    @Override
     public void getNavigation(String latitude, String longitude, Context c){
-        super.getNavigation(latitude, longitude, c);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        c.startActivity(mapIntent);
     }
 
      class RetrieveFeedTask extends AsyncTask<Void, Void, List<String>> {
