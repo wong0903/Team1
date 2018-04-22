@@ -2,33 +2,28 @@ package boundary;
 
 /**
  * Created by nigelleong on 14/4/18.
+ * This class displays the seven categories
  */
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.wong0903.visitsg.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import control.CategoryManager;
 import entity.Category;
 import helper.CategoryAdapter;
 
 
 public class CategoryInterface extends Fragment {
 
-    //Button category1,category2,category3,category4,category5,category6,category7;
-    //CategoryManager categoryManager = new CategoryManager();
     private List<Category> category;
 
     public CategoryInterface() {
@@ -59,43 +54,6 @@ public class CategoryInterface extends Fragment {
 
         return rootView;
     }
-
-
-//        category1 = view.findViewById(R.id.category1);
-//        category2 = view.findViewById(R.id.category2);
-//        category3 = view.findViewById(R.id.category3);
-//        category4 = view.findViewById(R.id.category4);
-//        category5 = view.findViewById(R.id.category5);
-//        category6 = view.findViewById(R.id.category6);
-//        category7 = view.findViewById(R.id.category7);
-//
-//        category1.setOnClickListener(this);
-//        category2.setOnClickListener(this);
-//        category3.setOnClickListener(this);
-//        category4.setOnClickListener(this);
-//        category5.setOnClickListener(this);
-//        category6.setOnClickListener(this);
-//        category7.setOnClickListener(this);
-//
-//        return view;
-
-//    @Override
-//    public void onClick(View view){
-//        category = ((Button) view).getText().toString();
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                ArrayList<String> matchedURLList;
-//                matchedURLList = categoryManager.getAttractionsUnderCategory(category);
-//                Bundle information = new Bundle();
-//                information.putStringArrayList("matchedURLList", matchedURLList);
-//                Intent intent = new Intent(getActivity(), ListViewInterface.class);
-//                intent.putExtras(information);
-//                startActivity(intent);
-//            }
-//        }).start();
-//    }
-
 
     public void initializeData(){
         category = new ArrayList<>();

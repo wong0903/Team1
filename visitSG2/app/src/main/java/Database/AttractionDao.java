@@ -25,7 +25,7 @@ public interface AttractionDao {
     @Query("SELECT count FROM attraction WHERE apiURL = :attractionURL")
     int getCountbyAttractionURL(String attractionURL);
 
-    @Query("SELECT apiURL FROM attraction ORDER BY overallRating DESC LIMIT 20")
+    @Query("SELECT apiURL FROM attraction ORDER BY overallRating DESC,count DESC LIMIT 20")
     List<String> getSortedAttractionList();
 
     @Query("SELECT overallRating FROM attraction WHERE apiURL = :attractionURL")

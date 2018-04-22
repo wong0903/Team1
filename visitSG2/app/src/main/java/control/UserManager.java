@@ -11,8 +11,24 @@ import entity.User;
 
 /**
  * Created by wong0903 on 20/3/2018.
- * This class creates a user and stores it in a local database.
- * This class allows user to log in and access to the system.
+ * This class contains 5 key methods, signUp,login,verifyLoginID,verifyPassword and confirmPassword.
+ *
+ * signUp method will call the verifyLoginID, verifyPassword and confirmPassword method in the
+ * stated order. It will return true if the input username and password passes all the three methods.
+ *
+ * login method will call to the user database and find if there is an existing user given the
+ * user input loginID. If yes, match the input password with the password corresponding to the existing
+ * loginID in the database and return true if it matches.
+ *
+ * verifyLoginID will call to the user database and find if there is an existing user given the user
+ * input loginID. If there is an existing account/input loginID is out of range/empty input return
+ * false. If there is no existing account, check for the length and check if its empty.
+ *
+ * verifyPassword will return false if the password is not alphanumeric and if the length of input password is
+ * less than 8 or more than 20.
+ *
+ * confirmPassword will match the input passwords and return true if it matches
+ *
  */
 
 public class UserManager {
@@ -20,6 +36,7 @@ public class UserManager {
 
 
     public static boolean signUp(Context c, AppDatabase db, String loginID, String password1, String password2){
+
         if(verifyLoginID(c,db,loginID)){
             if(verifyPassword(c,password1)){
                 if(confirmPassword(c,password1,password2)){
@@ -59,11 +76,9 @@ public class UserManager {
             } else
                 return true;
         } else if(loginID.length() < 1 || loginID.length() > 20) {
-            Log.d("name", String.valueOf(loginID.length()));
             return false;
         }else if(loginID.matches("")){
             toast(c,"You did not enter a username");
-
             return false;
         } else
             return true;
@@ -74,10 +89,11 @@ public class UserManager {
             toast(c, "Password must be alphanumeric(etc \"abc123\". Please try again!");
             return false;
         }else if( password.length() < 8 || password.length() > 20) {
-            toast(c, "Password characters out of range(1-20words).Please try again!");
+            toast(c, "Password must be 8-20words.Please try again!");
             return false;
-        }else
+        }else {
             return true;
+        }
     }
 
     public static boolean confirmPassword(final Context c, String password1, String password2) {

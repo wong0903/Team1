@@ -17,6 +17,11 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Created by wong0903 on 20/3/2018.
+ * This class contains two key methods getCategories and getAttractionsUnderCategory. getCategories
+ * will call to the visitSingapore API and retrieve the category type and its corresponding
+ * attraction. getAttractionUnderCategory will call the getCategories method to retrieve the list
+ * pair of category and attraction and match it with the category selected by the user in the Category
+ * Interface and return the attraction url list of matched categories.
  */
 
 public class CategoryManager {
@@ -36,9 +41,6 @@ public class CategoryManager {
     }
 
     public ArrayList<String> getAttractionsUnderCategory(String category){
-        /*call to the visitSingapore API and return
-        the basic information of the attraction in the category list
-         */
         urlList = new ArrayList<>();
         categoryList = getCategories();
         for(int i=0; i < categoryList.size(); i++) {

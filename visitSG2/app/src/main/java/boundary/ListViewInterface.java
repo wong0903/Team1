@@ -29,6 +29,8 @@ import helper.CustomListAdapter;
 
 /**
  * Created by wong0903 on 13/4/2018.
+ * This class displays the list of attractions with their basic information. The basic information
+ * is retrieve by calling the retrieveBasicInformation method in the AttractionManager class.
  */
 
 public class ListViewInterface extends AppCompatActivity {
@@ -57,10 +59,18 @@ public class ListViewInterface extends AppCompatActivity {
         parseResponse();
 
         listView = findViewById(R.id.list);
-        adapter = new CustomListAdapter(this, matchedAttractionList);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        if(matchedAttractionList.size() != 0) {
+            adapter = new CustomListAdapter(this, matchedAttractionList);
+            listView.setAdapter(adapter);
 
+        }else{
+            adapter = new CustomListAdapter(this, matchedAttractionList);
+            listView.setAdapter(adapter);
+            TextView emptyText = (TextView)findViewById(android.R.id.empty);
+            listView.setEmptyView(emptyText);
+        }
+
+        adapter.notifyDataSetChanged();
         ListView lv = getListView();
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +116,7 @@ public class ListViewInterface extends AppCompatActivity {
                         attraction.setWebURL(basicInformationList.get(4));
                         attraction.setApiURL(basicInformationList.get(5));
                         attraction.setOverallRating(Double.parseDouble(basicInformationList.get(6)));
+                        attraction.setNumberOfRaters(Integer.parseInt(basicInformationList.get(7)));
                         matchedAttractionList.add(attraction);
                         db.attractionDao().insertAttraction(attraction);
                     }

@@ -10,9 +10,8 @@ import android.support.annotation.NonNull;
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the Attraction entity with
- * the attributes attractionID, name, address, description, webURL,
- * operatingHours, weatherType and OverallRating. This class can get the direction
- * to the attraction.
+ * the attributes attractionID, name, address, description, webURL, apiURL
+ * operatingHours, weatherType, latitude, longitude overallRating and number of raters.
  */
 
 @Entity(tableName = "attraction")

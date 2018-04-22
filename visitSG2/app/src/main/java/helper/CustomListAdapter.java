@@ -22,6 +22,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 
+import org.w3c.dom.Text;
+
 public class CustomListAdapter extends BaseAdapter {
     private Activity activity;
     private LayoutInflater inflater;
@@ -66,6 +68,7 @@ public class CustomListAdapter extends BaseAdapter {
         TextView address = (TextView) convertView.findViewById(R.id.address);
         TextView rating = (TextView) convertView.findViewById(R.id.rating);
         TextView operationHours = (TextView) convertView.findViewById(R.id.operationHours);
+        TextView raters = convertView.findViewById(R.id.count);
 
         // getting movie data for the row
         Attraction a = attractionItems.get(position);
@@ -82,6 +85,8 @@ public class CustomListAdapter extends BaseAdapter {
         // rating
 //        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
         rating.setText(String.format("%.2f",a.getOverallRating()));
+
+        raters.setText(String.valueOf(a.getNumberOfRaters()));
 
 //        // genre
 //        String genreStr = "";

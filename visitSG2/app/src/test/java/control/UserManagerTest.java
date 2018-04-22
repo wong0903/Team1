@@ -1,16 +1,43 @@
+
+//package control;
+//
+//import android.content.Context;
+//import android.os.Handler;
+//import android.os.Looper;
+//
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.powermock.core.classloader.annotations.PrepareForTest;
+////import org.mockito.Mockito.mock;
+////import org.mockito.Mockito.when;
+////import org.mockito.Mockito.*;
+//
+//import java.util.List;
+//
+//import Database.AppDatabase;
+//import Database.UserDao;
+//import entity.User;
+//
+//import static control.AndroidMockUtil.mockMainThreadHandler;
+//import static org.junit.Assert.*;
+//import static org.mockito.Mockito.mock;
+//import static org.mockito.Mockito.when;
+//
+///**
+// * Created by nigelleong on 18/4/18.
+// */
+//
+//public class UserManagerTest {
+//
+////    Context c = Mockito.mock(Context.class);
+//
+//    @Before
+//    public void setUp() throws Exception {
+
 package control;
 
-import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.test.UiThreadTest;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-//import org.mockito.Mockito.mock;
-//import org.mockito.Mockito.when;
-//import org.mockito.Mockito.*;
+import android.content.Context;
 
 import java.util.List;
 
@@ -18,7 +45,6 @@ import Database.AppDatabase;
 import Database.UserDao;
 import entity.User;
 
-//import static control.AndroidMockUtil.mockMainThreadHandler;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -29,14 +55,6 @@ import static org.mockito.Mockito.when;
 
 public class UserManagerTest {
 
-//    Context c = Mockito.mock(Context.class);
-
-    @Before
-    public void setUp() throws Exception {
-//        mockMainThreadHandler();
-    }
-
-//    @PrepareForTest({Looper.class,UserManager.class})
 
     @Test
     public void signUpTest() throws Exception {
@@ -67,3 +85,7 @@ public class UserManagerTest {
     }
 
 }
+
+
+
+
