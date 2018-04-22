@@ -68,7 +68,7 @@ public class UserManager {
                 toast(c, "Someone has used the same ID. Please try again!");
                 return false;
             } else if (loginID.length() < 1 || loginID.length() > 20) {
-                toast(c, "LoginID characters out of range(1-20words).Please try again!");
+                toast(c, "LoginID characters out of range(1-20 words). Please try again!");
                 return false;
             }else if(loginID.matches("")){
                 toast(c,"You did not enter a username");
@@ -76,6 +76,7 @@ public class UserManager {
             } else
                 return true;
         } else if(loginID.length() < 1 || loginID.length() > 20) {
+            toast(c, "LoginID characters out of range(1-20 words). Please try again!");
             return false;
         }else if(loginID.matches("")){
             toast(c,"You did not enter a username");
@@ -86,10 +87,10 @@ public class UserManager {
 
     public static boolean verifyPassword(final Context c, String password){
         if(!(password.matches((".*[A-Za-z].*")) && password.matches(".*[0-9].*") && password.matches("[A-Za-z0-9]*"))){
-            toast(c, "Password must be alphanumeric(etc \"abc123\". Please try again!");
+            toast(c, "Password must be alphanumeric(etc \"abcd1234\"). Please try again!");
             return false;
         }else if( password.length() < 8 || password.length() > 20) {
-            toast(c, "Password must be 8-20words.Please try again!");
+            toast(c, "Password must be 8-20 words. Please try again!");
             return false;
         }else {
             return true;
@@ -100,7 +101,7 @@ public class UserManager {
         if (password1.matches(password2)) {
             return true;
         } else {
-            toast(c, "Password is not the same.Please try again!");
+            toast(c, "Password is not the same. Please try again!");
             return false;
         }
     }
