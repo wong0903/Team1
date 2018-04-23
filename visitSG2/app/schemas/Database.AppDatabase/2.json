@@ -1,0 +1,148 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "26a5169624891e5ad71978c6de89e2b3",
+    "entities": [
+      {
+        "tableName": "users",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`loginID` TEXT NOT NULL, `password` TEXT, `email` TEXT, PRIMARY KEY(`loginID`))",
+        "fields": [
+          {
+            "fieldPath": "loginID",
+            "columnName": "loginID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "loginID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "OverallRating",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attractionURL` TEXT NOT NULL, `overallRating` REAL NOT NULL, `count` INTEGER NOT NULL, PRIMARY KEY(`attractionURL`))",
+        "fields": [
+          {
+            "fieldPath": "attractionURL",
+            "columnName": "attractionURL",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "overallRating",
+            "columnName": "overallRating",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numberOfRaters",
+            "columnName": "count",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "attractionURL"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "ratings",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`attractionURL` TEXT NOT NULL, `user` TEXT NOT NULL, `rating` INTEGER NOT NULL, `review` TEXT, PRIMARY KEY(`attractionURL`, `user`))",
+        "fields": [
+          {
+            "fieldPath": "attractionURL",
+            "columnName": "attractionURL",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "user",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rating",
+            "columnName": "rating",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "review",
+            "columnName": "review",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "attractionURL",
+            "user"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "LoggedInUser",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`loginID` TEXT NOT NULL, `password` TEXT, `email` TEXT, PRIMARY KEY(`loginID`))",
+        "fields": [
+          {
+            "fieldPath": "loginID",
+            "columnName": "loginID",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "loginID"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"26a5169624891e5ad71978c6de89e2b3\")"
+    ]
+  }
+}

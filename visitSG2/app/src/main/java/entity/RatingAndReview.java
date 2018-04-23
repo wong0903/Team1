@@ -1,34 +1,41 @@
 package entity;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the RatingAndReview entity with
- * attributes rating and creationDate.
+ * attributes rating, review, attractionURL and username.
  */
 
+@Entity(tableName = "ratings", primaryKeys = {"attractionURL","user"})
 public class RatingAndReview {
+    @NonNull
+    private String attractionURL;
+    @ColumnInfo(name = "user")
+    @NonNull
+    private String username;
     private int rating;
-    private String attractionID;
-    private Date date;
     private String review;
-    private String loginID;
+
 
     public RatingAndReview(){
         this.setRating(0);
-        this.setAttractionID("");
-        this.setDate(null);
+        this.setAttractionURL("");
         this.setReview("");
-        this.setLoginID("");
+        this.setUsername("");
     }
 
-    public RatingAndReview(int rating, String attractionID, Date date, String review, String loginID) {
+    public RatingAndReview(int rating, String review, String attractionURL, String username) {
         this.rating = rating;
-        this.attractionID = attractionID;
-        this.date = date;
+        this.attractionURL = attractionURL;
         this.review = review;
-        this.loginID = loginID;
+        this.username = username;
     }
 
     public int getRating() {
@@ -39,20 +46,12 @@ public class RatingAndReview {
         this.rating = rating;
     }
 
-    public String getAttractionID() {
-        return attractionID;
+    public String getAttractionURL() {
+        return attractionURL;
     }
 
-    public void setAttractionID(String attractionID) {
-        this.attractionID = attractionID;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
+    public void setAttractionURL(String attractionID) {
+        this.attractionURL = attractionURL;
     }
 
     public String getReview() {
@@ -63,11 +62,11 @@ public class RatingAndReview {
         this.review = review;
     }
 
-    public String getLoginID() {
-        return loginID;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLoginID(String loginID) {
-        this.loginID = loginID;
+    public void setUsername(String loginID) {
+        this.username = username;
     }
 }

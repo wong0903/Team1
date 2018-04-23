@@ -1,10 +1,11 @@
-package control;
+package helper;
 
 /**
  * Created by nigelleong on 13/4/18.
+ * This class will fetch images from URL in parallel and in the background so that the app does not
+ * chucked up the CPU and render the app UI unresponsive during loading.
  */
 
-import helper.LruBitmapCache;
 import android.app.Application;
 import android.text.TextUtils;
 

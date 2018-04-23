@@ -1,28 +1,32 @@
 package helper;
 
+/**
+ * Created by wong0903 on 16/4/2018.
+ * This class helps to store user data (after login) outside your application,
+ * so that when the next time the user uses the application,
+ * he/she can easily get back his/her details and perform accordingly.
+ */
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
-/**
- * Created by wong0903 on 10/4/2018.
- */
-
-public class SessionManager {
-
+public class SessionManager
+{
+    // LogCat tag
     private static String TAG = SessionManager.class.getSimpleName();
 
     // Shared Preferences
     SharedPreferences pref;
 
-    SharedPreferences.Editor editor;
+    Editor editor;
     Context _context;
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
 
     // Shared preferences file name
-    private static final String PREF_NAME = "AndroidHiveLogin";
+    private static final String PREF_NAME = "visitSGLogin";
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 

@@ -1,5 +1,6 @@
 package entity;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -9,15 +10,15 @@ import android.support.annotation.NonNull;
 /**
  * Created by wong0903 on 20/3/2018.
  * This class implements the Attraction entity with
- * the attributes attractionID, name, address, description, webURL,
- * operatingHours, weatherType and overallRating. This class can get the direction
- * to the attraction.
+ * the attributes attractionID, name, address, description, webURL, apiURL
+ * operatingHours, weatherType, latitude, longitude overallRating and number of raters.
  */
 
-@Entity(tableName = "attractions")
+@Entity(tableName = "attraction")
 public class Attraction implements Parcelable{
-    @PrimaryKey @NonNull
     private String webURL;
+    @PrimaryKey @NonNull
+    private String apiURL;
     private int id;
     private String name;
     private String address;
@@ -25,7 +26,12 @@ public class Attraction implements Parcelable{
     private String thumbnailUrl;
     private String operatingHours;
     private String weatherType;
+    private String longitude;
+    private String latitude;
+    @ColumnInfo(name = "overallRating")
     private double overallRating;
+    @ColumnInfo(name = "count")
+    private int numberOfRaters;
 
     public Attraction(){
         this.setId(0);
@@ -33,19 +39,20 @@ public class Attraction implements Parcelable{
         this.setAddress("");
         this.setDescription("");
         this.setWebURL("");
-        this.setOverallRating(0.0);
         this.setWeatherType("");
+        this.setLatitude("");
+        this.setLongitude("");
+        this.setOverallRating(0.0);
     }
 
     public Attraction(int attractionID, String name, String address,String description, String webURL,
-                      String operatingHours,double overallRating, String category, String thumbnailUrl){
+                      String operatingHours, String thumbnailUrl){
         this.id = attractionID;
         this.name = name;
         this.address = address;
         this.description = description;
         this.webURL = webURL;
         this.operatingHours = operatingHours;
-        this.overallRating = overallRating;
         this.thumbnailUrl = thumbnailUrl;
 
     }
@@ -54,6 +61,12 @@ public class Attraction implements Parcelable{
         name = in.readString();
         address = in.readString();
         operatingHours = in.readString();
+        thumbnailUrl = in.readString();
+        description = in.readString();
+        apiURL = in.readString();
+        overallRating = in.readDouble();
+        latitude = in.readString();
+        longitude = in.readString();
     }
 
     public static final Creator<Attraction> CREATOR = new Creator<Attraction>() {
@@ -67,10 +80,6 @@ public class Attraction implements Parcelable{
             return new Attraction[size];
         }
     };
-
-    public void getDirection(String address) {
-        //Display the route to the attraction by calling GoogleMap API
-    }
 
     public String getName() {
         return name;
@@ -120,14 +129,6 @@ public class Attraction implements Parcelable{
         this.operatingHours = operatingHours;
     }
 
-    public double getOverallRating() {
-        return overallRating;
-    }
-
-    public void setOverallRating(double overallRating) {
-        this.overallRating = overallRating;
-    }
-
     public String getWeatherType() {
         return weatherType;
     }
@@ -146,7 +147,12 @@ public class Attraction implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(address);
         parcel.writeString(operatingHours);
-
+        parcel.writeString(thumbnailUrl);
+        parcel.writeString(description);
+        parcel.writeString(apiURL);
+        parcel.writeString(latitude);
+        parcel.writeString(longitude);
+        parcel.writeDouble(overallRating);
     }
 
     public String getThumbnailUrl() {
@@ -157,4 +163,43 @@ public class Attraction implements Parcelable{
         this.thumbnailUrl = thumbnailUrl;
     }
 
+    public String getApiURL() {
+        return apiURL;
+    }
+
+    public void setApiURL(String apiURL) {
+        this.apiURL = apiURL;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getOverallRating() {
+        return overallRating;
+    }
+
+    public void setOverallRating(double overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public int getNumberOfRaters() {
+        return numberOfRaters;
+    }
+
+    public void setNumberOfRaters(int numberOfRaters) {
+        this.numberOfRaters = numberOfRaters;
+    }
 }

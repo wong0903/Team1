@@ -1,30 +1,26 @@
 package entity;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
+import android.app.Application;
+import android.content.Context;
 
-import static android.arch.persistence.room.ForeignKey.CASCADE;
+import com.example.wong0903.visitsg.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by wong0903 on 13/4/2018.
+ * Created by wong0903 on 16/4/2018.
+ * This class contains the type of category and the image url for each category.
  */
 
-@Entity(tableName = "categories", foreignKeys = @ForeignKey(entity = Attraction.class,
-                                    parentColumns = "webURL",
-                                    childColumns = "attractionURL",
-                                    onDelete = CASCADE))
-public class Category {
+public class Category extends Application{
+
     private String type;
-    @PrimaryKey
-    private String attractionURL;
+    private String imageURL;
 
-    public String getAttractionURL() {
-        return attractionURL;
-    }
-
-    public void setAttractionURL(String attractionURL) {
-        this.attractionURL = attractionURL;
+    public Category(String type, String imageURL) {
+        this.type = type;
+        this.imageURL = imageURL;
     }
 
     public String getType() {
@@ -34,4 +30,13 @@ public class Category {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
 }
