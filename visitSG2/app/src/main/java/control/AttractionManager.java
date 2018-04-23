@@ -79,7 +79,7 @@ public class AttractionManager {
         return null;
     }
 
-    public void getNavigation(String latitude, String longitude, Context c){
+    public void getDirection(String latitude, String longitude, Context c){
         Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");

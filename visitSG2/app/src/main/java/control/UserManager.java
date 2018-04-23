@@ -107,14 +107,12 @@ public class UserManager {
     }
 
     public static void toast(final Context context, final String text) {
-//        Handler handler = new Handler(Looper.getMainLooper());
-//        handler.post(new Runnable() {
-//            public void run() {
-//                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-        Toast toast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
-        toast.show();
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            public void run() {
+                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

@@ -117,7 +117,7 @@ public class AttractionInterface extends AppCompatActivity implements View.OnCli
             case R.id.btn_navigation:
                 String latitude = informationList.get(7);
                 String longitude = informationList.get(8);
-                attractionManager.getNavigation(latitude, longitude, getApplicationContext());
+                attractionManager.getDirection(latitude, longitude, getApplicationContext());
                 break;
             case R.id.btn_rating:
                 final RateReviewInterface dialog = new RateReviewInterface(this);
