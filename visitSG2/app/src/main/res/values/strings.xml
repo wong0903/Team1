@@ -2,9 +2,7 @@
     <string name="app_name">visitSG</string>
 
     <string name="search_button">Search</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="sign_up_button">Sign Up</string>
-    <string name="login_button">Login </string>
+    <string name="search_hint">Enter an attraction or keyword</string>
 
     <!-- Strings related to login -->
     <string name="password">password</string>
@@ -12,6 +10,11 @@
     <string name="confirm">confirm password</string>
     <string name="email">email</string>
     <string name="error">errorMsg</string>
+    <string name="login_button">Login </string>
+
+
+    <!-- Strings related to logout -->
+    <string name="logout_button">Log Out </string>
 
     <!-- Strings related to signup -->
     <string name="name_sign">Username:</string>
@@ -31,5 +34,30 @@
     <string name="category5">Culture-Heritage</string>
     <string name="category6">Recreation &amp; Leisure</string>
     <string name="category7">Nature &amp; Wildlife</string>
+
+    <string name="image1">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/places-to-see/sentosa-carousel01-rect-norender.jpg</string>
+
+    <string name="image2">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/arts/the-esplanade-carousel01-rect.jpg</string>
+
+    <string name="image3">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/history/dalhousie-obelisk-carousel01-rect.jpg</string>
+
+    <string name="image4">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/architecture/lau-pa-sat-carousel01-rect.jpg</string>
+
+    <string name="image5">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/culture-heritage/sultan-mosque-carousel01-rect-norender.jpg</string>
+
+    <string name="image6">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/recreation-leisure/singapore-flyer-carousel01-rect-norender.jpg</string>
+
+    <string name="image7">http://www.visitsingapore.com/content/dam/desktop/global/see-do-singapore/nature-wildlife/chinese-garden-carousel01-rect.jpg</string>
+
+    <!-- Strings related to suggestions -->
+    <string name="top">Top 20</string>
+
+    <string name="google_maps_key">AIzaSyA3hqVe3y1vzLCXdHnForV5YXT1mIPXKr4</string>
+
+    <!--String related to attraction view-->
+    <string name="btn_navigation">Get Navigation</string>
+    <string name="btn_rating">Rate It</string>
+
+
 
 </resources>

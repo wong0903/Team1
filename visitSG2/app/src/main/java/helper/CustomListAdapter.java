@@ -2,10 +2,11 @@ package helper;
 
 /**
  * Created by nigelleong on 13/4/18.
+ * It's an interface between the attraction basic information data and ListView Interface layout
  */
 
 import com.example.wong0903.visitsg.R;
-import control.AppController;
+
 import entity.Attraction;
 
 import java.util.List;
@@ -31,6 +32,7 @@ public class CustomListAdapter extends BaseAdapter {
         this.activity = activity;
         this.attractionItems = attractionItems;
     }
+
 
     @Override
     public int getCount() {
@@ -58,13 +60,13 @@ public class CustomListAdapter extends BaseAdapter {
 
         if (imageLoader == null)
             imageLoader = AppController.getInstance().getImageLoader();
-        NetworkImageView thumbNail = (NetworkImageView) convertView
-                .findViewById(R.id.thumbnail);
-        
+
+        NetworkImageView thumbNail = (NetworkImageView) convertView.findViewById(R.id.thumbnail);
         TextView name = (TextView) convertView.findViewById(R.id.name);
         TextView address = (TextView) convertView.findViewById(R.id.address);
-//        TextView rating = (TextView) convertView.findViewById(R.id.rating);
+        TextView rating = (TextView) convertView.findViewById(R.id.rating);
         TextView operationHours = (TextView) convertView.findViewById(R.id.operationHours);
+        TextView raters = convertView.findViewById(R.id.count);
 
         // getting movie data for the row
         Attraction a = attractionItems.get(position);
@@ -80,6 +82,9 @@ public class CustomListAdapter extends BaseAdapter {
 
         // rating
 //        rating.setText("Rating: " + String.valueOf(a.getOverallRating()));
+        rating.setText(String.format("%.2f",a.getOverallRating()));
+
+        raters.setText(String.valueOf(a.getNumberOfRaters()));
 
 //        // genre
 //        String genreStr = "";

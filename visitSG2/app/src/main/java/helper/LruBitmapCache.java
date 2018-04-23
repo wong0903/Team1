@@ -2,6 +2,7 @@ package helper;
 
 /**
  * Created by nigelleong on 13/4/18.
+ * Cache the image so that in the visit the image will load faster.
  */
 
 import com.android.volley.toolbox.ImageLoader.ImageCache;

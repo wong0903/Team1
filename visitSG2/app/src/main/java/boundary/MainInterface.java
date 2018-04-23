@@ -1,81 +1,125 @@
 package boundary;
 
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NavUtils;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.wong0903.visitsg.R;
 
 
-import helper.SessionManager;
+import java.util.ArrayList;
+import java.util.List;
+
+import Database.AppDatabase;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * The main UI of the system. It has implemented the facade design pattern
+ * as it will display three different search methods as tab where users can
+ * choose which one to use. It will call to either SearchInterface,SuggestionInterface
+ * or CategoryInterface depending on the user selection. The default display screen is
+ * SearchInterface
  */
 public class MainInterface extends AppCompatActivity implements View.OnClickListener {
 
-    EditText inputText;
-    TextView responseView;
-    ProgressBar progressBar;
-    Button queryButton1;
-    Button queryButton2;
-    Button queryButton3;
-    Button queryButton4;
-    private SessionManager session;
-    //tatic final String API_URL = "http://www.visitsingapore.com/ysapi-services/RequestAPI?format=details&locale=en&pageid=84";
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        responseView = findViewById(R.id.responseView);
-        inputText = findViewById(R.id.inputText);
-        progressBar = findViewById(R.id.progressBar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        queryButton1 = findViewById(R.id.btn_search);
-        queryButton2 = findViewById(R.id.btn_categories);
-        queryButton3 = findViewById(R.id.btn_suggestions);
-        queryButton4 = findViewById(R.id.btn_login);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new SearchInterface(), "Search");
+        adapter.addFragment(new CategoryInterface(), "Categories");
+        adapter.addFragment(new SuggestionInterface(), "Suggestion");
+        viewPager.setAdapter(adapter);
 
-        queryButton1.setOnClickListener(this);
-        queryButton2.setOnClickListener(this);
-        queryButton3.setOnClickListener(this);
-        queryButton4.setOnClickListener(this);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-       // session = new SessionManager(getApplicationContext());
-//
-//        if(!session.isLoggedIn()){
-//            //log out
-//        }
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            tab.setCustomView(adapter.getTabView(i));
+        }
 
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+     class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        String tabTitles[] = new String[] { "Search", "Categories", "Suggestion" };
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+
+
+        public View getTabView(int position) {
+            View tab = LayoutInflater.from(MainInterface.this).inflate(R.layout.custom_tab, null);
+            TextView tv = (TextView) tab.findViewById(R.id.custom_text);
+            tv.setText(tabTitles[position]);
+            return tab;
+        }
+    }
+
+    @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.btn_search:
-                Intent intent1 = new Intent(this, SearchInterface.class);
-                intent1.putExtra("attraction", inputText.getText().toString());
-                startActivity(intent1);
-                break;
-            case R.id.btn_categories:
-                Intent intent2 = new Intent(this, CategoryInterface.class);
-                startActivity(intent2);
-                break;
-            case R.id.btn_suggestions:
-                Intent intent3 = new Intent(this, SuggestionInterface.class);
-                startActivity(intent3);
-                break;
+        switch (view.getId()) {
             case R.id.btn_login:
-                Intent intent4 = new Intent(MainInterface.this, LoginInterface.class);
-                startActivity(intent4);
+                Intent intent1 = new Intent(this, LoginInterface.class);
+                startActivity(intent1);
                 break;
             default:
                 break;
@@ -84,78 +128,6 @@ public class MainInterface extends AppCompatActivity implements View.OnClickList
     }
 
 
-//    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
-//
-//        private Exception exception;
-//
-//        protected void onPreExecute() {
-//            progressBar.setVisibility(View.VISIBLE);
-//            responseView.setText("");
-//        }
-//
-//        protected String doInBackground(Void... urls) {
-//            String attraction = inputText.getText().toString();
-//            // Do some validation here
-//            try {
-//                URL url = new URL(API_URL );
-//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//                urlConnection.setRequestProperty("Content-Type","application/json");
-//                urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
-//                urlConnection.setRequestProperty("token", API_KEY);
-//                try {
-//                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-//                    StringBuilder stringBuilder = new StringBuilder();
-//                    String line;
-//                    while ((line = bufferedReader.readLine()) != null) {
-//                        stringBuilder.append(line);
-//                    }
-//                    bufferedReader.close();
-//                    return stringBuilder.toString();
-//                }
-//                finally{
-//                    urlConnection.disconnect();
-//                }
-//            }
-//            catch(Exception e) {
-//                Log.e("ERROR", e.getMessage(), e);
-//                return null;
-//            }
-//        }
-//
-//        protected void onPostExecute(String response) {
-//            if(response == null) {
-//                response = "THERE WAS AN ERROR";
-//            }
-//            progressBar.setVisibility(View.GONE);
-//            Log.i("INFO", response);
-//            // TODO: check this.exception
-//            // TODO: do something with the feed
-//            try {
-//
-////                JSONObject json = new JSONObject(response);
-////                responseView.setText(json.toString(1))
-//                responseView.setText(retrieveBasicInformation(response));
-////                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-////                String requestID = object.getString("requestId");
-////                int likelihood = object.getInt("likelihood");
-////                JSONArray photos = object.getJSONArray("photos");
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        private String retrieveBasicInformation(String jsonString)
-//                throws JSONException {
-//                final String requestID = "id";
-//                final String TITLE = "title";
-//
-//                JSONObject json = new JSONObject(jsonString);
-//                String id = json.getString(requestID);
-//                String attraction = json.getString(TITLE);
-//
-//                String results = attraction + "-----" + id;
-//                return results;
-//        }
-//    }
 }
+
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitStart">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/targetAttractionThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            />
+
+        <TextView android:id="@+id/targetAttractionName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionThumbnail"
+            android:textSize="@dimen/name"
+            android:textStyle="bold"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionOverallRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionName"
+            android:textSize="@dimen/rating"
+            android:textStyle="bold"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionRaters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionName"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/targetAttractionOverallRating"
+            android:textSize="@dimen/rating"
+            android:textStyle="bold"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionOverallRating"
+            android:textSize="@dimen/address"
+            android:padding="8dip" />
+
+        <Button
+            android:id="@+id/btn_navigation"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/targetAttractionAddress"
+            android:text="@string/btn_navigation"
+            android:textColorLink="@color/colorAccent"/>
+
+        <Button
+            android:id="@+id/btn_rating"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/targetAttractionAddress"
+            android:layout_toRightOf="@id/btn_navigation"
+            android:text="@string/btn_rating"
+            android:textColorLink="@color/colorAccent"/>
+
+        <TextView android:id="@+id/targetAttractionDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_navigation"
+            android:textSize="@dimen/description"
+            android:padding="2dip" />
+
+        <TextView android:id="@+id/targetAttractionWebUrl"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/targetAttractionDescription"
+            android:textSize="@dimen/url"
+            android:padding="2dip" />
+
+    </RelativeLayout>
+
+</ScrollView>

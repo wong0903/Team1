@@ -1,5 +1,8 @@
 package control;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -14,22 +17,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import Database.AppDatabase;
+
 
 /**
  * Created by wong0903 on 11/4/2018.
+ * This class contains the retrieveBasicInformation, retrieveDetailedInformation and getNavigation
+ * method.
+ *
+ * This first method will call to visitSingapore API to retrieve the basic information.
+ *
+ * The second method will also call to visitSingapore API to retrieve the detailed information.
+ *
+ * The getNavigation method which will call to the google map App on the device
+ * to get the direction to the attraction by passing the attraction's latitude and longitude as
+ * parameters.
+ *
  */
 
 public class AttractionManager {
-    private String webURL;
+    private String apiURL= "";
+    private List<String> informationList = new ArrayList<>();
 
-    public AttractionManager() {
-        webURL = "";
-    }
-
-    public List<String> retrieveBasicInformation(String matchedURL){
-        webURL = matchedURL;
+    public List<String> retrieveBasicInformation(AppDatabase db, String matchedURL){
+        List<String> basicInformationList = new ArrayList<>();
+        apiURL = matchedURL;
         try {
-            return new RetrieveFeedTask().execute().get();
+            informationList = new RetrieveFeedTask().execute().get();
+            if(informationList.size() != 0) {
+                for (int i = 0; i < 6; i++) {
+                    basicInformationList.add(informationList.get(i));
+                }
+            }
+            basicInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
+            basicInformationList.add(String.valueOf(db.attractionDao().getCountbyAttractionURL(matchedURL)));
+            return basicInformationList;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -38,12 +60,38 @@ public class AttractionManager {
         return null;
     }
 
+    public List<String> retrieveDetailedInformation(AppDatabase db, String matchedURL){
+        List<String> detailedInformationList = new ArrayList<>();
+        apiURL = matchedURL;
+        try {
+            informationList = new RetrieveFeedTask().execute().get();
+            if(informationList.size() != 0) {
+                detailedInformationList.addAll(informationList);
+            }
+            detailedInformationList.add(Double.toString(db.attractionDao().getOverallRatingByAttractionURL(matchedURL)));
+            detailedInformationList.add(String.valueOf(db.attractionDao().getCountbyAttractionURL(matchedURL)));
+            return detailedInformationList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void getDirection(String latitude, String longitude, Context c){
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        c.startActivity(mapIntent);
+    }
+
      class RetrieveFeedTask extends AsyncTask<Void, Void, List<String>> {
 
         protected List<String> doInBackground(Void... urls) {
             // Do some validation here
             try {
-                URL url = new URL(webURL);
+                URL url = new URL(apiURL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestProperty("Content-Type", "application/json");
                 urlConnection.setRequestProperty("email", "lleong009@e.ntu.edu.sg");
@@ -59,17 +107,36 @@ public class AttractionManager {
                     bufferedReader.close();
 
                     JSONObject json = new JSONObject(stringBuilder.toString());
-                    JSONArray images = json.getJSONArray("images");
-                    List<String> informationList = new ArrayList<>();
+                    informationList = new ArrayList<>();
                     if(!json.has("error")) {
                         String name = json.getString("title");
                         informationList.add(name);
                         String address = json.getString("address");
                         informationList.add(address);
+
                         String operatingHours = json.getString("opening-hours");
                         informationList.add(operatingHours);
-                        String image = images.getJSONObject(0).getString("url");
-                        informationList.add(image);
+
+                        JSONArray images = json.getJSONArray("images");
+                        if(images != null && images.length() > 0) {
+                            String image = images.getJSONObject(0).getString("url");
+                            informationList.add(image);
+                        }else
+                            informationList.add("");
+
+                        String webURL = json.getString("url");
+                        informationList.add(webURL);
+
+                        informationList.add(apiURL);
+
+                        String content = json.getString("shortContent");
+                        informationList.add(content);
+
+                        String latitude = json.getString("latitude");
+                        informationList.add(latitude);
+
+                        String longitude = json.getString("longitude");
+                        informationList.add(longitude);
                     }
                     return informationList;
                 } finally {

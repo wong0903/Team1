@@ -1,12 +1,11 @@
 package boundary;
 
 import android.app.ProgressDialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,16 +15,15 @@ import com.example.wong0903.visitsg.R;
 
 import Database.AppDatabase;
 import control.UserManager;
-import helper.SessionManager;
 
 /**
  * Created by wong0903 on 10/4/2018.
+ * This class allows user to sign up an account for the system
+ * It will call the sign up method in the UserManager in boundary class.
  */
 
 public class SignUpInterface extends AppCompatActivity {
-    EditText txtPassword, txtName, txtConfirmPass, txtEmail;
-    ProgressDialog pDialog;
-    SessionManager session;
+    EditText txtPassword, txtName, txtConfirmPass;
     private SignUpTask task = null;
     private AppDatabase db;
 
@@ -34,13 +32,11 @@ public class SignUpInterface extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         txtName = findViewById(R.id.name_sign);
         txtPassword = findViewById(R.id.pass_sign);
         txtConfirmPass = findViewById(R.id.confirm_pass);
-        txtEmail = findViewById(R.id.email_sign);
 
         Button btnRegister = findViewById(R.id.btnRegister);
 
@@ -50,10 +46,9 @@ public class SignUpInterface extends AppCompatActivity {
                 final String username = txtName.getText().toString();
                 final String password1 = txtPassword.getText().toString();
                 final String password2 = txtConfirmPass.getText().toString();
-                final String email = txtEmail.getText().toString();
 
                 if (task != null) return;
-                task = new SignUpTask(username, password1,email, getApplicationContext());
+                task = new SignUpTask(username, password1, password2);
                 task.execute((Void) null);
             }
         });
@@ -61,21 +56,21 @@ public class SignUpInterface extends AppCompatActivity {
 
     public class SignUpTask extends AsyncTask<Void, Void, Boolean> {
         private final String mUsername;
-        private final String mEmail;
         private final String mPassword;
-
-        SignUpTask(String username, String password, String mail,Context c) {
+        private final String cPassword;
+        UserManager userManager = new UserManager();
+        SignUpTask(String username, String password1, String password2) {
             mUsername = username;
-            mEmail = mail;
-            mPassword = password;
+            mPassword = password1;
+            cPassword = password2;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            if(UserManager.verifyLoginID(db,mUsername) == false)
+            if(userManager.signUp(getApplicationContext(), db, mUsername, mPassword, cPassword)){
+                return true;
+            }else
                 return false;
-            UserManager.signUp(db, mUsername, mPassword, mEmail);
-            return true;
         }
 
         @Override
@@ -85,8 +80,6 @@ public class SignUpInterface extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Sign Up successful", Toast.LENGTH_SHORT).show();
                 finish();
             }
-            else
-                Toast.makeText(getApplicationContext(), "Sign Up failed", Toast.LENGTH_SHORT).show();
         }
 
         @Override
